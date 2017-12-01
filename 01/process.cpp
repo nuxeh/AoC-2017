@@ -20,12 +20,9 @@ int main(int argc, char** argv)
 
 //	process_file_input(&input);
 
-	cout << int(input.get()) - 48 << endl;
-	cout << input.get() << endl;
-	cout << input.get() << endl;
-	cout << input.get() << endl;
-	cout << input.get() << endl;
-	cout << input.get() << endl;
+	char c;
+	while(input.get(c) && c != 10)
+		cout << int(c) - 48;
 
 	input.close();
 }
