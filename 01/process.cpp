@@ -41,5 +41,5 @@ int main(int argc, char** argv)
 
 	input.close();
 
-	cout << sum << endl;
+	cout << "Captcha A: " << sum << endl;
 }
