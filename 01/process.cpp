@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -20,9 +21,25 @@ int main(int argc, char** argv)
 
 //	process_file_input(&input);
 
+	unsigned long sum = 0;
+	vector<char> values;
+
 	char c;
 	while(input.get(c) && c != 10)
-		cout << int(c) - 48;
+	{
+		values.push_back(c - 48);
+	}
+
+	int i = 0;
+	for(auto value: values)
+	{
+		if (value == values[(i + 1) % values.size()])
+			sum += value;
+
+		i++;
+	}
 
 	input.close();
+
+	cout << sum << endl;
 }
