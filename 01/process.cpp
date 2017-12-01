@@ -22,6 +22,7 @@ int main(int argc, char** argv)
 //	process_file_input(&input);
 
 	unsigned long sum = 0;
+	unsigned long sum_b = 0;
 	vector<char> values;
 
 	char c;
@@ -31,10 +32,13 @@ int main(int argc, char** argv)
 	}
 
 	int i = 0;
+	int s = values.size();
 	for(auto value: values)
 	{
-		if (value == values[(i + 1) % values.size()])
+		if (value == values[(i + 1) % s])
 			sum += value;
+		if (value == values[(i + (s/2)) % s])
+			sum_b += value;
 
 		i++;
 	}
@@ -42,4 +46,5 @@ int main(int argc, char** argv)
 	input.close();
 
 	cout << "Captcha A: " << sum << endl;
+	cout << "Captcha B: " << sum_b << endl;
 }
