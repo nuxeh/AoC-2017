@@ -1,5 +1,6 @@
 BEGIN {
 	sum = 0;
+	sum_b = 0;
 }
 
 {
@@ -12,6 +13,15 @@ BEGIN {
 			max = $i;
 		if ($i < min || min == -1)
 			min = $i;
+
+		for (j = 1; j <= NF; j++)
+		{
+			if ($i % $j == 0 && j != i) {
+				print $i " " $j
+				print "result " $i / $j;
+				sum_b += $i / $j;
+			}
+		}
 	}
 
 	print $0
@@ -21,5 +31,6 @@ BEGIN {
 }
 
 END {
-	print "checksum is " sum ;
+	print "checksum A is " sum;
+	print "checksum B is " sum_b;
 }
