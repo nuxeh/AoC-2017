@@ -1,11 +1,15 @@
 use std::iter;
 
+#[derive(Debug)]
 enum Direction {
 	Up,
 	Down,
 	Left,
 	Right
 }
+
+// TODO debug macro
+//macro_rules!
 
 fn main() {
 
@@ -34,12 +38,20 @@ fn main() {
 
 		next_pos = get_next_pos(&pos_2d, &dir);
 
+		println!("{}", vec_2d[next_pos.0][next_pos.1]);
+		println!("{:?}", dir);
+
 		if vec_2d[next_pos.0][next_pos.1] == 0 {
 			dir = get_next_dir(&dir);
 			pos_2d = next_pos;
 		} else {
 			pos_2d = get_next_pos(&pos_2d, &dir);
 		}
+
+		println!("{:?}", dir);
+
+		print_space(&vec_2d);
+		println!("");
 	}
 
 	print_space(&vec_2d);
