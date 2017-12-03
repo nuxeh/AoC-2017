@@ -14,19 +14,9 @@ enum Direction {
 fn main() {
 
 	let w_space = 11; // Must be odd
-
-//	let mut vec: Vec<i32> = Vec::with_capacity(w_space*w_space);
-//	vec.extend(iter::repeat(0).take(w_space*w_space));
-//	let mut pos = ((w_space*w_space)-1) / 2;
-//	vec[pos] = index;
-
-	let mut vec = vec![vec![0; w_space]; w_space];
-
 	let mut pos = ((w_space-1)/2, (w_space-1)/2); // Start from centre coordinate
 
-	let mut index = 1;
-
-	vec[pos.0][pos.1] = index;
+	let mut vec = vec![vec![0; w_space]; w_space];
 
 	let mut dir = Direction::Right;
 	let mut next_dir: Direction;
