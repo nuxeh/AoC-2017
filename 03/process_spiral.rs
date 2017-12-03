@@ -13,7 +13,7 @@ enum Direction {
 
 fn main() {
 
-	let w_space = 11; // Must be even
+	let w_space = 11; // Must be odd
 
 //	let mut vec: Vec<i32> = Vec::with_capacity(w_space*w_space);
 //	vec.extend(iter::repeat(0).take(w_space*w_space));
@@ -33,7 +33,6 @@ fn main() {
 	let mut next_pos: (usize, usize);
 
 	for x in 1..10 {
-
 		vec[pos.0][pos.1] = x;
 
 		next_pos = get_next_pos(&pos, &dir);
