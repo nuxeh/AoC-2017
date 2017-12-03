@@ -28,19 +28,38 @@ fn main() {
 	}
 
 	let mut dir = Direction::Right;
+	let mut next_dir: Direction;
+	let mut next_pos: (usize, usize);
 
 	for x in 0..10 {
 		println!("{}", x);
 
 		vec_2d[pos_2d.0][pos_2d.1] = x;
 
-//		pos_2d
-
 		match dir {
-			Direction::Up		=> {dir = Direction::Left;},
-			Direction::Down		=> {dir = Direction::Right;},
-			Direction::Left		=> {dir = Direction::Down;},
-			Direction::Right	=> {dir = Direction::Up;},
+			Direction::Up		=> {
+				next_dir = Direction::Left;
+				next_pos = (pos_2d.0+1, pos_2d.1);
+			},
+			Direction::Down		=> {
+				next_dir = Direction::Right;
+				next_pos = (pos_2d.0-1, pos_2d.1);
+			},
+			Direction::Left		=> {
+				next_dir = Direction::Down;
+				next_pos = (pos_2d.0, pos_2d.1-1);
+			},
+			Direction::Right	=> {
+				next_dir = Direction::Up;
+				next_pos = (pos_2d.0, pos_2d.1+1);
+			},
+		}
+
+		if vec_2d[next_pos.0][next_pos.1] == 0 {
+			dir = next_dir;
+			pos_2d = next_pos;
 		}
 	}
+
+	println!("{:?}", vec_2d);
 }
