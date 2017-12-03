@@ -11,7 +11,10 @@ enum Direction {
 
 fn main() {
 
-	let w_space = 11; // Must be odd
+	let target = 1024;
+//	let target = 312051;
+	let w_space = (target as f64).sqrt() as usize + 1;
+
 	let mut port = ((w_space-1)/2, (w_space-1)/2); // Start from centre coordinate
 	let mut pos = port;
 
@@ -21,7 +24,7 @@ fn main() {
 	let mut next_dir: Direction;
 	let mut next_pos: (usize, usize);
 
-	for x in 1..121 {
+	for x in 1..target {
 		vec[pos.0][pos.1] = x;
 
 		pos = get_next_pos(&pos, &dir);
@@ -41,6 +44,7 @@ fn main() {
 	}
 
 	print_space(&vec);
+	println!("disance: {}", get_distance(&pos, &port));
 }
 
 fn get_distance (a: &(usize, usize), b: &(usize, usize)) -> u32 {
