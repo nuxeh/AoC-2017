@@ -32,19 +32,18 @@ fn main() {
 	let mut next_dir: Direction;
 	let mut next_pos: (usize, usize);
 
-	for x in 1..10 {
+	for x in 1..121 {
 		vec[pos.0][pos.1] = x;
 
-		next_pos = get_next_pos(&pos, &dir);
+		pos = get_next_pos(&pos, &dir);
+		next_dir = get_next_dir(&dir);
+		next_pos = get_next_pos(&pos, &next_dir);
 
 		println!("{}", vec[next_pos.0][next_pos.1]);
 		println!("{:?}", dir);
 
 		if vec[next_pos.0][next_pos.1] == 0 {
-			dir = get_next_dir(&dir);
-			pos = next_pos;
-		} else {
-			pos = get_next_pos(&pos, &dir);
+			dir = next_dir;
 		}
 
 		println!("{:?}", dir);
