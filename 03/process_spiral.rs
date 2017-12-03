@@ -34,28 +34,24 @@ fn main() {
 
 		next_pos = get_next_pos(&pos_2d, &dir);
 
-		match dir {
-			Direction::Up		=> {
-				next_dir = Direction::Left;
-			},
-			Direction::Down		=> {
-				next_dir = Direction::Right;
-			},
-			Direction::Left		=> {
-				next_dir = Direction::Down;
-			},
-			Direction::Right	=> {
-				next_dir = Direction::Up;
-			},
-		}
-
 		if vec_2d[next_pos.0][next_pos.1] == 0 {
-			dir = next_dir;
+			dir = get_next_dir(&dir);
 			pos_2d = next_pos;
+		} else {
+			pos_2d = get_next_pos(&pos_2d, &dir);
 		}
 	}
 
 	print_space(&vec_2d);
+}
+
+fn get_next_dir (cur: &Direction) -> Direction {
+	match cur {
+		&Direction::Up		=> {Direction::Left},
+		&Direction::Down	=> {Direction::Right},
+		&Direction::Left	=> {Direction::Down},
+		&Direction::Right	=> {Direction::Up},
+	}
 }
 
 fn get_next_pos (cur: &(usize, usize), dir: &Direction) -> (usize, usize) {
