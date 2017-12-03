@@ -13,12 +13,14 @@ fn main() {
 
 	let target = 1024;
 //	let target = 312051;
-	let w_space = (target as f64).sqrt() as usize + 1;
+	let target = 100;
+	let w_space = (target as f64).sqrt() as usize + 3;
 
-	let mut port = ((w_space-1)/2, (w_space-1)/2); // Start from centre coordinate
+	let port = ((w_space-1)/2, (w_space-1)/2); // Start from centre coordinate
 	let mut pos = port;
 
 	let mut vec = vec![vec![0; w_space]; w_space];
+	let mut sums = vec![vec![0; w_space]; w_space];
 
 	let mut dir = Direction::Right;
 	let mut next_dir: Direction;
@@ -26,6 +28,8 @@ fn main() {
 
 	for x in 1..target {
 		vec[pos.0][pos.1] = x;
+
+		sums[pos.0][pos.1] = get_sum(&vec, &pos);
 
 		pos = get_next_pos(&pos, &dir);
 		next_dir = get_next_dir(&dir);
@@ -45,6 +49,22 @@ fn main() {
 
 	print_space(&vec);
 	println!("disance: {}", get_distance(&pos, &port));
+	print_space(&sums);
+
+}
+
+fn get_sum (vec: &Vec<Vec<u32>>, pos: &(usize, usize)) -> u32 {
+	let mut sum: u32 = 0;
+	let dirs = vec![Direction::Up, Direction::Down,
+			Direction::Left, Direction::Right];
+	let mut p: (usize, usize);
+
+	for d in dirs {
+		p = get_next_pos(&pos, &d);
+		sum += vec[p.0][p.1];
+	}
+
+	sum
 }
 
 fn get_distance (a: &(usize, usize), b: &(usize, usize)) -> u32 {
@@ -72,7 +92,7 @@ fn get_next_pos (cur: &(usize, usize), dir: &Direction) -> (usize, usize) {
 	}
 }
 
-fn print_space (vec: &Vec<Vec<i32>>) {
+fn print_space (vec: &Vec<Vec<u32>>) {
 	for x in 0..vec.len() {
 		println!("{:?}", vec[x]);
 	}
