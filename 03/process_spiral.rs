@@ -1,5 +1,3 @@
-use std::iter;
-
 #[derive(Debug)]
 enum Direction {
 	Up,
@@ -29,17 +27,16 @@ fn main() {
 		next_dir = get_next_dir(&dir);
 		next_pos = get_next_pos(&pos, &next_dir);
 
-		println!("{}", vec[next_pos.0][next_pos.1]);
-		println!("{:?}", dir);
+//		println!("{}", vec[next_pos.0][next_pos.1]);
+//		println!("{:?}", dir);
 
 		if vec[next_pos.0][next_pos.1] == 0 {
 			dir = next_dir;
 		}
 
-		println!("{:?}", dir);
-
-		print_space(&vec);
-		println!("");
+//		println!("{:?}", dir);
+//		print_space(&vec);
+//		println!("");
 	}
 
 	print_space(&vec);
