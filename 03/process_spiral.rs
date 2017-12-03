@@ -17,9 +17,6 @@ fn main() {
 	vec[pos] = index;
 	vec_2d[pos_2d.0][pos_2d.1] = index;
 
-	println!("{:?}", vec);
-	println!("{:?}", vec_2d);
-
 	enum Direction {
 		Up,
 		Down,
@@ -32,7 +29,6 @@ fn main() {
 	let mut next_pos: (usize, usize);
 
 	for x in 0..10 {
-		println!("{}", x);
 
 		vec_2d[pos_2d.0][pos_2d.1] = x;
 
