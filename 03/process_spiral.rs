@@ -61,5 +61,11 @@ fn main() {
 		}
 	}
 
-	println!("{:?}", vec_2d);
+	print_space(&vec_2d);
+}
+
+fn print_space (vec: &Vec<Vec<i32>>) {
+	for x in 0..vec.len() {
+		println!("{:?}", vec[x]);
+	}
 }
