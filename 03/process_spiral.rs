@@ -45,6 +45,13 @@ fn main() {
 	print_space(&vec);
 }
 
+fn get_distance (a: &(usize, usize), b: &(usize, usize)) -> u32 {
+	let distance_y: i32 = a.0 as i32 - b.0 as i32;
+	let distance_x: i32 = a.1 as i32 - b.1 as i32;
+
+	(distance_y.abs() + distance_x.abs()) as u32
+}
+
 fn get_next_dir (cur: &Direction) -> Direction {
 	match cur {
 		&Direction::Up		=> {Direction::Left},
