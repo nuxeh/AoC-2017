@@ -20,15 +20,14 @@ fn main() {
 	println!("{:?}", vec);
 	println!("{:?}", vec_2d);
 
-	enum direction {
-		up,
-		down,
-		left,
-		right
+	enum Direction {
+		Up,
+		Down,
+		Left,
+		Right
 	}
 
-
-	let mut dir = direction::up;
+	let mut dir = Direction::Right;
 
 	for x in 0..10 {
 		println!("{}", x);
@@ -36,5 +35,12 @@ fn main() {
 		vec_2d[pos_2d.0][pos_2d.1] = x;
 
 //		pos_2d
+
+		match dir {
+			Direction::Up		=> {dir = Direction::Left;},
+			Direction::Down		=> {dir = Direction::Right;},
+			Direction::Left		=> {dir = Direction::Down;},
+			Direction::Right	=> {dir = Direction::Up;},
+		}
 	}
 }
