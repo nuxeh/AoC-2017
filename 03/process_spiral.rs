@@ -12,7 +12,8 @@ enum Direction {
 fn main() {
 
 	let w_space = 11; // Must be odd
-	let mut pos = ((w_space-1)/2, (w_space-1)/2); // Start from centre coordinate
+	let mut port = ((w_space-1)/2, (w_space-1)/2); // Start from centre coordinate
+	let mut pos = port;
 
 	let mut vec = vec![vec![0; w_space]; w_space];
 
