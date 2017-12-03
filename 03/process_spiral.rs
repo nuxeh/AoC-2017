@@ -1,5 +1,12 @@
 use std::iter;
 
+enum Direction {
+	Up,
+	Down,
+	Left,
+	Right
+}
+
 fn main() {
 
 	let w_space = 11; // Must be even
@@ -17,13 +24,6 @@ fn main() {
 	vec[pos] = index;
 	vec_2d[pos_2d.0][pos_2d.1] = index;
 
-	enum Direction {
-		Up,
-		Down,
-		Left,
-		Right
-	}
-
 	let mut dir = Direction::Right;
 	let mut next_dir: Direction;
 	let mut next_pos: (usize, usize);
@@ -32,22 +32,20 @@ fn main() {
 
 		vec_2d[pos_2d.0][pos_2d.1] = x;
 
+		next_pos = get_next_pos(&pos_2d, &dir);
+
 		match dir {
 			Direction::Up		=> {
 				next_dir = Direction::Left;
-				next_pos = (pos_2d.0-1, pos_2d.1);
 			},
 			Direction::Down		=> {
 				next_dir = Direction::Right;
-				next_pos = (pos_2d.0+1, pos_2d.1);
 			},
 			Direction::Left		=> {
 				next_dir = Direction::Down;
-				next_pos = (pos_2d.0, pos_2d.1-1);
 			},
 			Direction::Right	=> {
 				next_dir = Direction::Up;
-				next_pos = (pos_2d.0, pos_2d.1+1);
 			},
 		}
 
@@ -58,6 +56,18 @@ fn main() {
 	}
 
 	print_space(&vec_2d);
+}
+
+fn get_next_pos (cur: &(usize, usize), dir: &Direction) -> (usize, usize) {
+	let mut ret: (usize, usize);
+	match dir {
+		Direction::Up		=> {ret = (cur.0-1, cur.1);},
+		Direction::Down		=> {ret = (cur.0+1, cur.1);},
+		Direction::Left		=> {ret = (cur.0, cur.1-1);},
+		Direction::Right	=> {ret = (cur.0, cur.1+1);},
+	}
+
+	ret
 }
 
 fn print_space (vec: &Vec<Vec<i32>>) {
