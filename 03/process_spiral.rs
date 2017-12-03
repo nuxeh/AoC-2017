@@ -21,6 +21,7 @@ fn main() {
 
 	let mut vec = vec![vec![0; w_space]; w_space];
 	let mut sums = vec![vec![0; w_space]; w_space];
+	sums[port.0][port.1] = 1;
 
 	let mut dir = Direction::Right;
 	let mut next_dir: Direction;
@@ -29,7 +30,12 @@ fn main() {
 	for x in 1..target {
 		vec[pos.0][pos.1] = x;
 
-		sums[pos.0][pos.1] = get_sum(&vec, &pos);
+		if x > 1 {
+			sums[pos.0][pos.1] = get_sum(&sums, &pos);
+			if sums[pos.0][pos.1] > 312051 {
+				println!("solution b: {}", sums[pos.0][pos.1]);
+			}
+		}
 
 		pos = get_next_pos(&pos, &dir);
 		next_dir = get_next_dir(&dir);
@@ -55,14 +61,18 @@ fn main() {
 
 fn get_sum (vec: &Vec<Vec<u32>>, pos: &(usize, usize)) -> u32 {
 	let mut sum: u32 = 0;
-	let dirs = vec![Direction::Up, Direction::Down,
-			Direction::Left, Direction::Right];
-	let mut p: (usize, usize);
+	let mut count: u32 = 0;
 
-	for d in dirs {
-		p = get_next_pos(&pos, &d);
-		sum += vec[p.0][p.1];
+	for x in -1..2 {
+		for y in -1..2 {
+			if ! (x == 0 && y == 0) {
+				sum += vec[(pos.0 as i32 + y) as usize][(pos.1 as i32 + x) as usize];
+				count += 1;
+			}
+		}
 	}
+//	println!("{}", count);
+
 
 	sum
 }
