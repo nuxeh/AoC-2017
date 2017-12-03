@@ -13,10 +13,10 @@ fn main() {
 
 	let target = 1024;
 //	let target = 312051;
-	let target = 100;
-	let w_space = (target as f64).sqrt() as usize + 3;
 
-	let port = ((w_space-1)/2, (w_space-1)/2); // Start from centre coordinate
+	let w_space = (target as f64).sqrt() as usize + 2;
+
+	let port = ((w_space)/2, (w_space)/2); // Start from centre coordinate
 	let mut pos = port;
 
 	let mut vec = vec![vec![0; w_space]; w_space];
@@ -27,13 +27,20 @@ fn main() {
 	let mut next_dir: Direction;
 	let mut next_pos: (usize, usize);
 
+	let mut sol_b: u64 = 0;
+
 	for x in 1..target {
 		vec[pos.0][pos.1] = x;
 
 		if x > 1 {
-			sums[pos.0][pos.1] = get_sum(&sums, &pos);
-			if sums[pos.0][pos.1] > 312051 {
-				println!("solution b: {}", sums[pos.0][pos.1]);
+			if sol_b == 0 {
+				let s = get_sum(&sums, &pos);
+
+				sums[pos.0][pos.1] = s;
+
+				if s > 312051 {
+					sol_b = s;
+				}
 			}
 		}
 
@@ -41,38 +48,29 @@ fn main() {
 		next_dir = get_next_dir(&dir);
 		next_pos = get_next_pos(&pos, &next_dir);
 
-//		println!("{}", vec[next_pos.0][next_pos.1]);
-//		println!("{:?}", dir);
-
 		if vec[next_pos.0][next_pos.1] == 0 {
 			dir = next_dir;
 		}
 
-//		println!("{:?}", dir);
-//		print_space(&vec);
-//		println!("");
 	}
 
 	print_space(&vec);
-	println!("disance: {}", get_distance(&pos, &port));
 	print_space(&sums);
-
+	println!("distance: {}", get_distance(&pos, &port));
+	println!("solution b: {}", sol_b);
 }
 
-fn get_sum (vec: &Vec<Vec<u32>>, pos: &(usize, usize)) -> u32 {
-	let mut sum: u32 = 0;
-	let mut count: u32 = 0;
+fn get_sum (vec: &Vec<Vec<u64>>, pos: &(usize, usize)) -> u64 {
+	let mut sum: u64 = 0;
 
 	for x in -1..2 {
 		for y in -1..2 {
 			if ! (x == 0 && y == 0) {
-				sum += vec[(pos.0 as i32 + y) as usize][(pos.1 as i32 + x) as usize];
-				count += 1;
+				sum += vec[(pos.0 as i32 + y) as usize]
+					[(pos.1 as i32 + x) as usize];
 			}
 		}
 	}
-//	println!("{}", count);
-
 
 	sum
 }
@@ -102,7 +100,7 @@ fn get_next_pos (cur: &(usize, usize), dir: &Direction) -> (usize, usize) {
 	}
 }
 
-fn print_space (vec: &Vec<Vec<u32>>) {
+fn print_space (vec: &Vec<Vec<u64>>) {
 	for x in 0..vec.len() {
 		println!("{:?}", vec[x]);
 	}
