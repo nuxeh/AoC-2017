@@ -28,18 +28,18 @@ fn main() {
 	let mut next_dir: Direction;
 	let mut next_pos: (usize, usize);
 
-	for x in 0..10 {
+	for x in 1..10 {
 
 		vec_2d[pos_2d.0][pos_2d.1] = x;
 
 		match dir {
 			Direction::Up		=> {
 				next_dir = Direction::Left;
-				next_pos = (pos_2d.0+1, pos_2d.1);
+				next_pos = (pos_2d.0-1, pos_2d.1);
 			},
 			Direction::Down		=> {
 				next_dir = Direction::Right;
-				next_pos = (pos_2d.0-1, pos_2d.1);
+				next_pos = (pos_2d.0+1, pos_2d.1);
 			},
 			Direction::Left		=> {
 				next_dir = Direction::Down;
