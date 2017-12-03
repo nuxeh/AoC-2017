@@ -59,15 +59,12 @@ fn main() {
 }
 
 fn get_next_pos (cur: &(usize, usize), dir: &Direction) -> (usize, usize) {
-	let mut ret: (usize, usize);
 	match dir {
-		Direction::Up		=> {ret = (cur.0-1, cur.1);},
-		Direction::Down		=> {ret = (cur.0+1, cur.1);},
-		Direction::Left		=> {ret = (cur.0, cur.1-1);},
-		Direction::Right	=> {ret = (cur.0, cur.1+1);},
+		&Direction::Up		=> {(cur.0-1, cur.1)},
+		&Direction::Down	=> {(cur.0+1, cur.1)},
+		&Direction::Left	=> {(cur.0, cur.1-1)},
+		&Direction::Right	=> {(cur.0, cur.1+1)},
 	}
-
-	ret
 }
 
 fn print_space (vec: &Vec<Vec<i32>>) {
