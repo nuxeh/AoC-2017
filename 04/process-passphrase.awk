@@ -45,9 +45,34 @@ BEGIN {
 #		n_invalid_ana += 1
 #	}
 
+	# Get word hashes
+	delete b
 	for (k=1; k <= NF; k++)
 	{
-		print get_word_hash($k)
+		b[k] = get_word_hash($k)
+	}
+
+	for (l=1; l <= NF; l++)
+	{
+		for (m=1; m <= NF; m++)
+		{
+			if (l == m) continue
+			print b[l] " : " b[m]
+			if (b[l] == b[m]) {
+				if(debug) print "invalid (anagram): " $l
+				valid_ana = 0
+				break
+			}
+			if (valid_ana == 0) break
+		}
+	}
+
+	if (valid_ana) {
+		if(debug) print "valid (anagram)"
+		n_valid_ana += 1
+	} else {
+		if(debug) print "invalid (anagram)"
+		n_invalid_ana += 1
 	}
 }
 
