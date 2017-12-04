@@ -51,7 +51,6 @@ fn main() {
 		if vec[next_pos.0][next_pos.1] == 0 {
 			dir = next_dir;
 		}
-
 	}
 
 	print_space(&vec);
