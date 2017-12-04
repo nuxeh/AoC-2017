@@ -57,6 +57,7 @@ BEGIN {
 		for (m=1; m <= NF; m++)
 		{
 			if (l == m) continue
+			if (length(b[l]) != length(b[m])) continue
 			print b[l] " : " b[m]
 			if (b[l] == b[m]) {
 				if(debug) print "invalid (anagram): " $l
