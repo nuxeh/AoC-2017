@@ -37,14 +37,6 @@ BEGIN {
 		n_invalid += 1
 	}
 
-#	if (valid_ana) {
-#		if(debug) print "valid"
-#		n_valid_ana += 1
-#	} else {
-#		if(debug) print "invalid"
-#		n_invalid_ana += 1
-#	}
-
 	# Get word hashes
 	delete b
 	for (k=1; k <= NF; k++)
