@@ -4,6 +4,7 @@ use std::io::prelude::*;
 
 fn main() {
 	let filename = "input.txt";
+	let filename = "test.txt";
 
 	println!("In file {}", filename);
 
@@ -25,10 +26,25 @@ fn main() {
 //			Err(err) => {println!("err");}
 //		}
 
-		println!("{}", n);
+//		println!("{}", n);
 		vec.push(n);
 		}
 	}
 
 	println!("{:?}", vec);
+
+	let mut pc = 0;
+	let end = vec.len();
+
+	while pc < end - 1 {
+		let j = vec[pc];
+
+		vec[pc] += 1;
+
+		pc = pc + j as usize;
+
+		println!("{:?}", vec);
+
+	}
+
 }
