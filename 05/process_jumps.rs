@@ -39,12 +39,13 @@ fn main() {
 
 	while (pc < end) && (pc >= 0)
 	{
-		let j = vec[pc as usize];
+		let pc_u = pc as usize;
+		let j = vec[pc_u];
 
 		if j >= 3 {
-			vec[pc as usize] -= 1;
+			vec[pc_u] -= 1;
 		} else {
-			vec[pc as usize] += 1;
+			vec[pc_u] += 1;
 		}
 
 		pc = pc + j;
