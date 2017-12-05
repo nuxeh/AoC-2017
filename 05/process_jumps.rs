@@ -4,7 +4,7 @@ use std::io::prelude::*;
 
 fn main() {
 	let filename = "input.txt";
-	let filename = "test.txt";
+//	let filename = "test.txt";
 
 	println!("In file {}", filename);
 
@@ -35,6 +35,7 @@ fn main() {
 
 	let mut pc: i32 = 0;
 	let end = vec.len() as i32;
+	let mut ic = 0;
 
 	while (pc < end) && (pc >= 0)
 	{
@@ -44,7 +45,9 @@ fn main() {
 
 		pc = pc + j;
 
-		println!("{:?}", vec);
-	}
+		ic += 1;
 
+//		println!("{:?}", vec);
+	}
+	println!("{} steps", ic);
 }
