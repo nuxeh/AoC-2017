@@ -41,7 +41,11 @@ fn main() {
 	{
 		let j = vec[pc as usize];
 
-		vec[pc as usize] += 1;
+		if j >= 3 {
+			vec[pc as usize] -= 1;
+		} else {
+			vec[pc as usize] += 1;
+		}
 
 		pc = pc + j;
 
