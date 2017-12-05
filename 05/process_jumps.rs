@@ -15,7 +15,7 @@ fn main() {
 		.expect("something went wrong reading the file");
 
 	/* TODO pass reference to string to function? */
-	let mut split = contents.split("\n");
+	let split = contents.split("\n");
 
 	let mut vec = Vec::new();
 	for s in split {
@@ -45,7 +45,6 @@ fn main() {
 		pc = pc + j;
 
 		println!("{:?}", vec);
-
 	}
 
 }
