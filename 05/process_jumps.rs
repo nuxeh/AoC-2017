@@ -18,7 +18,10 @@ fn main() {
 
 	let mut vec = Vec::new();
 	for s in split {
-		let n = s.parse::<i32>().unwrap();
+		match s.parse::<i32>() {
+			Ok(n) => {println!("{}", n);},//vec.push(n);}
+			Err(err) => {println!("err");}
+		}
 
 		println!("{}", n);
 		vec.push(n);
