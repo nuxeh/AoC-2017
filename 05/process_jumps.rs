@@ -33,15 +33,16 @@ fn main() {
 
 	println!("{:?}", vec);
 
-	let mut pc = 0;
-	let end = vec.len();
+	let mut pc: i32 = 0;
+	let end = vec.len() as i32;
 
-	while pc < end - 1 {
-		let j = vec[pc];
+	while (pc < end) && (pc >= 0)
+	{
+		let j = vec[pc as usize];
 
-		vec[pc] += 1;
+		vec[pc as usize] += 1;
 
-		pc = pc + j as usize;
+		pc = pc + j;
 
 		println!("{:?}", vec);
 
