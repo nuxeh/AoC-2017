@@ -27,10 +27,9 @@ fn main() {
 			println!("{:?}", n);
 
 			match n {
-				Ok(n) => {println!("Ok! -> {}", n); vec.push(n)}
-				Err(err) => {println!("{}", err)}
+				Ok(n) => {vec.push(n)}
+				Err(err) => {continue}
 			}
-			//vec.push(n);
 		}
 	}
 
