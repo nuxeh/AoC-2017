@@ -6,8 +6,8 @@ use std::collections::HashMap;
 use std::iter::Iterator;
 
 fn main() {
-//	let filename = "input.txt";
-	let filename = "test.txt";
+	let filename = "input.txt";
+//	let filename = "test.txt";
 
 	let mut f = File::open(filename).expect("file not found");
 
@@ -42,27 +42,36 @@ fn main() {
 	println!("{:?}", vec);
 */
 
+	let mut finished = false;
 	let mut seen = HashMap::new();
+	let mut count = 0;
 
-	let m = find_max(&vec);
-	println!("max -> {}", m);
+	while finished == false {
 
-	let h = get_hash(&vec);
-	println!("hash -> {}", h);
+		let m = find_max(&vec);
+//		println!("max -> {}", m);
 
+		let h = get_hash(&vec);
+//		println!("hash -> {}", h);
 
-	println!("{:?}", seen);
+		seen.entry(h.clone()).or_insert(0);
+		if let Some(x) = seen.get_mut(&h) {
+			if *x > 0 {
+				finished = true;
+				break;
+			}
+			*x = *x + 1;
+		}
 
-	seen.entry(h.clone()).or_insert(0);
-	
-	if let Some(x) = seen.get_mut(&h) {
-	    *x = *x + 1;
+//		println!("{:?}", seen);
+
+		realloc(m, &mut vec);
+//		println!("{:?}", vec);
+
+		count += 1;
 	}
-	println!("{:?}", seen);
 
-	realloc(m, &mut vec);
-	println!("{:?}", vec);
-
+	println!("{}", count);
 
 }
 
@@ -110,7 +119,7 @@ fn find_max (vec: &Vec<u32>) -> usize {
 	let mut max: usize = 0;
 
 	for (i, v) in vec.iter().enumerate() {
-		println!("{}", i);
+//		println!("{}", i);
 		if v > &max_val { max_val = *v; max = i}
 	}
 
