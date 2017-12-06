@@ -34,6 +34,25 @@ fn main() {
 
 	let h = get_hash(&vec);
 	println!("hash -> {}", h);
+
+	realloc(m, &mut vec);
+	println!("{:?}", vec);
+}
+
+fn realloc (start: usize, vec: &mut Vec<u32>) {
+	let mut i = start as u32;
+	let n = vec[start];
+
+	vec[start] = 0;
+
+	for _ in 0..n {
+		i += 1;
+		let index = i as usize % vec.len();
+
+		println!("{}", vec[index]);
+
+		vec[index] += 1;
+	}
 }
 
 fn get_hash (vec: &Vec<u32>) -> String {
