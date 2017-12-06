@@ -18,12 +18,10 @@ fn main() {
 
 	let mut vec = Vec::new();
 	for s in split {
-		if s.len() != 0 && s != "\n" {
-			let n = s.parse::<u32>();
-			match n {
-				Ok(n)     => {vec.push(n)}
-				Err(_err) => {continue}
-			}
+		let n = s.parse::<u32>();
+		match n {
+			Ok(n)     => {vec.push(n)}
+			Err(_err) => {continue}
 		}
 	}
 
