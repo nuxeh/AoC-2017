@@ -49,17 +49,20 @@ fn main() {
 	println!("hash -> {}", h);
 
 
-	seen.entry(h).or_insert(0);
+	seen.entry(&h).or_insert(0);
 
-	let v = seen.get(&h).unwrap();
-	seen.insert(h, v+1);
+//	println!("{}", seen.get(&h).unwrap());
+//	seen.insert(h, v+1);
 
-/*
-	match seen.get(&h) {
-		Some(v) => { seen.insert(h, v+1); },
-		None    => { seen.insert(h, 1); },
+//	match seen.get_mut(&h) {
+//		Some(v) => { *v = *v+1; },
+//		None    => { seen.insert(h, 1); },
+//	}
+
+	
+	if let Some(x) = seen.get_mut(&h) {
+	    *x = *x + 1;
 	}
-*/
 
 	realloc(m, &mut vec);
 	println!("{:?}", vec);
