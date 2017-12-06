@@ -13,21 +13,15 @@ fn main() {
 	f.read_to_string(&mut contents)
 		.expect("something went wrong reading the file");
 
-	println!("{:?}", contents);
-
 	/* TODO pass reference to string to function? */
 	let split = contents.split("\t");
-//	let split = split1.split("\n");
 
 	let mut vec = Vec::new();
 	for s in split {
-		println!("{}", s);
 		if s.len() != 0 && s != "\n" {
-			let n = s.parse::<i32>();//.unwrap();
-			println!("{:?}", n);
-
+			let n = s.parse::<i32>();
 			match n {
-				Ok(n) => {vec.push(n)}
+				Ok(n)    => {vec.push(n)}
 				Err(err) => {continue}
 			}
 		}
