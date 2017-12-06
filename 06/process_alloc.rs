@@ -55,7 +55,7 @@ fn main() {
 
 	seen.entry(h.clone()).or_insert(0);
 	
-	if let Some(x) = seen.get_mut(&h.clone()) {
+	if let Some(x) = seen.get_mut(&h) {
 	    *x = *x + 1;
 	}
 	println!("{:?}", seen);
