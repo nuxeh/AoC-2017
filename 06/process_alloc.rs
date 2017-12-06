@@ -29,6 +29,7 @@ fn main() {
 
 	println!("initial array: {:?}", vec);
 
+/*
 	let m = find_max(&vec);
 	println!("max -> {}", m);
 
@@ -37,6 +38,32 @@ fn main() {
 
 	realloc(m, &mut vec);
 	println!("{:?}", vec);
+*/
+
+	let mut seen = HashMap::new();
+
+	let m = find_max(&vec);
+	println!("max -> {}", m);
+
+	let h = get_hash(&vec);
+	println!("hash -> {}", h);
+
+
+	seen.entry(h).or_insert(0);
+
+	let v = seen.get(&h).unwrap();
+	seen.insert(h, v+1);
+
+/*
+	match seen.get(&h) {
+		Some(v) => { seen.insert(h, v+1); },
+		None    => { seen.insert(h, 1); },
+	}
+*/
+
+	realloc(m, &mut vec);
+	println!("{:?}", vec);
+
 
 }
 
