@@ -31,20 +31,11 @@ fn main() {
 
 	println!("initial array: {:?}", vec);
 
-/*
-	let m = find_max(&vec);
-	println!("max -> {}", m);
-
-	let h = get_hash(&vec);
-	println!("hash -> {}", h);
-
-	realloc(m, &mut vec);
-	println!("{:?}", vec);
-*/
-
 	let mut finished = false;
 	let mut seen = HashMap::new();
 	let mut count = 0;
+	let mut count_1 = 0;
+	let mut count_2 = 0;
 
 	while finished == false {
 
@@ -56,8 +47,11 @@ fn main() {
 
 		seen.entry(h.clone()).or_insert(0);
 		if let Some(x) = seen.get_mut(&h) {
-			if *x > 0 {
-				finished = true;
+			if *x > 0 && count_1 == 0 {
+				count_1 = count;
+			}
+			if *x > 1 {
+				count_2 = count;
 				break;
 			}
 			*x = *x + 1;
@@ -71,7 +65,8 @@ fn main() {
 		count += 1;
 	}
 
-	println!("{}", count);
+	println!("{}", count_1);
+	println!("{}", count_2 - count_1);
 
 }
 
