@@ -2,10 +2,12 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
+use std::collections::HashMap;
 use std::iter::Iterator;
 
 fn main() {
-	let filename = "input.txt";
+//	let filename = "input.txt";
+	let filename = "test.txt";
 
 	let mut f = File::open(filename).expect("file not found");
 
@@ -49,34 +51,9 @@ fn main() {
 	println!("hash -> {}", h);
 
 
-	let mut list = vec![];
-
-	list.push(&h);
-	list.push(&h);
-
-	println!("{:?}", list);
-
-	seen.insert(h.clone(), 1);
-	seen.insert(h.clone(), 1);
-
-//	match seen.get_mut(&h.clone()) {
-//		Some(v) => { *v = *v+1; },
-//		None    => { seen.insert(h.clone(), 1); },
-//	}
-
 	println!("{:?}", seen);
 
-//	if seen.contains_key(h.as_str()) {
-//		println!("no");
-//		seen.insert(h, 1);
-//	}
-
-//	seen.entry(&h).or_insert(0);
-
-//	println!("{}", seen.get(&h).unwrap());
-//	seen.insert(h, v+1);
-
-
+	seen.entry(h.clone()).or_insert(0);
 	
 	if let Some(x) = seen.get_mut(&h.clone()) {
 	    *x = *x + 1;
@@ -112,7 +89,7 @@ fn realloc (start: usize, vec: &mut Vec<u32>) {
 		i += 1;
 		let index = i as usize % vec.len();
 
-		println!("{}", vec[index]);
+//		println!("{}", vec[index]);
 
 		vec[index] += 1;
 	}
