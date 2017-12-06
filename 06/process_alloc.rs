@@ -19,7 +19,7 @@ fn main() {
 	let split = contents.split("\t");
 //	let split = split1.split("\n");
 
-//	let mut vec = Vec::new();
+	let mut vec = Vec::new();
 	for s in split {
 		println!("{}", s);
 		if s.len() != 0 && s != "\n" {
@@ -27,14 +27,14 @@ fn main() {
 			println!("{:?}", n);
 
 			match n {
-				Ok(n) => {println!("Ok! -> {}", n)}
+				Ok(n) => {println!("Ok! -> {}", n); vec.push(n)}
 				Err(err) => {println!("{}", err)}
 			}
 			//vec.push(n);
 		}
 	}
 
-//	println!("{:?}", vec);
+	println!("{:?}", vec);
 
 //	let mut pc: i32 = 0;
 //	let end = vec.len() as i32;
