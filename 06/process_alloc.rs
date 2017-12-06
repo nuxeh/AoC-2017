@@ -27,10 +27,12 @@ fn main() {
 		}
 	}
 
+	vec.push(15);
+
 	println!("initial array: {:?}", vec);
 
 	let m = find_max(vec);
-	println!("{}", m);
+	println!("max -> {}", m);
 
 }
 
