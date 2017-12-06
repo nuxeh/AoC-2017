@@ -14,7 +14,7 @@ fn main() {
 		.expect("something went wrong reading the file");
 
 	/* TODO pass reference to string to function? */
-	let split = contents.split("\t");
+	let split = contents.split(|c| c == '\n' || c == '\t');
 
 	let mut vec = Vec::new();
 	for s in split {
