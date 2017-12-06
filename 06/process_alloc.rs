@@ -56,8 +56,13 @@ fn main() {
 
 	println!("{:?}", list);
 
-	seen.insert(h.clone(), "cheese");
-	seen.insert(h.clone(), "cheese");
+	seen.insert(h.clone(), 1);
+	seen.insert(h.clone(), 1);
+
+//	match seen.get_mut(&h.clone()) {
+//		Some(v) => { *v = *v+1; },
+//		None    => { seen.insert(h.clone(), 1); },
+//	}
 
 	println!("{:?}", seen);
 
@@ -71,15 +76,12 @@ fn main() {
 //	println!("{}", seen.get(&h).unwrap());
 //	seen.insert(h, v+1);
 
-//	match seen.get_mut(&h) {
-//		Some(v) => { *v = *v+1; },
-//		None    => { seen.insert(h, 1); },
-//	}
 
 	
-//	if let Some(x) = seen.get_mut(&h) {
-//	    *x = *x + 1;
-//	}
+	if let Some(x) = seen.get_mut(&h.clone()) {
+	    *x = *x + 1;
+	}
+	println!("{:?}", seen);
 
 	realloc(m, &mut vec);
 	println!("{:?}", vec);
