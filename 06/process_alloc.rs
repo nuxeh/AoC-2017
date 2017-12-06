@@ -5,8 +5,6 @@ use std::io::prelude::*;
 fn main() {
 	let filename = "input.txt";
 
-	println!("In file {}", filename);
-
 	let mut f = File::open(filename).expect("file not found");
 
 	let mut contents = String::new();
@@ -27,28 +25,8 @@ fn main() {
 		}
 	}
 
-	println!("{:?}", vec);
+	println!("initial array: {:?}", vec);
 
-//	let mut pc: i32 = 0;
-//	let end = vec.len() as i32;
-//	let mut ic = 0;
-//
-//	while (pc < end) && (pc >= 0)
-//	{
-//		let pc_u = pc as usize;
-//		let j = vec[pc_u];
-//
-//		if j >= 3 {
-//			vec[pc_u] -= 1;
-//		} else {
-//			vec[pc_u] += 1;
-//		}
-//
-//		pc = pc + j;
-//
-//		ic += 1;
-//
-////		println!("{:?}", vec);
-//	}
-//	println!("{} steps", ic);
+	
+
 }
