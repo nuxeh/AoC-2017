@@ -31,7 +31,7 @@ fn main() {
 
 	println!("initial array: {:?}", vec);
 
-	let m = find_max(vec);
+	let m = find_max(&vec);
 	println!("max -> {}", m);
 
 	let h = get_hash(vec);
@@ -48,16 +48,16 @@ fn get_hash (vec: Vec<u32>) -> String {
 	s
 }
 
-fn find_max (vec: Vec<u32>) -> usize {
+fn find_max (vec: &Vec<u32>) -> usize {
 	let mut max_val: u32 = 0;
 	let mut max: usize = 0;
 	let mut i = 0;
 
 //	for (i, v) in vec.enumerate() {
-	for v in vec {
+	for v in vec.iter() {
 		println!("{}", i);
 //		if v > max_val { max_val = v; max = i}
-		if v > max_val { max_val = v; max = i}
+		if v > &max_val { max_val = *v; max = i}
 		i += 1;
 	}
 
