@@ -34,15 +34,15 @@ fn main() {
 	let m = find_max(&vec);
 	println!("max -> {}", m);
 
-	let h = get_hash(vec);
+	let h = get_hash(&vec);
 	println!("hash -> {}", h);
 }
 
-fn get_hash (vec: Vec<u32>) -> String {
+fn get_hash (vec: &Vec<u32>) -> String {
 	let mut s = String::new();
 
 	for v in vec {
-		format!("{}{}", s, v);
+		s = format!("{}{}", s, v);
 	}
 
 	s
