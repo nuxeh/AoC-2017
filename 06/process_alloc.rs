@@ -65,6 +65,7 @@ fn main() {
 		count += 1;
 	}
 
+	println!("{:?}", seen);
 	println!("{}", count_1);
 	println!("{}", count_2 - count_1);
 
