@@ -37,7 +37,21 @@ fn main() {
 
 	realloc(m, &mut vec);
 	println!("{:?}", vec);
+
 }
+
+/* // HOW?!
+fn process(vec: &mut Vec<u32>) {
+	let m = find_max(&vec);
+	println!("max -> {}", m);
+
+	let h = get_hash(&vec);
+	println!("hash -> {}", h);
+
+	realloc(m, &mut vec);
+	println!("{:?}", vec);
+}
+*/
 
 fn realloc (start: usize, vec: &mut Vec<u32>) {
 	let mut i = start as u32;
