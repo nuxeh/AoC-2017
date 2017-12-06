@@ -27,13 +27,25 @@ fn main() {
 		}
 	}
 
-	vec.push(15);
+//	vec.push(15);
 
 	println!("initial array: {:?}", vec);
 
 	let m = find_max(vec);
 	println!("max -> {}", m);
 
+	let h = get_hash(vec);
+	println!("hash -> {}", h);
+}
+
+fn get_hash (vec: Vec<u32>) -> String {
+	let mut s = String::new();
+
+	for v in vec {
+		format!("{}{}", s, v);
+	}
+
+	s
 }
 
 fn find_max (vec: Vec<u32>) -> usize {
