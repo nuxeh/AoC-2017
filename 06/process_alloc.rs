@@ -2,6 +2,8 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
+use std::iter::Iterator;
+
 fn main() {
 	let filename = "input.txt";
 
@@ -17,7 +19,7 @@ fn main() {
 	let mut vec = Vec::new();
 	for s in split {
 		if s.len() != 0 && s != "\n" {
-			let n = s.parse::<i32>();
+			let n = s.parse::<u32>();
 			match n {
 				Ok(n)    => {vec.push(n)}
 				Err(err) => {continue}
@@ -27,6 +29,23 @@ fn main() {
 
 	println!("initial array: {:?}", vec);
 
-	
+	let m = find_max(vec);
+	println!("{}", m);
 
+}
+
+fn find_max (vec: Vec<u32>) -> usize {
+	let mut max_val: u32 = 0;
+	let mut max: usize = 0;
+	let mut i = 0;
+
+//	for (i, v) in vec.enumerate() {
+	for v in vec {
+		println!("{}", i);
+//		if v > max_val { max_val = v; max = i}
+		if v > max_val { max_val = v; max = i}
+		i += 1;
+	}
+
+	max as usize
 }
