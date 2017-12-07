@@ -63,7 +63,11 @@ function get_child_weights(name)
 			for (x in child_weights[name]) {
 				if (child_weights[name][x] != the_weight) {
 					print "unbalanced!"
-					print the_weight " > " child_weights[name][x]
+					string = "["
+					for (y in child_weights[name]) {
+						string = string " " child_weights[name][y]
+					}
+					print string " ]"
 				}
 			}
 		}
