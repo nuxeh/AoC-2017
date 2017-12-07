@@ -67,7 +67,7 @@ function get_child_weights(name)
 					for (y in child_weights[name]) {
 						string = string " " child_weights[name][y]
 					}
-					print string " ]"
+					print string " ] -> " child_weights[name][y] - the_weight
 				}
 			}
 		}
