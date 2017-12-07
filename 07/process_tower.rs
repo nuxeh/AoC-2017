@@ -35,7 +35,7 @@ fn main() {
 			let mut name = "";
 			let mut weight = 0;
 			match i {
-				0 => { name = w; }
+				0 => { name = w; println!("name: {}", name); }
 				1 => {
 					weight = w.parse::<u32>().unwrap();
 					weights.insert(name, weight);

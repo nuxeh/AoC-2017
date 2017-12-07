@@ -42,7 +42,7 @@ END {
 	pos = root
 
 	get_child_weights(pos)
-	walk(pos)
+#	walk(pos)
 
 }
 
@@ -77,20 +77,30 @@ function walk(name) {
 # problems with awk global scoping :P
 function get_child_weights(name)
 {
+	print "recursing for " name
 	if (name in children) {
 		combined_weight[name] = weights[name]
 		for (w in children[name]) {
 			child = children[name][w]
-#			print "child -> " child
+			print "child -> " child
 			the_weight = get_child_weights(child)
 			child_balanced = 1
-#			if (the_weight < 0) {
-#				child_balanced = -1
-#				the_weight *= -1
-#			}
+
 			combined_weight[name] += the_weight
 
 			child_weights[name][child] = the_weight
+
+			print the_weight;
+
+		}
+
+		val = -1
+		for (cw in child_weights[name]) {
+			print cw " " child_weights[name][cw]
+			if (val == -1)
+				val = child_weights[name][cw]
+			else if (child_weights[name][cw] != val)
+				print "    unbalanced! " name
 		}
 
 #		return unbalance * combined_weight[name]
