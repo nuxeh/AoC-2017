@@ -38,13 +38,23 @@ END {
 
 		print "weight: " get_child_weights(v)
 	}
+
+	pos = root
+
+	get_child_weights(pos)
+
 }
 
-function get_child_weights(name) {
-	combined_weight = weights[v]
-	for (w in children[v]) {
-		child = children[v][w]
-		combined_weight += weights[child]
+function get_child_weights(name)
+{
+	if (name in children) {
+		combined_weight[name] = weights[name]
+		for (w in children[name]) {
+			child = children[name][w]
+			combined_weight[name] += get_child_weights(child)
+		}
+		return combined_weight[name]
+	} else {
+		return weights[name]
 	}
-	return combined_weight
 }
