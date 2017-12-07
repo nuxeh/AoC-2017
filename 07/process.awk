@@ -26,8 +26,10 @@ END {
 		print "     " v " => " has_parent[v]
 	}
 	for (v in all_seen) {
-		if (has_parent[all_seen[v]] == 0)
-			print all_seen[v]
+		if (has_parent[all_seen[v]] == 0) {
+			print "root -> " all_seen[v]
+			root = all_seen[v]
+		}
 	}
 
 	for (v in children) {
