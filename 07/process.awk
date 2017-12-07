@@ -45,14 +45,31 @@ END {
 
 }
 
+# recursive weight function
+# problems with awk global scoping :P
 function get_child_weights(name)
 {
 	if (name in children) {
 		combined_weight[name] = weights[name]
 		for (w in children[name]) {
 			child = children[name][w]
-			combined_weight[name] += get_child_weights(child)
+			print "child -> " child
+			the_weight = get_child_weights(child)
+			combined_weight[name] += the_weight
+
+			child_weights[name][w] = the_weight
+
+			# check for non-matching weights
+			if (1) { #length(child_weights[name]) > 1) {
+				for (x in child_weights[name]) {
+					print the_weight " > " child_weights[name][x]
+					if (child_weights[name][x] != the_weight)
+						print "unbalanced!"
+				}
+			}
 		}
+
+
 		return combined_weight[name]
 	} else {
 		return weights[name]
