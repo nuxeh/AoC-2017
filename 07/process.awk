@@ -42,8 +42,36 @@ END {
 	pos = root
 
 	get_child_weights(pos)
+	walk(pos)
 
 }
+
+function walk(name) {
+	if (name in children) {
+		for (w in children[name]) {
+			child = children[name][w]
+
+			if (length(child_weights[name]) > 0) {
+
+				string = name
+				for (wgt in child_weights[name]) {
+					string = string " " wgt
+				}
+				print string
+			}
+
+			if (children[name][w] in unbalanced)
+			{
+
+			} else {
+
+			}
+
+			walk(children[name])
+		}
+	}
+}
+
 
 # recursive weight function
 # problems with awk global scoping :P
@@ -56,32 +84,17 @@ function get_child_weights(name)
 #			print "child -> " child
 			the_weight = get_child_weights(child)
 			child_balanced = 1
-			if the_weight < 0 {
-				child_balanced = -1
-				the_weight *= -1
-			}
+#			if (the_weight < 0) {
+#				child_balanced = -1
+#				the_weight *= -1
+#			}
 			combined_weight[name] += the_weight
 
 			child_weights[name][child] = the_weight
-
-			# check for non-matching weights
-			unbalance = 1
-			for (x in child_weights[name]) {
-				if (child_weights[name][x] != the_weight) {
-					unbalance = -1
-					print "unbalanced!"
-					string = "["
-					for (y in child_weights[name]) {
-						string = string " " child_weights[name][y]
-					}
-					print string " ] -> " child_weights[name][y] - the_weight " [" name "]"
-					print child
-				}
-			}
-			if unbalance == -1
 		}
 
-		return unbalance * combined_weight[name]
+#		return unbalance * combined_weight[name]
+		return combined_weight[name]
 	} else {
 		return weights[name]
 	}
