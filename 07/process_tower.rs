@@ -24,20 +24,31 @@ fn main() {
 	for s in split {
 		let words = s.split(|c| c == ',');
 
-		let n = words.nth(1).unwrap().parse::<u32>();
+//		let n = words.nth(1).unwrap().parse::<u32>();
 //		match n {
 //			Ok(n)     => {vec.push(n)}
 //			Err(_err) => {continue}
 //		}
 
-		weights.insert(&words.nth(0).unwrap().clone(), n);
 		println!("{}", s);
-		for w in words {
+		for (i, w) in words.enumerate() {
+			let mut name = "";
+			let mut weight = 0;
+			match i {
+				0 => { name = w; }
+				1 => {
+					weight = w.parse::<u32>().unwrap();
+					weights.insert(name, weight);
+				}
+//				2 => {
+				_ => { continue; }
+			}
 			println!("{}", w);
 		}
 
 	}
 
 //	println!("initial array: {:?}", vec);
+	println!("weights: {:?}", weights);
 
 }
