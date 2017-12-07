@@ -31,15 +31,18 @@ END {
 	}
 
 	for (v in children) {
-		combined_weight = weights[v]
 
 		print v
 
-		for (w in children[v]) {
-			child = children[v][w]
-			combined_weight += weights[child]
-		}
-
-		print "weight: " combined_weight
+		print "weight: " get_child_weights(v)
 	}
+}
+
+function get_child_weights(name) {
+	combined_weight = weights[v]
+	for (w in children[v]) {
+		child = children[v][w]
+		combined_weight += weights[child]
+	}
+	return combined_weight
 }
