@@ -5,8 +5,8 @@ use std::collections::HashMap;
 use std::iter::Iterator;
 
 fn main() {
-	let filename = "input.txt";
-//	let filename = "test.txt";
+//	let filename = "input.txt";
+	let filename = "test_f.txt";
 
 	let mut f = File::open(filename).expect("file not found");
 
@@ -15,17 +15,29 @@ fn main() {
 		.expect("something went wrong reading the file");
 
 	/* TODO pass reference to string to function? */
-	let split = contents.split(|c| c == '\n' || c == '\t');
+	let split = contents.split(|c| c == '\n');
 
-	let mut vec = Vec::new();
+//	let mut elems = HashMap::new();
+	let mut weights = HashMap::new();
+
+//	let mut vec = Vec::new();
 	for s in split {
-		let n = s.parse::<u32>();
-		match n {
-			Ok(n)     => {vec.push(n)}
-			Err(_err) => {continue}
+		let words = s.split(|c| c == ',');
+
+		let n = words.nth(1).unwrap().parse::<u32>();
+//		match n {
+//			Ok(n)     => {vec.push(n)}
+//			Err(_err) => {continue}
+//		}
+
+		weights.insert(&words.nth(0).unwrap().clone(), n);
+		println!("{}", s);
+		for w in words {
+			println!("{}", w);
 		}
+
 	}
 
-	println!("initial array: {:?}", vec);
+//	println!("initial array: {:?}", vec);
 
 }
