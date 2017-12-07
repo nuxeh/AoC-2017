@@ -55,25 +55,33 @@ function get_child_weights(name)
 			child = children[name][w]
 #			print "child -> " child
 			the_weight = get_child_weights(child)
+			child_balanced = 1
+			if the_weight < 0 {
+				child_balanced = -1
+				the_weight *= -1
+			}
 			combined_weight[name] += the_weight
 
 			child_weights[name][child] = the_weight
 
 			# check for non-matching weights
+			unbalance = 1
 			for (x in child_weights[name]) {
 				if (child_weights[name][x] != the_weight) {
+					unbalance = -1
 					print "unbalanced!"
 					string = "["
 					for (y in child_weights[name]) {
 						string = string " " child_weights[name][y]
 					}
-					print string " ] -> " child_weights[name][y] - the_weight
+					print string " ] -> " child_weights[name][y] - the_weight " [" name "]"
+					print child
 				}
 			}
+			if unbalance == -1
 		}
 
-
-		return combined_weight[name]
+		return unbalance * combined_weight[name]
 	} else {
 		return weights[name]
 	}
