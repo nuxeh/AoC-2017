@@ -6,6 +6,9 @@
 			r[$1] += $3
 		else
 			r[$1] -= $3
+
+		if (r[$1] > max_at)
+			max_at = r[$1]
 	}
 }
 
@@ -38,4 +41,6 @@ END {
 		count += 1
 		print reg " => " r[reg]
 	}
-	print "max: " max}
+	print "max: " max
+	print "max all time: " max_at
+}
