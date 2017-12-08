@@ -31,10 +31,11 @@ fn main() {
 //		}
 
 		println!("{}", s);
+
 		let mut reg = "";
 		let mut oper;
 		let mut diff;
-		let mut comp1;
+		let mut comp1 = "";
 		let mut comp2;
 		let mut comp_op;
 
@@ -43,18 +44,39 @@ fn main() {
 			match i {
 				0 => { reg  = w; },
 				1 => { oper = w; },
-				2 => { diff = w.parse::<u32>().unwrap(); },
+				2 => { diff = w.parse::<i32>().unwrap(); },
 				4 => { comp1 = w; },
 				5 => { comp_op = w; },
-				6 => { comp2 = w; },
+				6 => { comp2 = w.parse::<i32>().unwrap(); },
 				_ => {}
 			}
 
 			println!("{}", w);
 		}
-			r.entry(reg.clone()).or_insert(0);
-//				r.insert
 
+		/* create registers if needed */
+		r.entry(reg.clone()).or_insert(0);
+		r.entry(comp1.clone()).or_insert(0);
+
+		let Some(comp1_v) = &r.get(&comp1.clone()).unwrap();
+
+		if let Some(x) = r.get_mut(&reg) {
+
+			match oper {
+				"dec" => {}
+				"inc" => {}
+				_     => { panic!("bad input"); }
+			}
+
+//			if *x > 0 && count_1 == 0 {
+//				count_1 = count;
+//			}
+//			if *x > 1 {
+//				count_2 = count;
+//				break;
+//			}
+//			*x = *x + 1;
+		}
 
 	}
 
