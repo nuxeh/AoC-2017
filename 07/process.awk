@@ -53,12 +53,28 @@ function search() {
 		if (name in children) {
 			print "has children"
 
+			delete f
+			n = 0
 			for (n_ch in child_weights[name]) {
 				ch_w = child_weights[name][n_ch]
-				print ch_w
+				print n_ch " " ch_w
+				f[ch_w] += 1
+				n += 1
 			}
 
+			for (freq in f) {
+				print freq ": " f[freq]
 
+				if (f[freq] == 1) {
+					for (c in children[name]) {
+						child_name = children[name][c]
+						print " " child_name " = " child_weights[name][child_name]
+						if (weights[children[name][c]] == freq)
+							print "-> "
+
+					}
+				}
+			}
 
 		}
 
