@@ -58,8 +58,17 @@ fn main() {
 		r.entry(reg.clone()).or_insert(0);
 		r.entry(comp1.clone()).or_insert(0);
 
-		let Some(comp1_v) = &r.get(&comp1.clone()).unwrap();
+//		let Some(comp1_v) = &r.get(&comp1.clone()).unwrap();
+		let mut comp1_v;
 
+		{
+		match r.get(comp1) {
+			Some(v) => { comp1_v = v; }
+			None    => { println!("err"); }	
+		}
+		}
+
+		{
 		if let Some(x) = r.get_mut(&reg) {
 
 			match oper {
@@ -76,6 +85,7 @@ fn main() {
 //				break;
 //			}
 //			*x = *x + 1;
+		}
 		}
 
 	}
