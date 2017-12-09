@@ -8,7 +8,7 @@ BEGIN {
 
 {
 
-
+	score = 0
 	group_depth = 0
 	rubbish_depth = 0
 
@@ -22,9 +22,13 @@ BEGIN {
 		print "", rubbish_open, group_open, group_depth, rubbish_depth
 	}
 
-	print "--------"
+#	print "--------"
+	print
 	print group_depth ", " rubbish_depth
-	print "--------"
+	print "score: " score
+	print ""
+	print "", "ro", "go", "gd", "rd"
+#	print "--------"
 }
 
 END {
@@ -34,13 +38,14 @@ function parse(char)
 {
 	switch (c) {
 		case "{":
-			if (rubbish_open == 0 && group_open == 0) {
+			if (rubbish_open == 0) {
 				group_depth += 1
 				group_open = 1
+				score += group_depth
 			}
 		break
 		case "}":
-			if (group_open == 1)
+			if (group_open == 1 && rubbish_open == 0)
 				group_depth -= 1
 		break
 		case "<":
