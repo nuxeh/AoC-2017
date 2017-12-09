@@ -3,10 +3,10 @@
 BEGIN {
 	FS = ""
 	OFS = "\t"
-	print "", "ro", "go", "gd", "rd"
 }
 
 {
+	print "", "ro", "go", "gd", "rd"
 
 	score = 0
 	group_depth = 0
@@ -17,18 +17,14 @@ BEGIN {
 		c = $i
 
 		parse(c)
-		print c
 
-		print "", rubbish_open, group_open, group_depth, rubbish_depth
+		print c, rubbish_open, group_open, group_depth, rubbish_depth
 	}
 
-#	print "--------"
-	print
-	print group_depth ", " rubbish_depth
+	print "group depth:" group_depth
+	print "rubbish depth: " rubbish_depth
 	print "score: " score
 	print ""
-	print "", "ro", "go", "gd", "rd"
-#	print "--------"
 }
 
 END {
