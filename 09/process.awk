@@ -12,6 +12,8 @@ BEGIN {
 	group_depth = 0
 	rubbish_depth = 0
 
+	rubbish_count = 0
+
 	for (i=1; i<=NF; i++)
 	{
 		c = $i
@@ -24,6 +26,7 @@ BEGIN {
 	print "group depth:" group_depth
 	print "rubbish depth: " rubbish_depth
 	print "score: " score
+	print rubbish_count " rubbish."
 	print ""
 }
 
@@ -32,6 +35,8 @@ END {
 
 function parse(char)
 {
+	r1 = rubbish_open
+
 	switch (c) {
 		case "{":
 			if (rubbish_open == 0) {
@@ -60,4 +65,7 @@ function parse(char)
 			i += 1
 		break
 	}
+
+	if (rubbish_open == 1 && c != "!" && r1 == 1)
+		rubbish_count += 1
 }
