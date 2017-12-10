@@ -9,7 +9,7 @@ def do_hash(arr, llength=256, runs=1):
 	pos = 0
 	skip = 0
 	a = [x for x in range(llength)]
-	print a
+
 	for run in range(runs):
 		for length in arr:
 			b = [0] * length
@@ -26,8 +26,12 @@ def do_hash(arr, llength=256, runs=1):
 
 	print "result is", a[0] * a[1]
 
+	return a
+
 do_hash(lengths_t, 5)
 do_hash(lengths)
 
 
 print get_ascii("1,2,3")
+print do_hash(get_ascii("1,2,3"), 256, 64)
+print len(do_hash(get_ascii("1,2,3"), 256, 64))
