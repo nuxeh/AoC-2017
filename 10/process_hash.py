@@ -5,23 +5,24 @@ def get_ascii(string):
 	a = [ord(c) for c in string]
 	return a + [17, 31, 73, 47, 23]
 
-def do_hash(arr, llength=256):
+def do_hash(arr, llength=256, runs=1):
 	pos = 0
 	skip = 0
 	a = [x for x in range(llength)]
 	print a
-	for length in arr:
-		b = [0] * length
-		for i in range(length):
-			b[i] = a[(pos + i) % llength]
+	for run in range(runs):
+		for length in arr:
+			b = [0] * length
+			for i in range(length):
+				b[i] = a[(pos + i) % llength]
 
-		b.reverse()
+			b.reverse()
 
-		for i in range(length):
-			a[(pos + i) % llength] = b[i]
+			for i in range(length):
+				a[(pos + i) % llength] = b[i]
 
-		pos = (pos + length + skip) % llength
-		skip += 1
+			pos = (pos + length + skip) % llength
+			skip += 1
 
 	print "result is", a[0] * a[1]
 
