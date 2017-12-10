@@ -12,7 +12,7 @@ print(a)
 
 def get_ascii(string):
 	a = [ord(c) for c in string]
-	return a
+	return a + [17, 31, 73, 47, 23]
 
 def do_hash(arr):
 	global pos, skip
