@@ -10,17 +10,21 @@ a = [x for x in range(llength)]
 
 print(a)
 
-for length in lengths:
-	b = [0] * length
-	for i in range(length):
-		b[i] = a[(pos + i) % llength]
+def do_hash():
+	global pos, skip
+	for length in lengths:
+		b = [0] * length
+		for i in range(length):
+			b[i] = a[(pos + i) % llength]
 
-	b.reverse()
+		b.reverse()
 
-	for i in range(length):
-		a[(pos + i) % llength] = b[i]
+		for i in range(length):
+			a[(pos + i) % llength] = b[i]
 
-	pos = (pos + length + skip) % llength
-	skip += 1
+		pos = (pos + length + skip) % llength
+		skip += 1
+
+do_hash()
 
 print "result is", a[0] * a[1]
