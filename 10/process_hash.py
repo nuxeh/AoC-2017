@@ -10,9 +10,13 @@ a = [x for x in range(llength)]
 
 print(a)
 
-def do_hash():
+def get_ascii(string):
+	a = [ord(c) for c in string]
+	return a
+
+def do_hash(arr):
 	global pos, skip
-	for length in lengths:
+	for length in arr:
 		b = [0] * length
 		for i in range(length):
 			b[i] = a[(pos + i) % llength]
@@ -25,6 +29,8 @@ def do_hash():
 		pos = (pos + length + skip) % llength
 		skip += 1
 
-do_hash()
+do_hash(lengths)
+
 
 print "result is", a[0] * a[1]
+print get_ascii("1,2,3")
