@@ -11,23 +11,16 @@ a = [x for x in range(llength)]
 print(a)
 
 for length in lengths:
-	print length
 	b = [0] * length
 	for i in range(length):
 		b[i] = a[(pos + i) % llength]
 
-	print "b ", b
 	b.reverse()
 
 	for i in range(length):
 		a[(pos + i) % llength] = b[i]
 
-	print "b ", b
-	print "a ", a
-
 	pos = (pos + length + skip) % llength
 	skip += 1
-
-	print skip, pos
 
 print "result is", a[0] * a[1]
