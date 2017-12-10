@@ -35,8 +35,9 @@ END {
 	get_child_weights(root, 1)
 
 	print "----"
+	print "Name\t\tCorrected weight\t\tDepth"
 	for (asd in unbalanced)
-		print asd " " unbalanced[asd]["w"] " " unbalanced[asd]["d"]
+		print asd "\t\t" unbalanced[asd]["w"] "\t\t\t\t" unbalanced[asd]["d"]
 }
 
 # recursive weight function
@@ -49,16 +50,13 @@ function get_child_weights(name, depth, w, bal)
 
 		for (w in children[name]) {
 			child = children[name][w]
-#			print "child -> " child "(w=" w ")"
 			the_weight = get_child_weights(child, depth + 1)
-#			print "done child -> " child "(w=" w ")"
 			child = children[name][w]
 			child_balanced = 1
 
 			combined_weight[name] += the_weight
 
 			child_weights[name][child] = the_weight
-#			print "[" name "][" child "]"
 		}
 
 		delete frequency
@@ -86,10 +84,8 @@ function get_child_weights(name, depth, w, bal)
 #			print name " is balanced"
 		}
 
-#		print "-> " name " --> " combined_weight[name]
 		return combined_weight[name]
 	} else {
-#		print name " -> " weights[name]
 		return weights[name]
 	}
 }
