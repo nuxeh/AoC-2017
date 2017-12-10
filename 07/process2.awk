@@ -32,18 +32,16 @@ END {
 		}
 	}
 
-	get_child_weights(root)
-	print "---"
-	get_child_weights("ljaktj")
-	print "---"
-	get_child_weights("vrgxe")
-	print "---"
+	get_child_weights(root, 1)
 
+	print "----"
+	for (asd in unbalanced)
+		print asd " " unbalanced[asd]["w"] " " unbalanced[asd]["d"]
 }
 
 # recursive weight function
 # problems with awk global scoping :P
-function get_child_weights(name, w, bal)
+function get_child_weights(name, depth, w, bal)
 {
 #	print "recursing for " name
 	if (name in children) {
@@ -52,7 +50,7 @@ function get_child_weights(name, w, bal)
 		for (w in children[name]) {
 			child = children[name][w]
 #			print "child -> " child "(w=" w ")"
-			the_weight = get_child_weights(child)
+			the_weight = get_child_weights(child, depth + 1)
 #			print "done child -> " child "(w=" w ")"
 			child = children[name][w]
 			child_balanced = 1
@@ -74,18 +72,18 @@ function get_child_weights(name, w, bal)
 				bal = 0
 				print "unbalanced at name " name
 				for (j in child_weights[name]) {
-					print j " : " child_weights[name][j]
+#					print j " : " child_weights[name][j]
 					if (child_weights[name][j] == w) {
 						print "unbalanced node is " j
-						print "weight should be: " get_corrected_weight(frequency, w, j)
-						#get_child_weights(j)
+						weight = get_corrected_weight(frequency, w, j)
+						unbalanced[j]["w"] = weight
+						unbalanced[j]["d"] = depth
 					}
 				}
 			}
 		}
 		if (bal) {
-			print name " is balanced"
-			balanced[name] = 1
+#			print name " is balanced"
 		}
 
 #		print "-> " name " --> " combined_weight[name]
@@ -102,8 +100,6 @@ function get_corrected_weight(freq, w, name)
 		if (i != w)
 			other_weight = i
 	}
-
-	print other_weight, weights[name], w
 
 	return weights[name] - (w - other_weight)
 }
