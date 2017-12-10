@@ -72,9 +72,10 @@ function get_child_weights(name)
 			}
 		}
 
-		print name " -->  " combined_weight[name]
+		print "-> " name " --> " combined_weight[name]
 		return combined_weight[name]
 	} else {
+		print name " -> " weights[name]
 		return weights[name]
 	}
 }
