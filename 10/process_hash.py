@@ -10,7 +10,18 @@ a = [x for x in range(llength)]
 print(a)
 
 #b = [x for x in 
-
 for length in lengths:
-	b = 
+	b = [0] * length
+	for i in range(length):
+		b[i] = a[(pos + i) % llength]
+
+	b.reverse()
+
+	for i in range(length):
+		a[(pos + i) % llength] = b[i]
+
 	print length
+	print b
+
+	pos += (pos + length + skip) % llength
+	skip += 1
