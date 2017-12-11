@@ -20,48 +20,25 @@ BEGIN {
 
 	oofs = OFS
 	OFS="\t"
+
 	print $0, "", a, b, c, "", x, y
-	OFS = oofs
 }
 
-/^n$/ { a += 1; y += 1 }
-/^s$/ { a -= 1; y -= 1 }
-/^ne$/ { b += 1; x += 1 }
-/^sw$/ { b -= 1; x -= 1 }
-/^se$/ { c += 1; x += 1; y -= 1 }
-/^nw$/ { c -= 1; x -= 1; y += 1 }
+/^n$/	{ b += 1; c -= 1;	y += 1 }
+/^s$/	{ b -= 1; c += 1;	y -= 1 }
+/^ne$/	{ a += 1; c -= 1;	x += 1 }
+/^sw$/	{ a -= 1; c += 1;	x -= 1 }
+/^se$/	{ a += 1; b -= 1;	x += 1; y -= 1 }
+/^nw$/	{ a -= 1; b += 1;	x -= 1; y += 1 }
 
 {
 	frequency[$0] += 1
-
-	oofs = OFS
-	OFS="\t"
 	print $0, "", a, b, c, "", x, y
-	OFS = oofs
-	
-
-#	# cube coordinates
-#	switch ($0) {
-#		case "n": a += 1
-#		case "s": a -= 1
-#		case "ne": b += 1
-#		case "sw": b -= 1
-#		case "se": c += 1
-#		case "nw": c -= 1
-#	}
-#
-#	# axial coordinates
-#	switch ($0) {
-#		case "n": y += 1
-#		case "s": y -= 1
-#		case "ne": x += 1
-#		case "sw": x -= 1
-#		case "se": x += 1; y -= 1
-#		case "nw": x -= 1; y += 1
-#	}
 }
 
 END {
+	OFS = oofs
+
 	print NR, "moves"
 
 	sum = 0
