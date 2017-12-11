@@ -13,6 +13,8 @@ BEGIN {
 	a = 0
 	b = 0
 	c = 0
+
+	x = y = 0
 }
 
 {
@@ -32,18 +34,36 @@ BEGIN {
 		case "nw": c -= 1
 		break
 	}
+
+	switch ($0) {
+		case "n": y += 1
+		break
+		case "s": y -= 1
+		break
+		case "ne": x += 1
+		break
+		case "sw": x -= 1
+		break
+		case "se": x += 1; y -= 1
+		break
+		case "nw": x -= 1; y += 1
+		break
+	}
 }
 
 END {
+	print NR
+	z = 0 - x - y
+	print x, y, z
 
 	for (f in frequency)
 		print f ":" frequency[f]
 
 	n = 0
 
-	a = abs(a)
-	b = abs(b)
-	c = abs(c)
+#	a = abs(a)
+#	b = abs(b)
+#	c = abs(c)
 
 #	print a, b, c
 
@@ -97,6 +117,10 @@ END {
 #
 #	print abs(a) + abs(b) + abs(c)
 #
+
+#	f = frequency
+#
+#	f["n"] += f["sw"]
 }
 
 function abs(v) {return v < 0 ? -v : v}
