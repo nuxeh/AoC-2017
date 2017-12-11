@@ -45,28 +45,41 @@ END {
 	b = abs(b)
 	c = abs(c)
 
-	print a, b, c
+#	print a, b, c
 
-	if (a > 0) {
-		print "1:", c % a
-		n = b + (c % a)
-	} else if (b > 0) {
-		print "2:", a % b
-		n = c + (a % b)
-	} else if (c > 0) {
-		print "3:", b % c
-		n = a + (b % c)
-	}
+#	r = b % c
+#	n = ((b + c) - (b % c)) / 2
+#	print a + r + n
+#
+#	x = a
+#	y = b
+#	z = c
+#	r = y % z
+#	n = ((y + z) - (y % z)) / 2
+#	print x + r + n
 
-	print (c % b)
-	print ((c + b) - (c % b))
-
-	print a + (b % c) + ((c+b) - (b%c))
-	r = b % c
-	n = ((b + c) - (b % c)) / 2
-	print a + r + n
-
+	x = (c + b) - (2 * c)
+	y = (a + c) - (2 * a)
+	z = (b + a) - (2 * b)
 	
+#	print "x = " x
+
+#	print x + (a - (2*x))
+
+#	print a + (b + c) - (2 * c) + (2 * ((b + c) - (2 * c)))
+
+
+#	a += x
+#	b -= x
+
+#	print a + b
+
+	print a, b, c
+	print x, y, z
+#	print a+x, b+y, c+z
+#	print a-x, b-y, c-z
+#	print x-a, y-b, z-c
+
 
 #	print "n/s", a, "ne/sw", b, "c", c
 #
