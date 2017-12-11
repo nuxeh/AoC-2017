@@ -10,23 +10,22 @@ BEGIN {
 {
 #	print
 	switch ($0) {
-		case "n":
-			n_s += 1
-			print "add one"
+		case "n": n_s += 1
 		break
 		case "s": n_s -= 1
 		break
-		case "ne": ne_sw += 1
-			print "add one"
+
+		case "ne": if (last == "nw") { n_s += 1 } else { ne_sw += 1 }
 		break
-		case "sw": ne_sw -= 1
+		case "sw": if (last == "sw") { n_s -= 1 } else { ne_sw -= 1 }
 		break
-		case "se": se_nw += 1
+		case "se": if (last == "sw") { n_s -= 1 } else { se_nw += 1 }
 		break
-		case "nw": se_nw -= 1
+		case "nw": if (last == "ne") { n_s += 1 } else { se_nw -= 1 }
 		break
 	}
 
+	last = $1
 }
 
 END {
