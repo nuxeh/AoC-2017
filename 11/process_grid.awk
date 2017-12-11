@@ -10,7 +10,8 @@
 
 BEGIN {
 	RS=",|\n"
-	x = y = 0
+	x = 0
+	y = 0
 }
 
 {
@@ -33,15 +34,17 @@ BEGIN {
 }
 
 END {
-	print NR
+	print NR, "moves"
 
 	z = 0 - x - y
-	print x, y, z
+	print x, y, z, "=", x+y+z
 
-	for (f in frequency)
-		print f ":" frequency[f]
-
-	n = 0
+	sum = 0
+	for (f in frequency) {
+		sum += frequency[f]
+		print f ":\t" frequency[f]
+	}
+	print "sum", sum
 }
 
 function abs(v) {return v < 0 ? -v : v}
