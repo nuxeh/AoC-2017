@@ -10,6 +10,11 @@
 
 BEGIN {
 	RS=",|\n"
+
+	a = 0
+	b = 0
+	c = 0
+
 	x = 0
 	y = 0
 }
@@ -17,6 +22,23 @@ BEGIN {
 {
 	frequency[$0] += 1
 
+	# cube coordinates
+	switch ($0) {
+		case "n": a += 1
+		break
+		case "s": a -= 1
+		break
+		case "ne": b += 1
+		break
+		case "sw": b -= 1
+		break
+		case "se": c += 1
+		break
+		case "nw": c -= 1
+		break
+	}
+
+	# axial coordinates
 	switch ($0) {
 		case "n": y += 1
 		break
