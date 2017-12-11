@@ -8,7 +8,8 @@ BEGIN {
 }
 
 {
-#	print
+	frequency[$0] += 1
+
 	switch ($0) {
 		case "n": n_s += 1
 		break
@@ -23,21 +24,28 @@ BEGIN {
 		case "nw": se_nw -= 1
 		break
 	}
-
-	last_seen = $1
 }
 
 END {
-	print n_s, ne_sw, se_nw
 
-#	if (n_s > ne_sw && n_s > se_nw
+	for (f in frequency)
+		print f ":" frequency[f]
+
+#	print ()
+
+	print "n/s", n_s, "ne/sw", ne_sw, "se_nw", se_nw
 
 	if (se_nw > 0) {
-		print ne_sw % se_nw
 		n_s += ne_sw - (ne_sw % se_nw)
 		ne_sw = ne_sw % se_nw
 		se_nw = 0
+	} else if (ne_sw > 0) {
+		n_s += se_nw - (ne_sw % ne_sw)
+		se_nw = ne_sw % ne_sw
+		ne_sw = 0
 	}
+
+	print "n/s", n_s, "ne/sw", ne_sw, "se_nw", se_nw
 
 	print abs(n_s) + abs(ne_sw) + abs(se_nw)
 
