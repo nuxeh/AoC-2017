@@ -41,16 +41,25 @@ END {
 
 	n = 0
 
+	a = abs(a)
+	b = abs(b)
+	c = abs(c)
+
+	print a, b, c
+
 	if (a > 0) {
-		print c % a
-		n += b + (c % a)
+		print "1:", c % a
+		n = b + (c % a)
 	} else if (b > 0) {
-		print a % b
-		n += c + (a % b)
+		print "2:", a % b
+		n = c + (a % b)
 	} else if (c > 0) {
-		print b % c
-		n += a + (b % c)
+		print "3:", b % c
+		n = a + (b % c)
 	}
+
+	print (c % b)
+	print ((c + b) - (c % b))
 
 	print n
 
