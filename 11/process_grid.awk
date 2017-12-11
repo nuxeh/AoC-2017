@@ -61,9 +61,12 @@ END {
 	print (c % b)
 	print ((c + b) - (c % b))
 
-	print n
+	print a + (b % c) + ((c+b) - (b%c))
+	r = b % c
+	n = ((b + c) - (b % c)) / 2
+	print a + r + n
 
-#	print ()
+	
 
 #	print "n/s", a, "ne/sw", b, "c", c
 #
