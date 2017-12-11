@@ -8,7 +8,7 @@ BEGIN {
 }
 
 {
-	print
+#	print
 	switch ($0) {
 		case "n":
 			n_s += 1
@@ -30,5 +30,7 @@ BEGIN {
 }
 
 END {
-	print n_s, ne_sw, se_nw 
+	print n_s, ne_sw, se_nw
+
+#	if (n_s > ne_sw && n_s > se_nw
 }
