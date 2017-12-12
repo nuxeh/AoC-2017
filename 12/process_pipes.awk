@@ -16,11 +16,18 @@ END {
 
 	walk(0, 0)
 
+	for (p in seen)
+		print p, ":", seen[p]
+
+	print "max depth:", max_depth
+
+	print length(seen), "members in 0's group"
+
 }
 
 function walk(n, depth, p) {
-	print n
-	seen[s++] = n
+	if (n in seen == 0)
+		seen[s++] = n
 
 	if (depth > max_depth)
 		max_depth = depth
