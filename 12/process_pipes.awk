@@ -14,25 +14,30 @@ BEGIN {
 
 END {
 
-	walk(0, 1)
+	for (p in pipes)
+		walk(p, 1, p)
 
-	for (p in seen)
-		print p, ":", seen[p]
+	for (r in seen) {
+		print r
+		for (p in seen[r]) {
+			print r, ":", p, ":", seen[r][p]
+		}
+		print length(seen[r]), "members in " r "'s group"
+	}
 
 	print "max depth:", max_depth
 
-	print length(seen), "members in 0's group"
 
 }
 
-function walk(n, depth, p) {
-	seen[n] = 1
+function walk(n, depth, root,	p) {
+	seen[root][n] = 1
 
 	if (depth > max_depth)
 		max_depth = depth
 
 	for (p in pipes[n]) {
-		if (seen[pipes[n][p]] != 1)
-			walk(pipes[n][p], depth+1)
+		if (seen[root][pipes[n][p]] != 1)
+			walk(pipes[n][p], depth+1, root)
 	}
 }
