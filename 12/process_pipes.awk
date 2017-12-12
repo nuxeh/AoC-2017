@@ -14,11 +14,10 @@ BEGIN {
 
 END {
 
-	for (p in pipes)
+	for (p in pipes) if (p in all_seen == 0)
 		walk(p, 1, p)
 
 	for (r in seen) {
-		print r
 		for (p in seen[r]) {
 			print r, ":", p, ":", seen[r][p]
 		}
@@ -32,6 +31,7 @@ END {
 
 function walk(n, depth, root,	p) {
 	seen[root][n] = 1
+	all_seen[n] = 1
 
 	if (depth > max_depth)
 		max_depth = depth
