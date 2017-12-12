@@ -24,6 +24,6 @@ function walk(n, depth, p) {
 		max_depth = depth
 
 	for (p in pipes[n]) {
-		walk(p, depth+1)
+		walk(pipes[n][p], depth+1)
 	}
 }
