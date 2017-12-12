@@ -25,6 +25,7 @@ END {
 	}
 
 	print "max depth:", max_depth
+	print length(seen), "unique groups"
 
 
 }
