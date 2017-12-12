@@ -13,7 +13,6 @@ BEGIN {
 }
 
 END {
-
 	for (p in pipes) if (p in all_seen == 0)
 		walk(p, 1, p)
 
@@ -26,8 +25,6 @@ END {
 
 	print "max depth:", max_depth
 	print length(seen), "unique groups"
-
-
 }
 
 function walk(n, depth, root,	p) {
