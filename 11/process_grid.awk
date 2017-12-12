@@ -18,6 +18,8 @@ BEGIN {
 	x = 0
 	y = 0
 
+	max_dist = 0
+
 	oofs = OFS
 	OFS="\t"
 
@@ -34,6 +36,10 @@ BEGIN {
 {
 	frequency[$0] += 1
 	print $0, "", a, b, c, "", x, y
+
+	d = dist(a, b, c)
+	if (d > max_dist)
+		max_dist = d
 }
 
 END {
@@ -57,6 +63,10 @@ END {
 
 	print abs(a), abs(b), abs(c)
 	print (abs(a) + abs(b) + abs(c)) / 2
+
+	print "max distance", max_dist
 }
 
 function abs(v) {return v < 0 ? -v : v}
+
+function dist(a, b, c) {return (abs(a) + abs(b) + abs(c)) / 2}
