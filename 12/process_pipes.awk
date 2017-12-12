@@ -1,14 +1,15 @@
 #!/usr/bin/awk -f
 
 BEGIN {
-	FS=",|<->"
+	FS=" |, | <-> "
 }
 
 {
-	for (i=3; i<=NF; i++)
+	for (i=2; i<=NF; i++)
 	{
-		print $0, $i
+		print $1, $i
 	}
+	print "----"
 }
 
 END {
