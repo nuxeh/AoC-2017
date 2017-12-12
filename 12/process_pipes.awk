@@ -20,10 +20,13 @@ END {
 
 function walk(n, depth, p) {
 	print n
+	seen[s++] = n
+
 	if (depth > max_depth)
 		max_depth = depth
 
 	for (p in pipes[n]) {
-		walk(pipes[n][p], depth+1)
+		if (pipes[n][p] in seen == 0)
+			walk(pipes[n][p], depth+1)
 	}
 }
