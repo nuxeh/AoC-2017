@@ -6,8 +6,8 @@ BEGIN {
 }
 
 {
-	d[$1] = $2
-	p[$1] = 0
+	r[$1] = $2	# r[d]
+	p[$1] = 0	# p[d]
 
 	max_depth = $1
 	if ($2 > max_range)
@@ -20,8 +20,8 @@ END {
 }
 
 function tick(t) {
-	for (l in d) {
-		p[l] = (p[l] + 1) % d[l]
+	for (d in r) {
+		p[d] = (p[d] + 1) % r[d]
 	}
 	draw(t)
 }
@@ -32,11 +32,16 @@ function draw(t, l, d) {
 		string = ""
 		for (d=0; d<=max_depth; d++) {
 			if (d in p == 0)
-				string = string "... "
+				if (l == 0)
+					string = string "... "
+				else
+					string = string "    "
 			else if (p[d] == l)
 				string = string "[S] "
-			else
+			else if (l < r[d])
 				string = string "[ ] "
+			else
+				string = string "    "
 		}
 		print string
 	}
