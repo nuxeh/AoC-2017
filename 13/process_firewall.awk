@@ -4,6 +4,8 @@ BEGIN {
 	FS=": |\n"
 	max_range = 0
 	pos = -1
+
+	v = 1
 }
 
 {
@@ -17,7 +19,7 @@ BEGIN {
 }
 
 END {
-	draw(-1)
+	if (v) draw(-1)
 	for (t=0; t<=max_depth; t++)
 		tick(t)
 	print "total severity: ", total_severity
@@ -27,7 +29,7 @@ function tick(t) {
 	# move the position
 	pos += 1
 
-	draw(t)
+	if (v) draw(t)
 
 	check_collisions()
 
