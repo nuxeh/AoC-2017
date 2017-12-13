@@ -26,9 +26,9 @@ function tick(t) {
 	# move the position
 	pos += 1
 
-	check_collisions()
-
 	draw(t)
+
+	check_collisions()
 
 	for (d in r) {
 		update_position(d)
@@ -37,7 +37,7 @@ function tick(t) {
 
 function check_collisions() {
 	if (pos in p && p[pos] == 0)
-		print "collision"
+		print "collision at depth", pos "\n"
 }
 
 function update_position(d) {
