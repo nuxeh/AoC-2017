@@ -5,7 +5,7 @@ BEGIN {
 	max_range = 0
 	pos = -1
 
-	v = 1
+	v = 0
 
 	bail = 0
 }
@@ -27,19 +27,56 @@ END {
 	bail = 0
 	for (t=0; t<=max_depth; t++)
 		tick(t)
-	print "total severity: ", total_severity
+	print "total severity: ", total_severity, "\n"
 
-	bail = 1
-	pos = -1
-	dly = 0
-	for (t=0; t<=max_depth; t++)
-		if (tick(t)) break
+	bail = 0
+	delay = 0
+	while (1)
+	{
+		# reset
+		pos = -1
+		for (z in r) {
+			p[z] = 0
+			dir[z] = 1
+		}
+		t = 0
+
+		dly = 9
+
+		print "waa " dly
+		while (pos <= max_depth) {
+			if (tick(t++)) break
+		}
+
+		pos = -1
+		for (z in r) {
+			p[z] = 0
+			dir[z] = 1
+		}
+
+		dly = 0
+
+		print "woo "dly
+		for (t=0; t<=max_depth; t++) {
+			if (tick(t)) break
+		}
+
+		print pos
+
+		if (pos == max_depth) {
+			print "delay", delay-1, "succeeded"
+			break
+		}
+	}
 }
 
-function tick(t, d) {
+function tick(t) {
 	# move the position
-	if (--dly < 0)
+	print pos, dly
+	if (dly == 0)
 		pos += 1
+	else
+		dly--
 
 	if (v) draw(t)
 
