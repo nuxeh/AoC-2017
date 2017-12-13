@@ -29,50 +29,39 @@ END {
 		tick(t)
 	print "total severity: ", total_severity, "\n"
 
-	bail = 0
+	bail = 1
 	delay = 0
 	while (1)
 	{
-		# reset
-		pos = -1
-		for (z in r) {
-			p[z] = 0
-			dir[z] = 1
-		}
-		t = 0
+		reset()
 
-		dly = 9
+		dly = delay++
+		print "delay", dly
 
-		print "waa " dly
 		while (pos <= max_depth) {
 			if (tick(t++)) break
 		}
 
-		pos = -1
-		for (z in r) {
-			p[z] = 0
-			dir[z] = 1
-		}
+		print "end pos", pos
 
-		dly = 0
-
-		print "woo "dly
-		for (t=0; t<=max_depth; t++) {
-			if (tick(t)) break
-		}
-
-		print pos
-
-		if (pos == max_depth) {
+		if (pos > max_depth) {
 			print "delay", delay-1, "succeeded"
 			break
 		}
 	}
 }
 
+function reset() {
+		pos = -1
+		for (z in r) {
+			p[z] = 0
+			dir[z] = 1
+		}
+		t = 0
+}
+
 function tick(t) {
 	# move the position
-	print pos, dly
 	if (dly == 0)
 		pos += 1
 	else
