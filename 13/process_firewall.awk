@@ -3,6 +3,7 @@
 BEGIN {
 	FS=": |\n"
 	max_range = 0
+	pos = 0
 }
 
 {
@@ -39,15 +40,22 @@ function draw(t, l, d) {
 	for (l=0; l<max_range; l++) {
 		string = ""
 		for (d=0; d<=max_depth; d++) {
+			if (d == pos && l == 0) {
+				s = "("
+				t = ")"
+			} else {
+				s = "["
+				t = "]"
+			}
 			if (d in p == 0)
 				if (l == 0)
 					string = string "... "
 				else
 					string = string "    "
 			else if (p[d] == l)
-				string = string "[S] "
+				string = string s"S"t" "
 			else if (l < r[d])
-				string = string "[ ] "
+				string = string s" "t" "
 			else
 				string = string "    "
 		}
