@@ -3,7 +3,7 @@
 BEGIN {
 	FS=": |\n"
 	max_range = 0
-	pos = 0
+	pos = -1
 }
 
 {
@@ -17,8 +17,8 @@ BEGIN {
 }
 
 END {
-	draw(0)
-	for (t=1; t<=max_depth; t++)
+	draw(-1)
+	for (t=0; t<=max_depth; t++)
 		tick(t)
 }
 
@@ -26,7 +26,17 @@ function tick(t) {
 	for (d in r) {
 		update_position(d)
 	}
+
+	pos += 1
+
 	draw(t)
+
+	check_collisions()
+}
+
+function check_collisions() {
+	if (pos in p && p[pos] == 0)
+		print "collision"
 }
 
 function update_position(d) {
