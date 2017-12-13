@@ -134,3 +134,19 @@ function test_positions(l, max,		p, d, r, n, x)
 
 	print (max % (l-1)) - (1 - (int(max / (l-1)) % 2))
 }
+
+function pos(n,l) {return (n % (l-1)) - (1 - (int(n / (l-1)) % 2))}
+
+function go()
+{
+	for (
+}
+
+function detect_collision()
+{
+	for (d=0; d<max_depth; d++)
+	{
+		
+	}
+
+}
