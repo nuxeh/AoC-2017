@@ -6,6 +6,8 @@ BEGIN {
 	pos = -1
 
 	v = 1
+
+	bail = 0
 }
 
 {
@@ -20,30 +22,39 @@ BEGIN {
 
 END {
 	if (v) draw(-1)
+
+	dly = 0
 	for (t=0; t<=max_depth; t++)
 		tick(t)
 	print "total severity: ", total_severity
 }
 
-function tick(t) {
+function tick(t, d) {
 	# move the position
-	pos += 1
+	if (--dly < 0)
+		pos += 1
 
 	if (v) draw(t)
 
-	check_collisions()
+	ret = check_collisions()
+
+	if (bail && ret)
+		return
 
 	for (d in r) {
 		update_position(d)
 	}
 }
 
-function check_collisions() {
+function check_collisions(collided) {
 	if (pos in p && p[pos] == 0)
 	{
 		print "collision at depth", pos "\n"
 		total_severity += pos * r[pos]
+		collided = 1
 	}
+
+	return collided
 }
 
 function update_position(d) {
