@@ -15,7 +15,8 @@ BEGIN {
 }
 
 END {
-	for (t=0; t<=max_depth; t++)
+	draw(0)
+	for (t=1; t<=max_depth; t++)
 		tick(t)
 }
 
