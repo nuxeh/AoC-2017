@@ -23,15 +23,16 @@ END {
 }
 
 function tick(t) {
-	for (d in r) {
-		update_position(d)
-	}
-
+	# move the position
 	pos += 1
+
+	check_collisions()
 
 	draw(t)
 
-	check_collisions()
+	for (d in r) {
+		update_position(d)
+	}
 }
 
 function check_collisions() {
