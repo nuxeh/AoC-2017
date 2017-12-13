@@ -29,10 +29,8 @@ function tick(t) {
 }
 
 function update_position(d) {
-	if (dir[d] > 0 && p[d] == r[d])
-		dir[d] *= -1
-	else if (dir[d] < 0 && p[d] == 0)
-		dir[d] *= -1
+	if		(dir[d] > 0 && p[d] == r[d] - 1)	dir[d] *= -1
+	else if		(dir[d] < 0 && p[d] == 0)		dir[d] *= -1
 	p[d] += dir[d]
 }
 
