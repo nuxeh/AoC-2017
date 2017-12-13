@@ -65,8 +65,12 @@ function draw(t, l, d) {
 	}
 
 	p_string = " "
-	for (d=0; d<=max_depth; d++)
-		p_string = p_string p[d] "   "
+	for (d=0; d<=max_depth; d++) {
+		if (d in p)
+			p_string = p_string p[d] "   "
+		else
+			p_string = p_string "-   "
+	}
 	print p_string
 
 	print ""
