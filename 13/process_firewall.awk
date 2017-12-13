@@ -8,6 +8,7 @@ BEGIN {
 {
 	r[$1] = $2	# r[d]
 	p[$1] = 0	# p[d]
+	dir[$1] = 1	# dir[d]
 
 	max_depth = $1
 	if ($2 > max_range)
@@ -22,9 +23,17 @@ END {
 
 function tick(t) {
 	for (d in r) {
-		p[d] = (p[d] + 1) % r[d]
+		if (dir[d] > 0 && p[d] == r[d])
+			dir[d] *= -1
+		else if (dir[d] < 0 && p[d] == 0)
+			dir[d] *= -1
+		p[d] += dir[d]
 	}
 	draw(t)
+}
+
+function update_position(d) {
+
 }
 
 function draw(t, l, d) {
