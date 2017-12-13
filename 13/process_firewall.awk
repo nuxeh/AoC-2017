@@ -24,9 +24,16 @@ END {
 	if (v) draw(-1)
 
 	dly = 0
+	bail = 0
 	for (t=0; t<=max_depth; t++)
 		tick(t)
 	print "total severity: ", total_severity
+
+	bail = 1
+	pos = -1
+	dly = 0
+	for (t=0; t<=max_depth; t++)
+		if (tick(t)) break
 }
 
 function tick(t, d) {
@@ -39,11 +46,13 @@ function tick(t, d) {
 	ret = check_collisions()
 
 	if (bail && ret)
-		return
+		return 1
 
 	for (d in r) {
 		update_position(d)
 	}
+
+	return 0
 }
 
 function check_collisions(collided) {
