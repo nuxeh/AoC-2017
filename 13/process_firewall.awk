@@ -36,18 +36,19 @@ END {
 		reset()
 
 		dly = delay++
-		print "delay", dly
 
 		while (pos <= max_depth) {
 			if (tick(t++)) break
 		}
 
-		print "end pos", pos
-
 		if (pos > max_depth) {
 			print "delay", delay-1, "succeeded"
 			break
 		}
+
+		loop_count++
+		if (loop_count % 1000 == 0)
+			print loop_count
 	}
 }
 
@@ -84,7 +85,7 @@ function tick(t) {
 function check_collisions(collided) {
 	if (pos in p && p[pos] == 0)
 	{
-		print "collision at depth", pos "\n"
+		if (v) print "collision at depth", pos "\n"
 		total_severity += pos * r[pos]
 		collided = 1
 	}
