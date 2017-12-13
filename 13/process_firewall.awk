@@ -20,6 +20,7 @@ END {
 	draw(-1)
 	for (t=0; t<=max_depth; t++)
 		tick(t)
+	print "total severity: ", total_severity
 }
 
 function tick(t) {
@@ -37,7 +38,10 @@ function tick(t) {
 
 function check_collisions() {
 	if (pos in p && p[pos] == 0)
+	{
 		print "collision at depth", pos "\n"
+		total_severity += pos * r[pos]
+	}
 }
 
 function update_position(d) {
