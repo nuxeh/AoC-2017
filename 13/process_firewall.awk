@@ -43,13 +43,15 @@ function draw(t, l, d) {
 			if (d == pos && l == 0) {
 				s = "("
 				t = ")"
+				u = "(.)"
 			} else {
 				s = "["
 				t = "]"
+				u = "..."
 			}
 			if (d in p == 0)
 				if (l == 0)
-					string = string "... "
+					string = string u " "
 				else
 					string = string "    "
 			else if (p[d] == l)
