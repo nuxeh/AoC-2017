@@ -41,8 +41,12 @@ fn main()
 
 	println!("max depth: {}", max_depth);
 
-
-	compute(&ranges, max_depth);
+	let mut delay = 0;
+	loop {
+		if (compute(&ranges, max_depth, delay)) {break}
+		delay += 1;
+	}
+	println!("delay {} succeeded", delay);
 }
 
 fn test_positions(_r: u32, _n: u32)
@@ -72,13 +76,20 @@ fn test_positions(_r: u32, _n: u32)
 
 fn pos_n(r: u32, n: u32) -> u32 {n % ((r - 1) * 2)}
 
-fn compute(ranges: &HashMap<u32, u32>, max_depth: u32)
+fn compute(ranges: &HashMap<u32, u32>, max_depth: u32, delay: u32) -> bool
 {
 	for i in 0..max_depth+1 {
 		println!("{}", i);
 		if !ranges.contains_key(&i) {continue}
-		if pos_n(ranges[&i], i) == 0 {
+		if pos_n(ranges[&i], i+delay) == 0 {
 			println!("collision at {}", i);
+			return false
 		}
 	}
+	true
+}
+
+fn map_severity()
+{
+
 }
