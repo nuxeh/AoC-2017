@@ -61,13 +61,14 @@ def get_groups(a):
 
 	return i-1
 
-
+# Recursive flood fill
+#
 #        0,-1
 #         |
 # -1,0 - 0,0 - 1,0
 #         |
 #        0,1
-
+#
 def walk(x, y, i, a, e, w, h, depth):
 	neighbours = [[0,-1], [0,1], [-1, 0], [1,0]]
 
@@ -81,8 +82,8 @@ def walk(x, y, i, a, e, w, h, depth):
 		next_y = y+n[1]
 
 		if next_y >= 0 and next_y < h and next_x >=0 and next_x < w:
-			if a[y+n[1]][x+n[0]] == 1:
-				walk(x+n[0], y+n[1], i, a, e, w, h, depth+1)
+			if a[next_y][next_x] == 1:
+				walk(next_x, next_y, i, a, e, w, h, depth+1)
 
 	return 0
 
