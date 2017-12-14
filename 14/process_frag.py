@@ -26,9 +26,7 @@ def generate_bitmap(seed):
 	bitmap = []
 	for i in range(128):
 		istr = seed + "-" + str(i)
-		print istr
 		khash = knot_hash_string(istr)
-		print khash
 		bitstr = hash_to_bit_map(khash)
 		used += count_ones(bitstr)
 
@@ -44,7 +42,7 @@ def generate_empty_map():
 		m.append([0 for j in range(128)])
 	return m
 
-#b = generate_bitmap(testinput)
+b = generate_bitmap(testinput)
 
 def get_groups(a):
 	e = generate_empty_map()
@@ -53,5 +51,6 @@ def get_groups(a):
 		print row
 
 
-#get_groups(b)
-print knot_hash_string("flqrgnkx-0")
+get_groups(b)
+
+#print knot_hash_string("flqrgnkx-0")
