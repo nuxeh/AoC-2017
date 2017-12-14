@@ -9,9 +9,9 @@ fn main()
 
 
 
-
+	// TODO: env reading, stdin
 	let filename = "input.txt";
-	let filename = "test.txt";
+//	let filename = "test.txt";
 
 	let mut f = File::open(filename).expect("file not found!");
 	println!("read file: {}", filename);
@@ -79,10 +79,10 @@ fn pos_n(r: u32, n: u32) -> u32 {n % ((r - 1) * 2)}
 fn compute(ranges: &HashMap<u32, u32>, max_depth: u32, delay: u32) -> bool
 {
 	for i in 0..max_depth+1 {
-		println!("{}", i);
+//		println!("{}", i);
 		if !ranges.contains_key(&i) {continue}
 		if pos_n(ranges[&i], i+delay) == 0 {
-			println!("collision at {}", i);
+//			println!("collision at {}", i);
 			return false
 		}
 	}
