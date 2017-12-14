@@ -76,6 +76,7 @@ fn test_positions(_r: u32, _n: u32)
 
 fn pos_n(r: u32, n: u32) -> u32 {n % ((r - 1) * 2)}
 
+// TODO: map/filter implementation for comparison
 fn compute(ranges: &HashMap<u32, u32>, max_depth: u32, delay: u32) -> bool
 {
 	for i in 0..max_depth+1 {
