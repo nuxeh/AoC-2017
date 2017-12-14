@@ -1,11 +1,10 @@
 use std::fs::File;
 use std::io::prelude::*;
 
+use std::collections::HashMap;
+
 fn main()
 {
-	let mut a = vec![0; 10];
-	println!("{:?}", a);
-
 	test_positions(10, 24);
 
 
@@ -21,18 +20,19 @@ fn main()
 	f.read_to_string(&mut contents).expect("error!");
 	let lines: Vec<_> = contents.split(|c| c == '\n').collect();
 
+	let mut ranges = HashMap::<u32, u32>::new();
+
 	for line in lines {
 		if line.len() == 0 {continue}
 
 		println!("{}", line);
 
 		let fields: Vec<_> = line.split(": ").collect();
-		for field in fields {
+		for field in &fields {
 			print!("{} ", field);
 		}
-		println!("");
-
-//			let n = s.parse::<i32>().unwrap();
+		ranges.insert(fields[0].parse().unwrap(), fields[1].parse().unwrap());
+		println!("{:?}", ranges);
 	}
 
 
