@@ -2,13 +2,16 @@
 
 from process_hash import knot_hash_string
 
-print knot_hash_string("flqrgnkx")
+t = knot_hash_string("flqrgnkx")
 
-print ord("e")
-print int("e", 16)
-print '{0:b}'.format(int("e", 16))
+def hash_to_bit_map(hash_string):
+	ret = ""
+	for c in hash_string:
+		ret += '{0:b}'.format(int(c, 16))
+	return ret
 
-for c in "aoc2017":
-	print ord(c)
-#	print int(c)
-#	print '{0:b}'.format(c)
+print t
+
+u = hash_to_bit_map(t)
+print u
+print len(u)
