@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 
-from process_hash import go
+from process_hash import knot_hash_string
 
-print go("abc")
+print knot_hash_string("flqrgnkx")

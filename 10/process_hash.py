@@ -44,6 +44,12 @@ def get_string(vals):
 def go(string):
 	return get_string(do_hash(get_ascii(string), 256, 64))
 
+def knot_hash_string(string):
+	return go(string)
+
+def knot_hash_raw(string):
+	return
+
 if __name__ == "__main__":
     do_hash(lengths_t, 5)
     do_hash(lengths)
