@@ -35,9 +35,15 @@ def generate_bitmap(seed):
 
 	return bitmap
 
-generate_bitmap(testinput)
+def generate_empty_map():
+	m = []
+	for i in range(128):
+		m.append([0 for j in range(128)])
+	return m
+
+#b = generate_bitmap(testinput)
 #generate_bitmap(theinput)
 
-#print "01100101000001110010111111011111110100000010001".split()
-print list("01100101000001110010111111011111110100000010001")
-print [int(c) for c in list("01100101000001110010111111011111110100000010001")]
+e = generate_empty_map()
+print e
+
