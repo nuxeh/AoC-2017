@@ -44,16 +44,16 @@ def get_string(vals):
 def go(string):
 	return get_string(do_hash(get_ascii(string), 256, 64))
 
-do_hash(lengths_t, 5)
-do_hash(lengths)
+if __name__ == "__main__":
+    do_hash(lengths_t, 5)
+    do_hash(lengths)
 
+    #print get_ascii("1,2,3")
+    #print do_hash(get_ascii("1,2,3"), 256, 64)
+    #print len(do_hash(get_ascii("1,2,3"), 256, 64))
 
-#print get_ascii("1,2,3")
-#print do_hash(get_ascii("1,2,3"), 256, 64)
-#print len(do_hash(get_ascii("1,2,3"), 256, 64))
-
-print go("")
-print go("AoC 2017")
-print go("1,2,3")
-print go("1,2,4")
-print go("97,167,54,178,2,11,209,174,119,248,254,0,255,1,64,190")
+    print go("")
+    print go("AoC 2017")
+    print go("1,2,3")
+    print go("1,2,4")
+    print go("97,167,54,178,2,11,209,174,119,248,254,0,255,1,64,190")
