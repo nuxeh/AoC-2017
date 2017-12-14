@@ -28,6 +28,7 @@ def generate_bitmap(seed):
 		istr = seed + "-" + str(i)
 		khash = knot_hash_string(istr)
 		bitstr = hash_to_bit_map(khash)
+#		print [int(c) for c in list(bitstr)[0:8]]
 		used += count_ones(bitstr)
 
 		bitmap.append([int(c) for c in list(bitstr)])
@@ -36,18 +37,27 @@ def generate_bitmap(seed):
 
 	return bitmap
 
-def generate_empty_map():
+# TODO: do this more fancily with list comprehensions
+def generate_empty_map(w, h):
 	m = []
-	for i in range(128):
-		m.append([0 for j in range(128)])
+	for i in range(h):
+		m.append([0 for j in range(w)])
 	return m
 
+
 def get_groups(a):
-	e = generate_empty_map()
+	e = generate_empty_map(len(a), len(a[0]))
+	i = 1
+	h = len(a)
+	w = len(a[0])
 
 	for y,row in enumerate(a):
 		for x,col in enumerate(a[y]):
-			print str(x) + ", " + str(y)
+			if a[y][x] == 1:
+				if not walk(x, y, i, a, e, w, h, 0):
+					i += 1
+
+	print_map(e)
 
 
 #        0,-1
@@ -56,20 +66,46 @@ def get_groups(a):
 #         |
 #        0,1
 
-def walk(x, y, i, a, e, depth):
+def walk(x, y, i, a, e, w, h, depth):
 	neighbours = [[0,-1], [0,1], [-1, 0], [1,0]]
 
 	if e[y][x] != 0:
-		return
+		return 1
 	else:
-		e[y][x] = 1
+		e[y][x] = i
 
 	for n in neighbours:
-		if a[y+n[1]][x+n[0]] == 1:
-			walk(x+n[0], y+n[1], i, a, e, depth+1)
+		next_x = x+n[0]
+		next_y = y+n[1]
+
+		if next_y >= 0 and next_y < h and next_x >=0 and next_x < w:
+			if a[y+n[1]][x+n[0]] == 1:
+				walk(x+n[0], y+n[1], i, a, e, w, h, depth+1)
+
+	return 0
+
+def print_map(a):
+	print "map:"
+	for y,row in enumerate(a):
+		print a[y]
 
 #b = generate_bitmap(testinput)
-e = generate_empty_map()
-get_groups(e)
+#e = generate_empty_map(10, 10)
+#get_groups(e)
 
 #print knot_hash_string("flqrgnkx-127")
+
+test_map = [[1, 1, 0, 1, 0, 1, 0, 0],
+            [0, 1, 0, 1, 0, 1, 0, 1],
+            [0, 0, 0, 0, 1, 0, 1, 0],
+            [1, 0, 1, 0, 1, 1, 0, 1],
+            [0, 1, 1, 0, 1, 0, 0, 0],
+            [1, 1, 0, 0, 1, 0, 0, 1],
+            [0, 1, 0, 0, 0, 1, 0, 0],
+            [1, 1, 0, 1, 0, 1, 1, 0]]
+
+print_map(test_map)
+get_groups(test_map)
+
+
+
