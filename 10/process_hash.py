@@ -26,7 +26,7 @@ def do_hash(arr, llength=256, runs=1):
 			pos = (pos + length + skip) % llength
 			skip += 1
 
-	print "result is", a[0] * a[1]
+#	print "result is", a[0] * a[1]
 
 	x = [[x*16, x*16+15] for x in range(llength/16)]
 	c = []
