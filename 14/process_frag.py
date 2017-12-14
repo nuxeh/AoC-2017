@@ -22,12 +22,22 @@ testinput = "flqrgnkx"
 
 def generate_bitmap(seed):
 	used = 0
+	bitmap = []
 	for i in range(128):
 		istr = seed + "-" + str(i)
 		khash = knot_hash_string(istr)
-		bitmap = hash_to_bit_map(khash)
-		used += count_ones(bitmap)
+		bitstr = hash_to_bit_map(khash)
+		used += count_ones(bitstr)
 
-	print used
+		bitmap.append([int(c) for c in list(bitstr)])
+
+	print str(used) + " used bits"
+
+	return bitmap
 
 generate_bitmap(testinput)
+#generate_bitmap(theinput)
+
+#print "01100101000001110010111111011111110100000010001".split()
+print list("01100101000001110010111111011111110100000010001")
+print [int(c) for c in list("01100101000001110010111111011111110100000010001")]
