@@ -59,6 +59,8 @@ def get_groups(a):
 
 	print_map(e)
 
+	return i-1
+
 
 #        0,-1
 #         |
@@ -89,7 +91,6 @@ def print_map(a):
 	for y,row in enumerate(a):
 		print a[y]
 
-#b = generate_bitmap(testinput)
 #e = generate_empty_map(10, 10)
 #get_groups(e)
 
@@ -106,6 +107,9 @@ test_map = [[1, 1, 0, 1, 0, 1, 0, 0],
 
 print_map(test_map)
 get_groups(test_map)
+
+b = generate_bitmap(testinput)
+print str(get_groups(b)) + " groups"
 
 
 
