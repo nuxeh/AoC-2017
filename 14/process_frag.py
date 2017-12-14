@@ -19,11 +19,11 @@ def count_ones(string):
 
 theinput = "nbysizxe"
 
-thesum = 0
+used = 0
 for i in range(128):
-	thestring = theinput + "-" + str(i)
-	thehash = knot_hash_string(thestring)
-	thebitmap = hash_to_bit_map(thehash)
-	thesum += count_ones(thebitmap)
+	istr = theinput + "-" + str(i)
+	khash = knot_hash_string(istr)
+	bitmap = hash_to_bit_map(khash)
+	used += count_ones(bitmap)
 
-print thesum
+print used
