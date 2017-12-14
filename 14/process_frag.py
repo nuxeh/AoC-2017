@@ -10,6 +10,7 @@ def hash_to_bit_map(hash_string):
 		ret += '{0:04b}'.format(int(c, 16))
 	return ret
 
+# TODO optimise sum ones
 def count_ones(string):
 	count = 0
 	for c in string:
@@ -25,7 +26,9 @@ def generate_bitmap(seed):
 	bitmap = []
 	for i in range(128):
 		istr = seed + "-" + str(i)
+		print istr
 		khash = knot_hash_string(istr)
+		print khash
 		bitstr = hash_to_bit_map(khash)
 		used += count_ones(bitstr)
 
@@ -42,8 +45,13 @@ def generate_empty_map():
 	return m
 
 #b = generate_bitmap(testinput)
-#generate_bitmap(theinput)
 
-e = generate_empty_map()
-print e
+def get_groups(a):
+	e = generate_empty_map()
 
+	for row in a:
+		print row
+
+
+#get_groups(b)
+print knot_hash_string("flqrgnkx-0")
