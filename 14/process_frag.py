@@ -1,3 +1,5 @@
 #!/usr/bin/env python
 
-from process_hash import do_hash
+from process_hash import go
+
+print go("abc")
