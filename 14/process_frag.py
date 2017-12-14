@@ -108,7 +108,8 @@ test_map = [[1, 1, 0, 1, 0, 1, 0, 0],
 print_map(test_map)
 get_groups(test_map)
 
-b = generate_bitmap(testinput)
+#b = generate_bitmap(testinput)
+b = generate_bitmap(theinput)
 print str(get_groups(b)) + " groups"
 
 
