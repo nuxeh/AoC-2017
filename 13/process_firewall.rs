@@ -19,18 +19,20 @@ fn main()
 
 	let mut contents = String::new();
 	f.read_to_string(&mut contents).expect("error!");
+	let lines: Vec<_> = contents.split(|c| c == '\n').collect();
 
-	println!("{:?}", contents);
+	for line in lines {
+		if line.len() == 0 {continue}
 
-	let split = contents.split(|c| c == '\n');
+		println!("{}", line);
 
-//	let mut vec = Vec::new();
-	for s in split {
-		println!("{}", s);
-//		if s.len() != 0 {
+		let fields: Vec<_> = line.split(": ").collect();
+		for field in fields {
+			print!("{} ", field);
+		}
+		println!("");
+
 //			let n = s.parse::<i32>().unwrap();
-//			vec.push(n);
-//		}
 	}
 
 
