@@ -43,7 +43,7 @@ fn main()
 
 	let mut delay = 0;
 	loop {
-		if (compute(&ranges, max_depth, delay)) {break}
+		if compute(&ranges, max_depth, delay) {break}
 		delay += 1;
 	}
 	println!("delay {} succeeded", delay);
