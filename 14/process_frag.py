@@ -18,12 +18,16 @@ def count_ones(string):
 	return count
 
 theinput = "nbysizxe"
+testinput = "flqrgnkx"
 
-used = 0
-for i in range(128):
-	istr = theinput + "-" + str(i)
-	khash = knot_hash_string(istr)
-	bitmap = hash_to_bit_map(khash)
-	used += count_ones(bitmap)
+def generate_bitmap(seed):
+	used = 0
+	for i in range(128):
+		istr = seed + "-" + str(i)
+		khash = knot_hash_string(istr)
+		bitmap = hash_to_bit_map(khash)
+		used += count_ones(bitmap)
 
-print used
+	print used
+
+generate_bitmap(testinput)
