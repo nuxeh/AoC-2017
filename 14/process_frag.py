@@ -46,10 +46,10 @@ def generate_empty_map(w, h):
 
 
 def get_groups(a):
-	e = generate_empty_map(len(a), len(a[0]))
-	i = 1
 	h = len(a)
 	w = len(a[0])
+	e = generate_empty_map(w, h)
+	i = 1
 
 	for y,row in enumerate(a):
 		for x,col in enumerate(a[y]):
