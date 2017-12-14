@@ -42,15 +42,34 @@ def generate_empty_map():
 		m.append([0 for j in range(128)])
 	return m
 
-b = generate_bitmap(testinput)
-
 def get_groups(a):
 	e = generate_empty_map()
 
-	for row in a:
-		print row
+	for y,row in enumerate(a):
+		for x,col in enumerate(a[y]):
+			print str(x) + ", " + str(y)
 
 
-get_groups(b)
+#        0,-1
+#         |
+# -1,0 - 0,0 - 1,0
+#         |
+#        0,1
+
+def walk(x, y, i, a, e, depth):
+	neighbours = [[0,-1], [0,1], [-1, 0], [1,0]]
+
+	if e[y][x] != 0:
+		return
+	else:
+		e[y][x] = 1
+
+	for n in neighbours:
+		if a[y+n[1]][x+n[0]] == 1:
+			walk(x+n[0], y+n[1], i, a, e, depth+1)
+
+#b = generate_bitmap(testinput)
+e = generate_empty_map()
+get_groups(e)
 
 #print knot_hash_string("flqrgnkx-127")
