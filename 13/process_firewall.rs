@@ -21,6 +21,7 @@ fn main()
 	let lines: Vec<_> = contents.split(|c| c == '\n').collect();
 
 	let mut ranges = HashMap::<u32, u32>::new();
+	let mut max_depth = 0;
 
 	for line in lines {
 		if line.len() == 0 {continue}
@@ -33,12 +34,15 @@ fn main()
 		}
 		ranges.insert(fields[0].parse().unwrap(), fields[1].parse().unwrap());
 		println!("{:?}", ranges);
+
+		let d:u32  = fields[0].parse().unwrap();
+		if d > max_depth {max_depth = d}
 	}
 
+	println!("max depth: {}", max_depth);
 
 
-
-	compute();
+	compute(&ranges, max_depth);
 }
 
 fn test_positions(_r: u32, _n: u32)
@@ -66,7 +70,15 @@ fn test_positions(_r: u32, _n: u32)
 	}
 }
 
-fn compute()
-{
+fn pos_n(r: u32, n: u32) -> u32 {n % ((r - 1) * 2)}
 
+fn compute(ranges: &HashMap<u32, u32>, max_depth: u32)
+{
+	for i in 0..max_depth+1 {
+		println!("{}", i);
+		if !ranges.contains_key(&i) {continue}
+		if pos_n(ranges[&i], i) == 0 {
+			println!("collision at {}", i);
+		}
+	}
 }
