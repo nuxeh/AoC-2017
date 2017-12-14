@@ -21,11 +21,16 @@ BEGIN {
 END {
 	draw()
 
-	test_positions(10, 20)
-	test_positions(10, 8)
-	test_positions(10, 14)
-#	test_positions(10, 128)
-	test_positions(10, 2)
+#	test_positions(10, 20)
+#	test_positions(10, 8)
+#	test_positions(10, 14)
+##	test_positions(10, 128)
+#	test_positions(10, 2)
+	n = 10
+	for (m=0; m<100; m++)
+		test_positions(n, m)
+
+	detect_collision()
 }
 
 function tick(t) {
@@ -129,24 +134,29 @@ function test_positions(l, max,		p, d, r, n, x)
 		p += d
 	}
 
-	print (max % (l-1))
-	print 1 - (int(max / (l-1)) % 2)
+#	print (max % (l-1))
+#	print 1 - (int(max / (l-1)) % 2)
 
 	print (max % (l-1)) - (1 - (int(max / (l-1)) % 2))
+
+	print max % ((l-1)/2)
 }
 
-function pos(n,l) {return (n % (l-1)) - (1 - (int(n / (l-1)) % 2))}
+function pos_n(l,n) {return (n % (l-1)) - (1 - (int(n / (l-1)) % 2))}
 
 function go()
 {
-	for (
+#	for (
 }
 
 function detect_collision()
 {
-	for (d=0; d<max_depth; d++)
+	print ""
+	for (cd=0; cd<max_depth; cd++)
 	{
-		
+		print pos_n(r[cd], cd)
+		if (pos_n(d[cd], cd) == 0)
+			print "collision"
 	}
 
 }
