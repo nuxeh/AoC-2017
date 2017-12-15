@@ -1,15 +1,15 @@
 fn main ()
 {
 	let part = 2;
-	let test = true;
+	let test = false;
 
 	let mut a: u64 = 65;
 	let mut b: u64 = 8921;
 
-	if test {
+	if !test {
 		a = 289;
 		b = 629;
-		println!("using test data");
+		println!("using real data");
 	}
 
 	let f_a = 16807;
