@@ -1,11 +1,11 @@
 fn main ()
 {
-	let mut part = 0;
+	let part = 2;
 
 	let mut a: u64 = 65;
 	let mut b: u64 = 8921;
 
-	if part > 0 {
+	if false && part > 0 {
 		a = 289;
 		b = 629;
 	}
@@ -26,11 +26,12 @@ fn main ()
 	} else if part == 2 {
 		target = 5000000;
 	}
+	println!("target: {}", target);
 
 	let mut list_a = vec![];
 	let mut list_b = vec![];
 
-	for i in 0..target {
+	for _i in 0..target {
 		a = (a * f_a) % d;
 		b = (b * f_b) % d;
 
@@ -50,18 +51,23 @@ fn main ()
 
 	println!("{} matches", count);
 
-	if len(list_a) > len(list_b {
-		let l = len(list_b);
+	let l;
+	if list_a.len() > list_b.len() {
+		l = list_b.len();
 		println!("list a is bigger");
 	} else {
-		let l = len(list_a);
+		l = list_a.len();
 		println!("list b is bigger");
 	}
 
-
-	for (i, a) in list_a.enumerate() {
-
-
+	count = 0;
+	for i in 0..l {
+		if list_a[i] as u16 == list_b[i] as u16 {
+			println!("match: {:b} {:b}", list_a[i] as u16, list_b[i] as u16);
+			count += 1;
+		}
 	}
+
+	println!("{} matches", count);
 }
 
