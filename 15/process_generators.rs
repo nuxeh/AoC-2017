@@ -56,7 +56,7 @@ fn main ()
 			if a % 4 == 0 { list_a.push(a); }
 			if b % 8 == 0 { list_b.push(b); }
 
-			if list_a.len() > target && list_b.len() > target { break; }
+			if list_a.len() >= target && list_b.len() >= target { break; }
 		}
 	}
 
