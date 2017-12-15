@@ -1,13 +1,15 @@
 fn main ()
 {
 	let part = 2;
+	let test = true;
 
 	let mut a: u64 = 65;
 	let mut b: u64 = 8921;
 
-	if false && part > 0 {
+	if test {
 		a = 289;
 		b = 629;
+		println!("using test data");
 	}
 
 	let f_a = 16807;
@@ -31,22 +33,31 @@ fn main ()
 	let mut list_a = vec![];
 	let mut list_b = vec![];
 
-	for _i in 0..target {
-		a = (a * f_a) % d;
-		b = (b * f_b) % d;
+	if part == 1 {
+		for _i in 0..target {
+			a = (a * f_a) % d;
+			b = (b * f_b) % d;
 
-		if a % 4 == 0 { list_a.push(a); }
-		if b % 8 == 0 { list_b.push(b); }
+			if a as u16 == b as u16 {
+				println!("match: {:b} {:b}", a as u16, b as u16);
+				count += 1;
+			}
 
-		if a as u16 == b as u16 {
-			println!("match: {:b} {:b}", a as u16, b as u16);
-			count += 1;
+			if part == 0 {
+				println!("{} {}", a, b)
+			}
+
 		}
+	} else {
+		loop {
+			a = (a * f_a) % d;
+			b = (b * f_b) % d;
 
-		if part == 0 {
-			println!("{} {}", a, b)
+			if a % 4 == 0 { list_a.push(a); }
+			if b % 8 == 0 { list_b.push(b); }
+
+			if list_a.len() > target && list_b.len() > target { break; }
 		}
-
 	}
 
 	println!("{} matches", count);
