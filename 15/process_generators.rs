@@ -48,9 +48,6 @@ fn main ()
 			}
 
 		}
-
-		println!("{} matches", count);
-
 	} else {
 		loop {
 			a = (a * f_a) % d;
@@ -75,8 +72,8 @@ fn main ()
 				count += 1;
 			}
 		}
-
-		println!("{} matches", count);
 	}
+
+	println!("{} matches", count);
 }
 
