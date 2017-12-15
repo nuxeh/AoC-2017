@@ -48,6 +48,9 @@ fn main ()
 			}
 
 		}
+
+		println!("{} matches", count);
+
 	} else {
 		loop {
 			a = (a * f_a) % d;
@@ -58,27 +61,22 @@ fn main ()
 
 			if list_a.len() >= target && list_b.len() >= target { break; }
 		}
-	}
 
-	println!("{} matches", count);
-
-	let l;
-	if list_a.len() > list_b.len() {
-		l = list_b.len();
-		println!("list a is bigger");
-	} else {
-		l = list_a.len();
-		println!("list b is bigger");
-	}
-
-	count = 0;
-	for i in 0..l {
-		if list_a[i] as u16 == list_b[i] as u16 {
-			println!("match: {:b} {:b}", list_a[i] as u16, list_b[i] as u16);
-			count += 1;
+		if list_a.len() > list_b.len() {
+			println!("list a is bigger");
+		} else {
+			println!("list b is bigger");
 		}
-	}
 
-	println!("{} matches", count);
+		count = 0;
+		for i in 0..target {
+			if list_a[i] as u16 == list_b[i] as u16 {
+				println!("match: {:b} {:b}", list_a[i] as u16, list_b[i] as u16);
+				count += 1;
+			}
+		}
+
+		println!("{} matches", count);
+	}
 }
 
