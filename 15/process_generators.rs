@@ -19,8 +19,6 @@ fn main ()
 
 		if a as u16 == b as u16 {
 			println!("match: {:b} {:b}", a as u16, b as u16);
-			//println!("{:b}", a);
-			//println!("{:b}", b);
 			count += 1;
 		}
 
