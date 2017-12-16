@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# Git commit prepare hook
+
+echo "# Advent of code!" >> $1
+D=16
+sed -i "1i$D: " $1
