@@ -23,7 +23,7 @@ D=$2
 sed -i "1i\$D: " \$1
 EOF
 
-echo '.git_hook' >> .gitignore
+echo '.*.sw*' >> .gitignore
 
 cat > Makefile << EOF
 day=$2
@@ -44,5 +44,5 @@ commit: \$(hook)
 	git commit
 EOF
 
-git add Makefile $1.rs .gitignore
+git add Makefile $1.rs .gitignore .git_hook
 git ct -m "$2: add rust template"
