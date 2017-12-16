@@ -23,7 +23,7 @@ fn main () {
 		}
 	}
 
-	let mut moves2: Vec<(u8, u32, char, char, u32, u32)> = vec![];
+	let mut moves2: Vec<(char, u32, char, char, u32, u32)> = vec![];
 
 	for m in moves {
 		println!("{:?}", m);
@@ -31,28 +31,28 @@ fn main () {
 		// Rust strings are UTF-8 and can't be indexed
 		println!("{:?}", m.get(0..1).unwrap());
 
-		let cmd = m.get(0..1).unwrap();
+		let cmd = m.get(0..1).unwrap().chars().nth(0).unwrap();
 
 		let split: Vec<_> = m.get(1..).unwrap()
 			.split("/").collect();
 
 		match cmd {
-			"s" => {
+			's' => {
 				let n: u32 = m.get(1..2).unwrap().parse()
 					.unwrap();
-				moves2.push((0, n, '\0', '\0', 0, 0));
+				moves2.push((cmd, n, '\0', '\0', 0, 0));
 			}
-			"x" => {
+			'x' => {
 				let f: u32 = split[0].parse()
 					.unwrap();
 				let t: u32 = split[1].parse()
 					.unwrap();
-				moves2.push((1, 0, '\0', '\0', f, t));
+				moves2.push((cmd, 0, '\0', '\0', f, t));
 			}
-			"p" => {
+			'p' => {
 				let f = split[0].chars().nth(0).unwrap();
 				let t = split[0].chars().nth(1).unwrap();
-				moves2.push((2, 0, f, t, 0, 0));
+				moves2.push((cmd, 0, f, t, 0, 0));
 			}
 			_ => {}
 		}
