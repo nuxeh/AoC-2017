@@ -11,12 +11,19 @@ fn main () {
 
 	let stdin = io::stdin();
 
+	let mut moves = vec![];
+
 	for line in stdin.lock().lines() {
 		let line = line.unwrap();
 		let split: Vec<_> = line.split(",").collect();
 
-		for m in split {
-			println!("{:?}", m);
-		}
+//		for m in split {
+//			println!("{:?}", m);
+////			moves.push(m);
+//		}
+    		moves.push("cheese");
+    		moves.push(split[0]);
+
+//		heights.insert(split[0].parse().unwrap(), split[1].parse().unwrap());
 	}
 }
