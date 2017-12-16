@@ -62,15 +62,24 @@ fn main () {
 		}
 	}
 
+	println!("{:?}", a);
 	for m in moves2 {
 		println!("{:?}", m);
+		match m.0 {
+			's' => {spin(&mut a, m.1)}
+			'x' => {swap(&mut a, m.4 as usize, m.5 as usize)}
+			'p' => {swap_a(&mut a, m.2, m.3)}
+			_   => {}
+		}
+		println!("-> {:?}", a);
 	}
 
-	swap(&mut a, 2, 4);
-	println!("{:?}", a);
-	swap_a(&mut a, 'A', 'B');
-	println!("{:?}", a);
-	spin(&mut a, 2);
+//	swap(&mut a, 2, 4);
+//	println!("{:?}", a);
+//	swap_a(&mut a, 'A', 'B');
+//	println!("{:?}", a);
+//	spin(&mut a, 2);
+
 	println!("{:?}", a);
 }
 
@@ -108,8 +117,8 @@ fn swap(a: &mut Vec<char>, f: usize, t: usize) {
 
 fn swap_a(a: &mut Vec<char>, cf: char, ct: char) {
 
-	let f = a.iter().position(|&a| a == cf).unwrap();
-	let t = a.iter().position(|&a| a == ct).unwrap();
+	let f = a.iter().position(|&a| a == cf).unwrap_or(0);
+	let t = a.iter().position(|&a| a == ct).unwrap_or(0);
 
 	let temp = a[f];
 	a[f] = a[t];
