@@ -3,11 +3,15 @@ use std::io::BufRead;
 
 fn main () {
 
+	let test = 1;
+
+	let l;
+	if test == 1 { l = 5; } else { l = 16; }
+
 	let mut c: u8 = 64;
-	let mut a: Vec<_> = vec![0; 16]
+	let mut a: Vec<_> = vec![0; l]
 		.iter().map(|_| {c += 1; c as char}).collect();
 	println!("{:?}", a);
-
 
 	let stdin = io::stdin();
 
