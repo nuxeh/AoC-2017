@@ -17,11 +17,10 @@ fn main () {
 		let line = line.unwrap();
 		let split: Vec<_> = line.split(",").collect();
 
-//		for m in split {
-//			println!("{:?}", m);
-////			moves.push(m);
-//		}
-		moves.push(split[0].to_owned());
+		for m in split {
+			println!("{:?}", m);
+			moves.push(m.to_owned());
+		}
 
 //		heights.insert(split[0].parse().unwrap(), split[1].parse().unwrap());
 	}
