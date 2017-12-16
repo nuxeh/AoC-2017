@@ -71,23 +71,22 @@ fn main () {
 }
 
 fn spin(a: &mut Vec<char>, _n: u32) {
-	a[0] = 'a';
 
 	let n = _n as usize;
 
-	let x = a.get(0..n).unwrap();
-	let y = a.get(n..).unwrap();
+	let x = a.get(0..n).unwrap().to_owned();
+	let y = a.get(n..).unwrap().to_owned();
 
 	println!("{:?}", x);
 	println!("{:?}", y);
 
 	for (i, c) in y.iter().enumerate() {
-		println!("{} {}", i, c);
-//		a[i] = y[i];
+		println!("{} {} -> {}", i, c, i);
+		a[i] = *c;
 	}
 
 	for (i, c) in x.iter().enumerate() {
-		println!("{} {}", i, c);
-//		a[n + i] = x[i];
+		println!("{} {} -> {}", i, c, n + i + 1);
+		a[n + i + 1] = *c;
 	}
 }
