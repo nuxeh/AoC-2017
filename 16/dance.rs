@@ -33,6 +33,9 @@ fn main () {
 
 		let cmd = m.get(0..1).unwrap();
 
+		let split: Vec<_> = m.get(1..).unwrap()
+			.split("/").collect();
+
 		match cmd {
 			"s" => {
 				let n: u32 = m.get(1..2).unwrap().parse()
@@ -40,8 +43,6 @@ fn main () {
 				moves2.push((0, n, '\0', '\0', 0, 0));
 			}
 			"x" => {
-				let split: Vec<_> = m.get(1..).unwrap()
-					.split("/").collect();
 				let f: u32 = split[0].parse()
 					.unwrap();
 				let t: u32 = split[1].parse()
@@ -49,11 +50,8 @@ fn main () {
 				moves2.push((1, 0, '\0', '\0', f, t));
 			}
 			"p" => {
-				let split: Vec<_> = m.get(1..).unwrap()
-					.split("/").collect();
-//					.chars().nth(0).unwrap();
-					let f = split[0].chars().nth(0).unwrap();
-					let t = split[0].chars().nth(1).unwrap();
+				let f = split[0].chars().nth(0).unwrap();
+				let t = split[0].chars().nth(1).unwrap();
 				moves2.push((2, 0, f, t, 0, 0));
 			}
 			_ => {}
