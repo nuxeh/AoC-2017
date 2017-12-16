@@ -8,7 +8,7 @@ fn main () {
 	let l;
 	if test == 1 { l = 5; } else { l = 16; }
 
-	let mut c: u8 = 64;
+	let mut c: u8 = 96;
 	let mut a: Vec<_> = vec![0; l]
 		.iter().map(|_| {c += 1; c as char}).collect();
 	println!("{:?}", a);
@@ -85,7 +85,7 @@ fn main () {
 
 fn spin(a: &mut Vec<char>, _n: u32) {
 
-	let n = _n as usize;
+	let n = a.len() - _n as usize;
 
 	let x = a.get(0..n).unwrap().to_owned();
 	let y = a.get(n..).unwrap().to_owned();
