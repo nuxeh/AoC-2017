@@ -18,6 +18,7 @@ cat > .git_hook << EOF
 #
 # Git commit prepare hook
 
+# TODO: don't replace if already present (amend)
 D=$2
 sed -i "1i\$D: " \$1
 EOF
@@ -29,7 +30,7 @@ cat > Makefile << EOF
 day=$2
 hook=../.git/hooks/prepare-commit-msg
 
-$1: \$@.rs
+$1: $1.rs
 	rustc \$@.rs
 
 all: $1
