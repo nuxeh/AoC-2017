@@ -90,9 +90,13 @@ fn spin(a: &mut Vec<char>, _n: u32) {
 	}
 
 	for (i, c) in x.iter().enumerate() {
-		println!("{} {} -> {}", i, c, n + i + 1);
-		a[n + i + 1] = *c;
+		println!("{} {}", i, n);
+		let l = i+(a.len() - n);
+		println!("{} {} -> {}", i, c, l);
+		a[l] = *c;
 	}
+
+	// TODO: use rotate()
 }
 
 fn swap(a: &mut Vec<char>, f: usize, t: usize) {
