@@ -23,7 +23,7 @@ fn main () {
 		}
 	}
 
-	let moves2: Vec<(String, u32, String, String, u32, u32)>;
+	let mut moves2: Vec<(u8, u32, char, char, u32, u32)> = vec![];
 
 	for m in moves {
 		println!("{:?}", m);
@@ -36,10 +36,12 @@ fn main () {
 		match cmd {
 			"s" => {
 				let n: u32 = m.get(1..2).unwrap().parse().unwrap();
-				moves2.push((cmd, n, "", "", 0, 0));
+				moves2.push((0, n, '\0', '\0', 0, 0));
 			}
 			"x" => {
-
+				let f: u32 = m.get(1..2).unwrap().parse().unwrap();
+				let t: u32 = m.get(3..4).unwrap().parse().unwrap();
+				moves2.push((1, 0, '\0', '\0', f, t));
 			}
 			"p" => {
 
