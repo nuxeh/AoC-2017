@@ -66,6 +66,10 @@ fn main () {
 		println!("{:?}", m);
 	}
 
+	swap(&mut a, 2, 4);
+	println!("{:?}", a);
+	swap_a(&mut a, 'A', 'B');
+	println!("{:?}", a);
 	spin(&mut a, 2);
 	println!("{:?}", a);
 }
@@ -89,4 +93,21 @@ fn spin(a: &mut Vec<char>, _n: u32) {
 		println!("{} {} -> {}", i, c, n + i + 1);
 		a[n + i + 1] = *c;
 	}
+}
+
+fn swap(a: &mut Vec<char>, f: usize, t: usize) {
+
+	let temp = a[f];
+	a[f] = a[t];
+	a[t] = temp;
+}
+
+fn swap_a(a: &mut Vec<char>, cf: char, ct: char) {
+
+	let f = a.iter().position(|&a| a == cf).unwrap();
+	let t = a.iter().position(|&a| a == ct).unwrap();
+
+	let temp = a[f];
+	a[f] = a[t];
+	a[t] = temp;
 }
