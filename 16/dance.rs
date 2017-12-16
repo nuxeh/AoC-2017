@@ -35,16 +35,26 @@ fn main () {
 
 		match cmd {
 			"s" => {
-				let n: u32 = m.get(1..2).unwrap().parse().unwrap();
+				let n: u32 = m.get(1..2).unwrap().parse()
+					.unwrap();
 				moves2.push((0, n, '\0', '\0', 0, 0));
 			}
 			"x" => {
-				let f: u32 = m.get(1..2).unwrap().parse().unwrap();
-				let t: u32 = m.get(3..4).unwrap().parse().unwrap();
+				let split: Vec<_> = m.get(1..).unwrap()
+					.split("/").collect();
+				let f: u32 = split[0].parse()
+					.unwrap();
+				let t: u32 = split[1].parse()
+					.unwrap();
 				moves2.push((1, 0, '\0', '\0', f, t));
 			}
 			"p" => {
-
+				let split: Vec<_> = m.get(1..).unwrap()
+					.split("/").collect();
+//					.chars().nth(0).unwrap();
+					let f = split[0].chars().nth(0).unwrap();
+					let t = split[0].chars().nth(1).unwrap();
+				moves2.push((2, 0, f, t, 0, 0));
 			}
 			_ => {}
 		}
