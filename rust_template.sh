@@ -18,12 +18,12 @@ cat > .git_hook << EOF
 #
 # Git commit prepare hook
 
-echo "# Advent of code!" >> \$1
 D=$2
 sed -i "1i\$D: " \$1
 EOF
 
-echo '.*.sw*' >> .gitignore
+echo '.*.sw*' > .gitignore
+echo "$1" >> .gitignore
 
 cat > Makefile << EOF
 day=$2
