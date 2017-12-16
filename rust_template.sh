@@ -27,6 +27,7 @@ echo '.git_hook' >> .gitignore
 
 cat > Makefile << EOF
 day=$2
+hook=../.git/hooks/prepare-commit-msg
 
 $1: \$@.rs
 	rustc \$@.rs
