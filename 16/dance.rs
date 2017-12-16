@@ -65,4 +65,29 @@ fn main () {
 	for m in moves2 {
 		println!("{:?}", m);
 	}
+
+	spin(&mut a, 2);
+	println!("{:?}", a);
+}
+
+fn spin(a: &mut Vec<char>, _n: u32) {
+	a[0] = 'a';
+
+	let n = _n as usize;
+
+	let x = a.get(0..n).unwrap();
+	let y = a.get(n..).unwrap();
+
+	println!("{:?}", x);
+	println!("{:?}", y);
+
+	for (i, c) in y.iter().enumerate() {
+		println!("{} {}", i, c);
+//		a[i] = y[i];
+	}
+
+	for (i, c) in x.iter().enumerate() {
+		println!("{} {}", i, c);
+//		a[n + i] = x[i];
+	}
 }
