@@ -39,22 +39,26 @@ fn main () {
 		match cmd {
 			's' => {
 				let n: u32 = m.get(1..2).unwrap().parse()
-					.unwrap();
+					.unwrap_or(0);
 				moves2.push((cmd, n, '\0', '\0', 0, 0));
 			}
 			'x' => {
 				let f: u32 = split[0].parse()
-					.unwrap();
+					.unwrap_or(0);
 				let t: u32 = split[1].parse()
-					.unwrap();
+					.unwrap_or(0);
 				moves2.push((cmd, 0, '\0', '\0', f, t));
 			}
 			'p' => {
-				let f = split[0].chars().nth(0).unwrap();
-				let t = split[0].chars().nth(1).unwrap();
+				let f = split[0].chars().nth(0).unwrap_or('\0');
+				let t = split[1].chars().nth(0).unwrap_or('\0');
 				moves2.push((cmd, 0, f, t, 0, 0));
 			}
 			_ => {}
 		}
+	}
+
+	for m in moves2 {
+		println!("{:?}", m);
 	}
 }
