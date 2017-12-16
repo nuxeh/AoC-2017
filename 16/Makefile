@@ -7,6 +7,8 @@ dance: dance.rs
 all: dance
 	./dance
 
+test: dance
+	echo "s1,x3/4,pe/b" | ./dance
 
 $(hook): .git_hook
 	cat .git_hook > $@
