@@ -21,7 +21,11 @@ fn main () {
 			println!("{:?}", m);
 			moves.push(m.to_owned());
 		}
+	}
 
-//		heights.insert(split[0].parse().unwrap(), split[1].parse().unwrap());
+	for m in moves {
+		println!("{:?}", m);
+		// Rust strings are UTF-8 and can't be indexed
+		println!("{:?}", m.get(0..1).unwrap());
 	}
 }
