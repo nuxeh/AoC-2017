@@ -1,7 +1,7 @@
 day=16
 hook=../.git/hooks/prepare-commit-msg
 
-dance: $@.rs
+dance: dance.rs
 	rustc $@.rs
 
 all: dance
