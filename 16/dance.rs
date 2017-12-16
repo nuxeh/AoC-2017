@@ -21,8 +21,7 @@ fn main () {
 //			println!("{:?}", m);
 ////			moves.push(m);
 //		}
-    		moves.push("cheese");
-    		moves.push(split[0]);
+		moves.push(split[0].to_owned());
 
 //		heights.insert(split[0].parse().unwrap(), split[1].parse().unwrap());
 	}
