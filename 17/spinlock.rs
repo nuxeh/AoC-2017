@@ -15,11 +15,9 @@ fn main () {
 
 		println!("{} {}", p, l);
 
-		if p == l-1 {
-			buf.push(i);
-		} else {
-			buf[p+1] = i;
-		}
+		buf.insert(p + 1, i);
+
+		p = p + 1;
 
 		println!("{:?}", buf);
 	}
