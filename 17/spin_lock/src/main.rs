@@ -7,10 +7,16 @@ extern crate pbr;
 use pbr::ProgressBar;
 
 fn main () {
-
 	let test = false;
-	let part = 1;
 	let s; if test { s = 3 } else { s = 324 }
+
+	part1(s);
+	part2(s);
+}
+
+fn part1(s: usize){
+
+	let part = 1;
 	let t; if part == 1 { t = 2018 } else { t = 50000001 }
 
 	let mut pb = ProgressBar::new(t-1);
@@ -42,12 +48,16 @@ fn main () {
 	println!("method 1 final value is {}", buf[p+1]);
 
 	println!("method 2 final value is {}", buf2[0]);
+}
+
+fn part2(s: usize) {
 
 	/* Part 2 */
 	/* buf[1] is only changed when write position is 1
 	   therefore buffer contents don't matter, just the
 	   index at which buf[1] is written */
 
+	let mut p = 0;
 	let mut last_p0 = 0;
 	let mut l = 1;
 
