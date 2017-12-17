@@ -1,5 +1,6 @@
 use std::io;
 use std::io::BufRead;
+use std::collections::HashMap;
 
 fn main () {
 
@@ -64,11 +65,12 @@ fn main () {
 
 	println!("{:?}", a);
 
-	let mut seen: Vec<String> = vec![];
+	let mut seen = HashMap::<String, u32>::new();
+	let mut count = 0;
 
 	loop {
-		for (i, m) in moves2.iter().enumerate() {
-	//		println!("{:?}", moves[i]);
+		for (_i, m) in moves2.iter().enumerate() {
+	//		println!("{:?}", moves[_i]);
 	//		println!("{:?}", m);
 			match m.0 {
 				's' => {spin(&mut a, m.1)}
@@ -79,7 +81,14 @@ fn main () {
 	//		println!("-> {:?}", a);
 		}
 
-		seen.push(a.iter().cloned().collect());
+		let st: String = a.iter().cloned().collect();
+		seen.insert(st.to_owned(), count);
+
+		if seen.contains_key(&st) && false { break; }
+
+		if count == 1000 { break; }
+
+		count += 1;
 	}
 
 //	swap(&mut a, 2, 4);
@@ -90,8 +99,23 @@ fn main () {
 
 	println!("{:?}", a);
 
-	let s: String = a.iter().cloned().collect();
-	println!("{}", s);
+	println!("{}", count);
+
+	for s in &seen {
+		println!("{:?}", s);
+//		let c = seen.get(s.0).unwrap();
+
+		if *s.1 == 0 { println!("first dance: {}", s.0); }
+
+		if *s.1 == 1000 % (count-1) {
+			println!("last dance: {}", s.0);
+		}
+
+		if *s.1 == 1000000000 % (count-1) {
+			println!("last dance: {}", s.0);
+		}
+
+	}
 }
 
 fn spin(a: &mut Vec<char>, _n: u32) {
