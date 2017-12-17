@@ -9,5 +9,5 @@ all: spinlock
 .git_template:
 	echo " " > .git_template
 
-commit:
+commit: .git_template
 	git commit -t .git_template
