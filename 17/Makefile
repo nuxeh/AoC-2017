@@ -6,5 +6,8 @@ spinlock: spinlock.rs
 all: spinlock
 	./spinlock
 
-commit: $(hook)
+.git_template:
+	echo " " > .git_template
+
+commit:
 	git commit -t .git_template
