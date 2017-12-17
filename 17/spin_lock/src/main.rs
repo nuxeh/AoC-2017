@@ -10,7 +10,7 @@ fn main () {
 	let t; if part == 1 { t = 2018 } else { t = 50000001 }
 
 	let mut pb = ProgressBar::new(t / 1000);
-	pb.format("╢▌▌░╟");
+	pb.format("|▓░░|");
 
 	let mut buf = vec![0];
 	let mut p = 0;
