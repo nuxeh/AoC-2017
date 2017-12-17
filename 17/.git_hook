@@ -1,7 +1,0 @@
-#!/bin/bash
-#
-# Git commit prepare hook
-
-# TODO: don't replace if already present (amend)
-D=17
-sed -i "1i$D: " $1
