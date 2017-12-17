@@ -3,7 +3,7 @@ use std::io::BufRead;
 
 fn main () {
 
-	let test = 1;
+	let test = 0;
 
 	let l;
 	if test == 1 { l = 5; } else { l = 16; }
@@ -22,7 +22,7 @@ fn main () {
 		let split: Vec<_> = line.split(",").collect();
 
 		for m in split {
-			println!("{:?}", m);
+//			println!("{:?}", m);
 			moves.push(m.to_owned());
 		}
 	}
@@ -30,10 +30,10 @@ fn main () {
 	let mut moves2: Vec<(char, u32, char, char, u32, u32)> = vec![];
 
 	for m in moves {
-		println!("{:?}", m);
+//		println!("{:?}", m);
 
 		// Rust strings are UTF-8 and can't be indexed
-		println!("{:?}", m.get(0..1).unwrap());
+//		println!("{:?}", m.get(0..1).unwrap());
 
 		let cmd = m.get(0..1).unwrap().chars().nth(0).unwrap();
 
@@ -63,7 +63,8 @@ fn main () {
 	}
 
 	println!("{:?}", a);
-	for m in moves2 {
+	for (i, m) in moves2.iter().enumerate() {
+		println!("{:?}", moves[i]);
 		println!("{:?}", m);
 		match m.0 {
 			's' => {spin(&mut a, m.1)}
@@ -81,6 +82,9 @@ fn main () {
 //	spin(&mut a, 2);
 
 	println!("{:?}", a);
+
+	let s: String = a.iter().cloned().collect();
+	println!("{}", s);
 }
 
 fn spin(a: &mut Vec<char>, _n: u32) {
@@ -90,18 +94,17 @@ fn spin(a: &mut Vec<char>, _n: u32) {
 	let x = a.get(0..n).unwrap().to_owned();
 	let y = a.get(n..).unwrap().to_owned();
 
-	println!("{:?}", x);
-	println!("{:?}", y);
+//	println!("{:?}", x);
+//	println!("{:?}", y);
 
 	for (i, c) in y.iter().enumerate() {
-		println!("{} {} -> {}", i, c, i);
+//		println!("{} {} -> {}", i, c, i);
 		a[i] = *c;
 	}
 
 	for (i, c) in x.iter().enumerate() {
-		println!("{} {}", i, n);
 		let l = i+(a.len() - n);
-		println!("{} {} -> {}", i, c, l);
+//		println!("{} {} -> {}", i, c, l);
 		a[l] = *c;
 	}
 
