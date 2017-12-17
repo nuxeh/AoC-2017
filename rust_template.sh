@@ -27,11 +27,11 @@ all: $1
 	./$1
 
 .git_template:
-	echo "$(day) " > .git_template
+	echo "\$(day): " > .git_template
 
-commit:
+commit: .git_template
 	git commit -t .git_template
 EOF
 
-git add Makefile $1.rs .gitignore .git_hook
+git add Makefile $1.rs .gitignore
 git ct -m "$2: add rust template"
