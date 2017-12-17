@@ -63,7 +63,10 @@ fn main () {
 	}
 
 	println!("{:?}", a);
-	for _ in 0..1000000001 {
+
+	let mut seen: Vec<String> = vec![];
+
+	loop {
 		for (i, m) in moves2.iter().enumerate() {
 	//		println!("{:?}", moves[i]);
 	//		println!("{:?}", m);
@@ -75,6 +78,8 @@ fn main () {
 			}
 	//		println!("-> {:?}", a);
 		}
+
+		seen.push(a.iter().cloned().collect());
 	}
 
 //	swap(&mut a, 2, 4);
