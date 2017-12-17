@@ -13,7 +13,7 @@ debug: $(debug_target)
 	$(debug_target)
 
 release: $(release_target)
-	time $(release_target)
+	$(release_target)
 
 .git_template:
 	echo "$(day): " > .git_template
