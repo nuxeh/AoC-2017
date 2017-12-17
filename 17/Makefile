@@ -4,10 +4,10 @@ release_target=./spin_lock/target/release/spin_lock
 
 
 debug_target: ./spin_lock/src/main.rs
-	cd spin_lock && cargo build
+	cd spin_lock && cargo +nightly build
 
 release_target: ./spin_lock/src/main.rs
-	cd spin_lock && cargo build --release
+	cd spin_lock && cargo +nightly build --release
 
 debug: $(debug_target)
 	$(debug_target)
