@@ -1,6 +1,6 @@
 fn main () {
 
-	let test = true;
+	let test = false;
 	let s; if test { s = 3 } else { s = 324 }
 
 	let mut buf = vec![0];
@@ -21,4 +21,5 @@ fn main () {
 	}
 
 	println!("{:?}", buf.get(p - 3 .. p + 4).unwrap());
+	println!("final value is {}", buf[p +1]);
 }
