@@ -29,7 +29,7 @@ fn main () {
 
 	let mut moves2: Vec<(char, u32, char, char, u32, u32)> = vec![];
 
-	for m in moves {
+	for m in moves.iter() { // without iter gives error due to below loop
 //		println!("{:?}", m);
 
 		// Rust strings are UTF-8 and can't be indexed
@@ -42,7 +42,7 @@ fn main () {
 
 		match cmd {
 			's' => {
-				let n: u32 = m.get(1..2).unwrap().parse()
+				let n: u32 = m.get(1..).unwrap().parse()
 					.unwrap_or(0);
 				moves2.push((cmd, n, '\0', '\0', 0, 0));
 			}
