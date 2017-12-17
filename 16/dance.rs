@@ -146,6 +146,8 @@ fn swap(a: &mut Vec<char>, f: usize, t: usize) {
 	let temp = a[f];
 	a[f] = a[t];
 	a[t] = temp;
+
+	// TODO: use swap()
 }
 
 fn swap_a(a: &mut Vec<char>, cf: char, ct: char) {
