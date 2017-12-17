@@ -13,12 +13,9 @@ fn main () {
 }
 EOF
 
-cat > .git_template << EOF
-$2: 
-EOF
-
 echo '.*.sw*' > .gitignore
 echo "$1" >> .gitignore
+echo ".git_template" >> .gitignore
 
 cat > Makefile << EOF
 day=$2
@@ -29,7 +26,10 @@ $1: $1.rs
 all: $1
 	./$1
 
-commit: \$(hook)
+.git_template:
+	echo "$(day) " > .git_template
+
+commit:
 	git commit -t .git_template
 EOF
 
