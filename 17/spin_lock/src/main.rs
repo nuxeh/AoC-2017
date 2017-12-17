@@ -9,52 +9,57 @@ use pbr::ProgressBar;
 fn main () {
 
 	let test = false;
-	let part = 2;
+	let part = 1;
 	let s; if test { s = 3 } else { s = 324 }
 	let t; if part == 1 { t = 2018 } else { t = 50000001 }
 
-	let mut pb = ProgressBar::new(t);
+	let mut pb = ProgressBar::new(t-1);
 	pb.format("|▓░░|");
 
 	let mut buf = vec![0];
+	let mut buf2 = vec![0];
 	let mut p = 0;
 
-//	let mut after_zero = vec![];
+	for i in 1..t {
+		let l = buf.len();
+
+		/* method 1 */
+		p = (p + s) % l;
+		buf.insert(p + 1, i);
+		p = p + 1;
+
+		/* method 2 */
+		buf2.rotate(s % l);
+		buf2.push(i);
+
+		pb.inc();
+
+//		println!("{:?}", buf);
+	}
+
+	println!("");
+	println!("{:?}", buf.get(p - 3 .. p + 4).unwrap());
+	println!("method 1 final value is {}", buf[p+1]);
+
+	println!("method 2 final value is {}", buf2[0]);
+
+	/* Part 2 */
+	/* buf[1] is only changed when write position is 1
+	   therefore buffer contents don't matter, just the
+	   index at which buf[1] is written */
 
 	let mut last_p0 = 0;
 	let mut l = 1;
 
 	for i in 1..50000000 {
-//		let l = buf.len();
-
 		p = (p + s) % l;
-
-//		buf.rotate(s % l);
-
-//		println!("{} {}", p, l);
 
 		if p == 0 {
 			println!("p = 0 at {}\t difference {}", i, i - last_p0);
 			last_p0 = i;
 		}
 
-//		buf.insert(p + 1, i);
-//		buf.push(i);
-
 		l += 1;
 		p = p + 1;
-
-//		println!("{:?}", buf);
-
-//		after_zero.push(buf[1]);
-
-//		if i % 1000 == 0 { pb.inc(); }
 	}
-
-//	println!("{:?}", buf.get(p - 3 .. p + 4).unwrap());
-//	println!("{:?}", buf);
-//	println!("final value is {}", buf[0]);
-//	println!("value after 0 is {}", buf[1]);
-//	println!("{:?}", after_zero);
-
 }
