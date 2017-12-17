@@ -7,7 +7,7 @@ all: spinlock
 	./spinlock
 
 .git_template:
-	echo " " > .git_template
+	echo "$(day) " > .git_template
 
 commit: .git_template
 	git commit -t .git_template
