@@ -1,10 +1,19 @@
 day=17
+debug_target=./spin_lock/target/debug/spin_lock
+release_target=./spin_lock/target/release/spin_lock
 
-spinlock: spinlock.rs
-	rustc $@.rs
 
-all: spinlock
-	./spinlock
+debug_target: ./spin_lock/src/main.rs
+	cd spin_lock && cargo build
+
+release_target: ./spin_lock/src/main.rs
+	cd spin_lock && cargo build --release
+
+debug: $(debug_target)
+	$(debug_target)
+
+release: $(release_target)
+	time $(release_target)
 
 .git_template:
 	echo "$(day): " > .git_template
