@@ -63,16 +63,18 @@ fn main () {
 	}
 
 	println!("{:?}", a);
-	for (i, m) in moves2.iter().enumerate() {
-		println!("{:?}", moves[i]);
-		println!("{:?}", m);
-		match m.0 {
-			's' => {spin(&mut a, m.1)}
-			'x' => {swap(&mut a, m.4 as usize, m.5 as usize)}
-			'p' => {swap_a(&mut a, m.2, m.3)}
-			_   => {}
+	for _ in 0..1000000001 {
+		for (i, m) in moves2.iter().enumerate() {
+	//		println!("{:?}", moves[i]);
+	//		println!("{:?}", m);
+			match m.0 {
+				's' => {spin(&mut a, m.1)}
+				'x' => {swap(&mut a, m.4 as usize, m.5 as usize)}
+				'p' => {swap_a(&mut a, m.2, m.3)}
+				_   => {}
+			}
+	//		println!("-> {:?}", a);
 		}
-		println!("-> {:?}", a);
 	}
 
 //	swap(&mut a, 2, 4);
