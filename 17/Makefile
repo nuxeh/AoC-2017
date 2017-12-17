@@ -1,5 +1,4 @@
 day=17
-hook=../.git/hooks/prepare-commit-msg
 
 spinlock: spinlock.rs
 	rustc $@.rs
@@ -7,10 +6,5 @@ spinlock: spinlock.rs
 all: spinlock
 	./spinlock
 
-
-$(hook): .git_hook
-	cat .git_hook > $@
-	chmod +x $@
-
 commit: $(hook)
-	git commit
+	git commit -t .git_template
