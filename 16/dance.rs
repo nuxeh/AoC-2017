@@ -82,9 +82,8 @@ fn main () {
 		}
 
 		let st: String = a.iter().cloned().collect();
+		if seen.contains_key(&st) { break; }
 		seen.insert(st.to_owned(), count);
-
-		if seen.contains_key(&st) && false { break; }
 
 		if count == 1000 { break; }
 
@@ -107,11 +106,11 @@ fn main () {
 
 		if *s.1 == 0 { println!("first dance: {}", s.0); }
 
-		if *s.1 == 1000 % (count-1) {
-			println!("last dance: {}", s.0);
+		if *s.1 == 1000 % (count-2) {
+			println!("1000th dance: {}", s.0);
 		}
 
-		if *s.1 == 1000000000 % (count-1) {
+		if *s.1 == 1000000000 % (count-2) {
 			println!("last dance: {}", s.0);
 		}
 
