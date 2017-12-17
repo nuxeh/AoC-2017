@@ -101,16 +101,16 @@ fn main () {
 	println!("{}", count);
 
 	for s in &seen {
-		println!("{:?}", s);
+//		println!("{:?}", s);
 //		let c = seen.get(s.0).unwrap();
 
 		if *s.1 == 0 { println!("first dance: {}", s.0); }
 
-		if *s.1 == 1000 % (count-2) {
+		if *s.1 == 999 % count {
 			println!("1000th dance: {}", s.0);
 		}
 
-		if *s.1 == 1000000000 % (count-2) {
+		if *s.1 == 999999999 % count {
 			println!("last dance: {}", s.0);
 		}
 
