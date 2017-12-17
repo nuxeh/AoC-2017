@@ -19,28 +19,42 @@ fn main () {
 	let mut buf = vec![0];
 	let mut p = 0;
 
-	for i in 1..100 {
-		let l = buf.len();
+//	let mut after_zero = vec![];
 
-//		p = (p + s) % l;
+	let mut last_p0 = 0;
+	let mut l = 1;
 
-		buf.rotate(s % l);
+	for i in 1..50000000 {
+//		let l = buf.len();
+
+		p = (p + s) % l;
+
+//		buf.rotate(s % l);
 
 //		println!("{} {}", p, l);
 
+		if p == 0 {
+			println!("p = 0 at {}\t difference {}", i, i - last_p0);
+			last_p0 = i;
+		}
+
 //		buf.insert(p + 1, i);
-		buf.push(i);
+//		buf.push(i);
 
-//		p = p + 1;
+		l += 1;
+		p = p + 1;
 
-		println!("{:?}", buf);
+//		println!("{:?}", buf);
 
-		if i % 1000 == 0 { pb.inc(); }
+//		after_zero.push(buf[1]);
+
+//		if i % 1000 == 0 { pb.inc(); }
 	}
 
 //	println!("{:?}", buf.get(p - 3 .. p + 4).unwrap());
-	println!("{:?}", buf);
-	println!("final value is {}", buf[0]);
-	println!("value after 0 is {}", buf[buf.binary_search(&0).unwrap()]);
+//	println!("{:?}", buf);
+//	println!("final value is {}", buf[0]);
+//	println!("value after 0 is {}", buf[1]);
+//	println!("{:?}", after_zero);
 
 }
