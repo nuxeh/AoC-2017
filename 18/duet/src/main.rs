@@ -4,7 +4,7 @@
 use std::io;
 use std::io::BufRead;
 use std::collections::HashMap;
-use std::thread;
+//use std::thread;
 use std::sync::mpsc::channel;
 
 fn main () {
@@ -49,6 +49,7 @@ fn main () {
 	}
 
 	part1(&mut p, &mut rs);
+	println!("last written frequency is {}", rs["answer"]);
 	println!("part 2 ............");
 	part2(&mut p, &mut rs2_0, &mut rs2_1);
 }
@@ -84,7 +85,11 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8
 
 		"rcv" => {
 				if rv != 0 {
-//					println!("rcv is {}", rs["snd"]);
+					if rs.contains_key("snd") {
+//						println!("rcv is {}", rs["snd"]);
+						let r = rs["snd"];
+						rs.insert("answer".to_string(), r);
+					}
 				}
 
 				if rs["wait"] == 0 {
@@ -116,7 +121,7 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8
 
 fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
 
-	println!("{:?}", p);
+//	println!("{:?}", p);
 
 	// rs["pc"] = 0; // doesn't work
 	rs.insert("pc".to_string(), 0);
@@ -125,16 +130,16 @@ fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i
 	loop {
 		let pc = rs["pc"] as usize;
 
-		println!("{:?}", p[pc]);
+//		println!("{:?}", p[pc]);
 
 		if inst(&p[pc], &mut rs) == -2 {break;}
 
-		println!("{:?}", rs);
+//		println!("{:?}", rs);
 
 		if rs["pc"] >= p.len() as i64 {break;}
 	}
 
-	println!("{:?}", rs);
+//	println!("{:?}", rs);
 }
 
 fn part2(p: &Vec<(char, char, i64, i32, String)>,
@@ -158,12 +163,16 @@ fn part2(p: &Vec<(char, char, i64, i32, String)>,
 		let pc1 = rs1["pc"] as usize;
 
 		match inst(&p[pc], &mut rs) {
-			-1 => {let s = rs["snd"]; let _ = tx.send(s); println!("0 sending {}", s);}
+			-1 => {
+				let s = rs["snd"];
+				let _ = tx.send(s);
+//				println!("0 sending {}", s);
+			}
 			-2 => {
 				let m = rx2.try_recv();
 				if ! m.is_err() {
 					let r = m.unwrap();
-					println!("0 received {}", r);
+//					println!("0 received {}", r);
 					rs.insert("rcv".to_string(), r);
 					rs.insert("wait".to_string(), 0);
 				}
@@ -184,7 +193,7 @@ fn part2(p: &Vec<(char, char, i64, i32, String)>,
 				let m = rx.try_recv();
 				if ! m.is_err() {
 					let r = m.unwrap();
-					println!("1 received {}", r);
+//					println!("1 received {}", r);
 					rs1.insert("rcv".to_string(), r);
 					rs1.insert("wait".to_string(), 0);
 				}
