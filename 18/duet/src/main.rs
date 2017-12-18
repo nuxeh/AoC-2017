@@ -40,14 +40,14 @@ fn main () {
 
 fn inst(i: &(char, char, i32, String), rs: &mut HashMap<String, i32>) {
 
-	// get or insert 0
+	let pc = rs["pc"];
 	let r = i.0.to_string();
+
 	let v;
 	match r.as_ref() {
 		"\0" => v = i.2,
-		_    => v = rs[&r]
+		_    => v = *rs.entry(r.to_owned()).or_insert(0)
 	}
-	let pc = rs["pc"];
 
 	match i.3.as_ref() { // to slice
 
