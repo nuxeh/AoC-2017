@@ -17,11 +17,15 @@ fn main () {
 		let line = line.unwrap();
 		let split: Vec<_> = line.split(" ").collect();
 
-		let n: i32;
+		let mut n: i32 = 0;
 		let mut r: char = '\0';
 		if split.len() <= 2 {n = 0} else {
-			n = split[2].parse().unwrap_or(0);
-			r = split[2].parse().unwrap_or('\0');
+			let r2 = split[2].parse().unwrap_or('\0');
+			match split[2].parse::<i32>() {
+				Ok(v)  => n = v,
+				Err(_) => r = r2
+			}
+			// map on Option and Result
 		}
 
 		p.push((split[1].chars().nth(0).unwrap(),
