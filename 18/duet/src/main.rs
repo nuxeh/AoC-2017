@@ -43,21 +43,23 @@ fn inst(i: &(char, char, i64, String), rs: &mut HashMap<String, i64>) {
 	let pc = rs["pc"];
 	let r = i.0.to_string();
 
+	let rv = *rs.entry(r.to_owned()).or_insert(0);
+
 	let v;
-	match r.as_ref() {
-		"\0" => v = i.2,
-		_    => v = *rs.entry(r.to_owned()).or_insert(0)
+	match i.1 {
+		'\0' => v = i.2,
+		_    => v = *rs.entry(i.1.to_string()).or_insert(0)
 	}
 
 	let mut jump = false;
 
 	match i.3.as_ref() { // to slice
 
-		"snd" => {rs.insert("snd".to_string(), i.2);} // no brackets needed
-		"set" => {rs.insert(r, i.2);}
-		"add" => {rs.insert(r, v + i.2);}
-		"mul" => {rs.insert(r, v * i.2);}
-		"mod" => {rs.insert(r, v % i.2);}
+		"snd" => {rs.insert("snd".to_string(), rv);} // no brackets needed
+		"set" => {rs.insert(r, v);}
+		"add" => {rs.insert(r, rv + v);}
+		"mul" => {rs.insert(r, rv * v);}
+		"mod" => {rs.insert(r, rv % v);}
 		"rcv" => {if v != 0 {println!("freq is {}", rs["snd"])};}
 		"jgz" => {if v > 0  {
 			jump = true;
