@@ -49,6 +49,7 @@ fn main () {
 	}
 
 	part1(&mut p, &mut rs);
+	println!("part 2 ............");
 	part2(&mut p, &mut rs2_0, &mut rs2_1);
 }
 
@@ -83,7 +84,7 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8
 
 		"rcv" => {
 				if rv != 0 {
-					println!("rcv is {}", rs["snd"]);
+//					println!("rcv is {}", rs["snd"]);
 				}
 
 				if rs["wait"] == 0 {
@@ -150,6 +151,8 @@ fn part2(p: &Vec<(char, char, i64, i32, String)>,
 
 //	run(&mut p, &mut rs);
 
+	let mut send_count_1 = 0;
+
 	loop {
 		let pc = rs["pc"] as usize;
 		let pc1 = rs1["pc"] as usize;
@@ -157,9 +160,8 @@ fn part2(p: &Vec<(char, char, i64, i32, String)>,
 		match inst(&p[pc], &mut rs) {
 			-1 => {let s = rs["snd"]; let _ = tx.send(s); println!("0 sending {}", s);}
 			-2 => {
-				println!("0 ...");
 				let m = rx2.try_recv();
-				if !m.is_err() {
+				if ! m.is_err() {
 					let r = m.unwrap();
 					println!("0 received {}", r);
 					rs.insert("rcv".to_string(), r);
@@ -169,16 +171,20 @@ fn part2(p: &Vec<(char, char, i64, i32, String)>,
 			_  => {}
 		}
 
-		println!("0: {:?}", rs);
+//		println!("0: {:?}", rs);
 
 		match inst(&p[pc1], &mut rs1) {
-			-1 => {let s = rs1["snd"]; let _ = tx2.send(s); println!("1 sending {}", s);}
+			-1 => {
+				let s = rs1["snd"];
+				let _ = tx2.send(s);
+				send_count_1 += 1;
+				println!("1 sending {} [{}]", s, send_count_1);
+			}
 			-2 => {
-				println!("1 ...");
 				let m = rx.try_recv();
-				if !m.is_err() {
+				if ! m.is_err() {
 					let r = m.unwrap();
-					println!("0 received {}", r);
+					println!("1 received {}", r);
 					rs1.insert("rcv".to_string(), r);
 					rs1.insert("wait".to_string(), 0);
 				}
@@ -186,7 +192,7 @@ fn part2(p: &Vec<(char, char, i64, i32, String)>,
 			_  => {}
 		}
 
-		println!("1: {:?}", rs1);
+//		println!("1: {:?}", rs1);
 
 		if rs["pc"] >= p.len() as i64 {break;}
 		if rs1["pc"] >= p.len() as i64 {break;}
