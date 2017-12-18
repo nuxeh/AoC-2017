@@ -9,13 +9,20 @@ fn main () {
 
 	let stdin = io::stdin();
 
-	let mut p: Vec<(char, char, i64, String)> = vec![];
+	let mut p: Vec<(char, char, i64, i32, String)> = vec![];
 
 	let mut rs = HashMap::<String, i64>::new();
 
 	for line in stdin.lock().lines() {
 		let line = line.unwrap();
 		let split: Vec<_> = line.split(" ").collect();
+
+		let rv;
+		let or;
+		match split[1].parse::<i32>() {
+			Ok(v)  => {rv = v; or = '\0';}
+			Err(_) => {rv = 0; or = split[1].chars().nth(0).unwrap();}
+		}
 
 		let mut n: i64 = 0;
 		let mut r: char = '\0';
@@ -28,9 +35,10 @@ fn main () {
 			// map on Option and Result, also "if let"
 		}
 
-		p.push((split[1].chars().nth(0).unwrap(),
+		p.push((or,
 			r,
 			n,
+			rv,
 			split[0].to_string()));
 	}
 
@@ -38,12 +46,17 @@ fn main () {
 	part2();
 }
 
-fn inst(i: &(char, char, i64, String), rs: &mut HashMap<String, i64>) -> bool {
+fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> bool {
 
 	let pc = rs["pc"];
 	let r = i.0.to_string();
 
-	let rv = *rs.entry(r.to_owned()).or_insert(0);
+	let rv;
+	if i.0 == '\0' {
+		rv = i.3 as i64;
+	} else {
+		rv = *rs.entry(r.to_owned()).or_insert(0);
+	}
 
 	let v;
 	match i.1 {
@@ -53,7 +66,7 @@ fn inst(i: &(char, char, i64, String), rs: &mut HashMap<String, i64>) -> bool {
 
 	let mut jump = false;
 
-	match i.3.as_ref() { // to slice
+	match i.4.as_ref() { // to slice
 
 		"snd" => {rs.insert("snd".to_string(), rv);} // no brackets needed
 		"set" => {rs.insert(r, v);}
@@ -69,7 +82,7 @@ fn inst(i: &(char, char, i64, String), rs: &mut HashMap<String, i64>) -> bool {
 			rs.insert("pc".to_string(), pc + v)} else {None};
 		}
 
-		_     => {println!("Unknown instruction {} !", i.3);}
+		_     => {println!("Unknown instruction {} !", i.4);}
 	}
 
 	if !jump {rs.insert("pc".to_string(), pc + 1);}
@@ -77,7 +90,7 @@ fn inst(i: &(char, char, i64, String), rs: &mut HashMap<String, i64>) -> bool {
 	false
 }
 
-fn part1(p: &Vec<(char, char, i64, String)>, mut rs: &mut HashMap<String, i64>) {
+fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
 
 	println!("{:?}", p);
 
