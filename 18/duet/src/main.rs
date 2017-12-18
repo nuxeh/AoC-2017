@@ -34,13 +34,18 @@ fn main () {
 	part2();
 }
 
-fn inst(i: (char, char, i32, String), rs: &mut HashMap<String, i32>) {
+fn inst(i: &(char, char, i32, String), rs: &mut HashMap<String, i32>) {
 
 }
 
-fn part1(p: &Vec<(char, char, i32, String)>, rs: &mut HashMap<String, i32>) {
+fn part1(p: &Vec<(char, char, i32, String)>, mut rs: &mut HashMap<String, i32>) {
 
 	println!("{:?}", p);
+
+	for i in p {
+		println!("{:?}", i);
+		inst(i, &mut rs);
+	}
 
 }
 
