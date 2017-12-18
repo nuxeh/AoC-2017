@@ -25,7 +25,7 @@ fn main () {
 				Ok(v)  => n = v,
 				Err(_) => r = r2
 			}
-			// map on Option and Result
+			// map on Option and Result, also "if let"
 		}
 
 		p.push((split[1].chars().nth(0).unwrap(),
