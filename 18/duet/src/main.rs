@@ -4,6 +4,8 @@
 use std::io;
 use std::io::BufRead;
 use std::collections::HashMap;
+use std::thread;
+use std::sync::mpsc::channel;
 
 fn main () {
 
@@ -46,7 +48,7 @@ fn main () {
 	}
 
 	part1(&mut p, &mut rs);
-	part2(&mut p, &mut rs1);
+	part2(&mut p, &mut rs, &mut rs1);
 }
 
 fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8 {
@@ -80,9 +82,13 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8
 
 		"rcv" => {
 				if rv != 0 {
-					rs.insert("wait".to_string(), 1);
-					println!("freq is {}", rs["snd"]);
-					ret = -2;
+					if rs["wait"] == 0 {
+						rs.insert(r, rs["rcv"]);
+						rs.insert("wait".to_string(), 1);
+					} else {
+						println!("rcv is {}", rs["snd"]);
+					}
+					return -2;
 				}
 			}
 
@@ -126,9 +132,48 @@ fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i
 	println!("{:?}", rs);
 }
 
-fn part2(mut p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
+fn part2(mut p: &Vec<(char, char, i64, i32, String)>,
+	 mut rs: &mut HashMap<String, i64>,
+	 mut rs1: &mut HashMap<String, i64>) {
 
-	run(&mut p, &mut rs);
+	let (tx, rx) = channel();
+	let (tx2, rx2) = channel();
+
+//	run(&mut p, &mut rs);
+
+	let p0 = thread::spawn(move || {
+		loop {
+			let pc = rs["pc"] as usize;
+
+			match inst(&p[pc], &mut rs) {
+				-1 => {let _ = tx.send(rs["snd"]);}
+				-2 => {
+					rs["rcv"] = rx2.recv()
+						.unwrap();
+					rs.insert("wait".to_string(), 0);
+				}
+				_  => {}
+			}
+
+			if rs["pc"] >= p.len() as i64 {break;}
+		}
+	});
+
+	loop {
+		let pc = rs["pc"] as usize;
+
+		match inst(&p[pc], &mut rs1) {
+			-1 => {let _ = tx2.send(rs1["snd"]);}
+			-2 => {
+				rs1["rcv"] = rx.recv()
+					.unwrap();
+				rs1.insert("wait".to_string(), 0);
+			}
+			_  => {}
+		}
+
+		if rs1["pc"] >= p.len() as i64 {break;}
+	}
 
 }
 
