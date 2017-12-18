@@ -80,7 +80,11 @@ fn part1(p: &Vec<(char, char, i64, String)>, mut rs: &mut HashMap<String, i64>) 
 	loop {
 		let pc = rs["pc"] as usize;
 
+		println!("{:?}", p[pc]);
+
 		inst(&p[pc], &mut rs);
+
+		println!("{:?}", rs);
 
 		if rs["pc"] >= p.len() as i64 {break;}
 	}
