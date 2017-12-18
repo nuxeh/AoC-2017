@@ -38,7 +38,7 @@ fn main () {
 	part2();
 }
 
-fn inst(i: &(char, char, i64, String), rs: &mut HashMap<String, i64>) {
+fn inst(i: &(char, char, i64, String), rs: &mut HashMap<String, i64>) -> bool {
 
 	let pc = rs["pc"];
 	let r = i.0.to_string();
@@ -60,16 +60,21 @@ fn inst(i: &(char, char, i64, String), rs: &mut HashMap<String, i64>) {
 		"add" => {rs.insert(r, rv + v);}
 		"mul" => {rs.insert(r, rv * v);}
 		"mod" => {rs.insert(r, rv % v);}
-		"rcv" => {if v != 0 {println!("freq is {}", rs["snd"])};}
-		"jgz" => {if v > 0  {
+		"rcv" => {if rv != 0 {
+			println!("freq is {}", rs["snd"]);
+			return true;
+		}}
+		"jgz" => {if rv > 0  {
 			jump = true;
-			rs.insert("pc".to_string(), pc + i.2)} else {None};
+			rs.insert("pc".to_string(), pc + v)} else {None};
 		}
 
 		_     => {println!("Unknown instruction {} !", i.3);}
 	}
 
 	if !jump {rs.insert("pc".to_string(), pc + 1);}
+
+	false
 }
 
 fn part1(p: &Vec<(char, char, i64, String)>, mut rs: &mut HashMap<String, i64>) {
@@ -84,7 +89,7 @@ fn part1(p: &Vec<(char, char, i64, String)>, mut rs: &mut HashMap<String, i64>) 
 
 		println!("{:?}", p[pc]);
 
-		inst(&p[pc], &mut rs);
+		if inst(&p[pc], &mut rs) {break;}
 
 		println!("{:?}", rs);
 
