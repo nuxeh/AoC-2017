@@ -9,19 +9,19 @@ fn main () {
 
 	let stdin = io::stdin();
 
-	let mut p: Vec<(char, char, i32, String)> = vec![];
+	let mut p: Vec<(char, char, i64, String)> = vec![];
 
-	let mut rs = HashMap::<String, i32>::new();
+	let mut rs = HashMap::<String, i64>::new();
 
 	for line in stdin.lock().lines() {
 		let line = line.unwrap();
 		let split: Vec<_> = line.split(" ").collect();
 
-		let mut n: i32 = 0;
+		let mut n: i64 = 0;
 		let mut r: char = '\0';
 		if split.len() <= 2 {n = 0} else {
 			let r2 = split[2].parse().unwrap_or('\0');
-			match split[2].parse::<i32>() {
+			match split[2].parse::<i64>() {
 				Ok(v)  => n = v,
 				Err(_) => r = r2
 			}
@@ -38,7 +38,7 @@ fn main () {
 	part2();
 }
 
-fn inst(i: &(char, char, i32, String), rs: &mut HashMap<String, i32>) {
+fn inst(i: &(char, char, i64, String), rs: &mut HashMap<String, i64>) {
 
 	let pc = rs["pc"];
 	let r = i.0.to_string();
@@ -70,7 +70,7 @@ fn inst(i: &(char, char, i32, String), rs: &mut HashMap<String, i32>) {
 	if !jump {rs.insert("pc".to_string(), pc + 1);}
 }
 
-fn part1(p: &Vec<(char, char, i32, String)>, mut rs: &mut HashMap<String, i32>) {
+fn part1(p: &Vec<(char, char, i64, String)>, mut rs: &mut HashMap<String, i64>) {
 
 	println!("{:?}", p);
 
@@ -82,7 +82,7 @@ fn part1(p: &Vec<(char, char, i32, String)>, mut rs: &mut HashMap<String, i32>) 
 
 		inst(&p[pc], &mut rs);
 
-		if rs["pc"] >= p.len() as i32 {break;}
+		if rs["pc"] >= p.len() as i64 {break;}
 	}
 
 	println!("{:?}", rs);
