@@ -40,18 +40,26 @@ fn main () {
 
 fn inst(i: &(char, char, i32, String), rs: &mut HashMap<String, i32>) {
 
+	// get or insert 0
 	let r = i.0.to_string();
-	let v = rs[&r];
+	let v;
+	match r.as_ref() {
+		"\0" => v = i.2,
+		_    => v = rs[&r]
+	}
+	let pc = rs["pc"];
 
 	match i.3.as_ref() { // to slice
 
-		"snd"	=>	{rs.insert("snd".to_string(), i.2);}
-		"set"	=>	{rs.insert(r, i.2);}
-		"add"	=>	{rs.insert(r, v + i.2);}
-		"mul"	=>	{rs.insert(r, v * i.2);}
-		"mod"	=>	{rs.insert(r, v % i.2);}
+		"snd" => {rs.insert("snd".to_string(), i.2);} // no brackets needed
+		"set" => {rs.insert(r, i.2);}
+		"add" => {rs.insert(r, v + i.2);}
+		"mul" => {rs.insert(r, v * i.2);}
+		"mod" => {rs.insert(r, v % i.2);}
+		"rcv" => {if v != 0 {println!("freq is {}", rs["snd"])};}
+		"jgx" => {if v > 0  {rs.insert("pc".to_string(), pc + i.2)} else {None};}
 
-		_	=>	{println!("Unknown instruction!");}
+		_     => {println!("Unknown instruction!");}
 	}
 }
 
