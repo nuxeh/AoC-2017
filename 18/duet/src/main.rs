@@ -76,16 +76,21 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8
 		"snd" => {
 				rs.insert("snd".to_string(), rv);
 				ret = -1;
-			} // no brackets needed
+			}
+
+		"rcv" => {
+				if rv != 0 {
+					rs.insert("wait".to_string(), 1);
+					println!("freq is {}", rs["snd"]);
+					ret = -2;
+				}
+			}
+
 		"set" => {rs.insert(r, v);}
 		"add" => {rs.insert(r, rv + v);}
 		"mul" => {rs.insert(r, rv * v);}
 		"mod" => {rs.insert(r, rv % v);}
-		"rcv" => {if rv != 0 {
-			rs.insert("wait".to_string(), 1);
-			println!("freq is {}", rs["snd"]);
-			ret = -2;
-		}}
+
 		"jgz" => {if rv > 0  {
 			jump = true;
 			rs.insert("pc".to_string(), pc + v)} else {None};
