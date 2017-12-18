@@ -49,6 +49,8 @@ fn inst(i: &(char, char, i32, String), rs: &mut HashMap<String, i32>) {
 		_    => v = *rs.entry(r.to_owned()).or_insert(0)
 	}
 
+	let mut jump = false;
+
 	match i.3.as_ref() { // to slice
 
 		"snd" => {rs.insert("snd".to_string(), i.2);} // no brackets needed
@@ -57,10 +59,15 @@ fn inst(i: &(char, char, i32, String), rs: &mut HashMap<String, i32>) {
 		"mul" => {rs.insert(r, v * i.2);}
 		"mod" => {rs.insert(r, v % i.2);}
 		"rcv" => {if v != 0 {println!("freq is {}", rs["snd"])};}
-		"jgx" => {if v > 0  {rs.insert("pc".to_string(), pc + i.2)} else {None};}
+		"jgz" => {if v > 0  {
+			jump = true;
+			rs.insert("pc".to_string(), pc + i.2)} else {None};
+		}
 
-		_     => {println!("Unknown instruction!");}
+		_     => {println!("Unknown instruction {} !", i.3);}
 	}
+
+	if !jump {rs.insert("pc".to_string(), pc + 1);}
 }
 
 fn part1(p: &Vec<(char, char, i32, String)>, mut rs: &mut HashMap<String, i32>) {
@@ -74,8 +81,11 @@ fn part1(p: &Vec<(char, char, i32, String)>, mut rs: &mut HashMap<String, i32>) 
 		let pc = rs["pc"] as usize;
 
 		inst(&p[pc], &mut rs);
+
+		if rs["pc"] >= p.len() as i32 {break;}
 	}
 
+	println!("{:?}", rs);
 }
 
 fn part2() {
