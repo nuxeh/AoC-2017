@@ -14,9 +14,10 @@ fn main () {
 	let mut p: Vec<(char, char, i64, i32, String)> = vec![];
 
 	let mut rs = HashMap::<String, i64>::new();
-	let mut rs1 = HashMap::<String, i64>::new();
-	rs.insert("p".to_string(), 0);
-	rs1.insert("p".to_string(), 1);
+	let mut rs2_0 = HashMap::<String, i64>::new();
+	let mut rs2_1 = HashMap::<String, i64>::new();
+	rs2_0.insert("p".to_string(), 0);
+	rs2_1.insert("p".to_string(), 1);
 
 	for line in stdin.lock().lines() {
 		let line = line.unwrap();
@@ -48,7 +49,7 @@ fn main () {
 	}
 
 	part1(&mut p, &mut rs);
-	part2(&mut p, &mut rs, &mut rs1);
+	part2(&mut p, &mut rs2_0, &mut rs2_1);
 }
 
 fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8 {
@@ -82,12 +83,14 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8
 
 		"rcv" => {
 				if rv != 0 {
-					if rs["wait"] == 0 {
-						rs.insert(r, rs["rcv"]);
-						rs.insert("wait".to_string(), 1);
-					} else {
-						println!("rcv is {}", rs["snd"]);
-					}
+					println!("rcv is {}", rs["snd"]);
+				}
+
+				if rs["wait"] == 0 {
+					let rcv = *rs.entry("rcv".to_string()).or_insert(0);
+					rs.insert(r, rcv);
+					rs.insert("wait".to_string(), 1);
+				} else {
 					return -2;
 				}
 			}
@@ -116,6 +119,7 @@ fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i
 
 	// rs["pc"] = 0; // doesn't work
 	rs.insert("pc".to_string(), 0);
+	rs.insert("wait".to_string(), 0);
 
 	loop {
 		let pc = rs["pc"] as usize;
@@ -132,46 +136,59 @@ fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i
 	println!("{:?}", rs);
 }
 
-fn part2(mut p: &Vec<(char, char, i64, i32, String)>,
+fn part2(p: &Vec<(char, char, i64, i32, String)>,
 	 mut rs: &mut HashMap<String, i64>,
 	 mut rs1: &mut HashMap<String, i64>) {
 
 	let (tx, rx) = channel();
 	let (tx2, rx2) = channel();
 
+	rs.insert("pc".to_string(), 0);
+	rs1.insert("pc".to_string(), 0);
+	rs.insert("wait".to_string(), 1);
+	rs1.insert("wait".to_string(), 1);
+
 //	run(&mut p, &mut rs);
-
-	let p0 = thread::spawn(move || {
-		loop {
-			let pc = rs["pc"] as usize;
-
-			match inst(&p[pc], &mut rs) {
-				-1 => {let _ = tx.send(rs["snd"]);}
-				-2 => {
-					rs["rcv"] = rx2.recv()
-						.unwrap();
-					rs.insert("wait".to_string(), 0);
-				}
-				_  => {}
-			}
-
-			if rs["pc"] >= p.len() as i64 {break;}
-		}
-	});
 
 	loop {
 		let pc = rs["pc"] as usize;
+		let pc1 = rs1["pc"] as usize;
 
-		match inst(&p[pc], &mut rs1) {
-			-1 => {let _ = tx2.send(rs1["snd"]);}
+		match inst(&p[pc], &mut rs) {
+			-1 => {let s = rs["snd"]; let _ = tx.send(s); println!("0 sending {}", s);}
 			-2 => {
-				rs1["rcv"] = rx.recv()
-					.unwrap();
-				rs1.insert("wait".to_string(), 0);
+				println!("0 ...");
+				let m = rx2.try_recv();
+				if !m.is_err() {
+					let r = m.unwrap();
+					println!("0 received {}", r);
+					rs.insert("rcv".to_string(), r);
+					rs.insert("wait".to_string(), 0);
+				}
 			}
 			_  => {}
 		}
 
+		println!("0: {:?}", rs);
+
+		match inst(&p[pc1], &mut rs1) {
+			-1 => {let s = rs1["snd"]; let _ = tx2.send(s); println!("1 sending {}", s);}
+			-2 => {
+				println!("1 ...");
+				let m = rx.try_recv();
+				if !m.is_err() {
+					let r = m.unwrap();
+					println!("0 received {}", r);
+					rs1.insert("rcv".to_string(), r);
+					rs1.insert("wait".to_string(), 0);
+				}
+			}
+			_  => {}
+		}
+
+		println!("1: {:?}", rs1);
+
+		if rs["pc"] >= p.len() as i64 {break;}
 		if rs1["pc"] >= p.len() as i64 {break;}
 	}
 
