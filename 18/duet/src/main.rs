@@ -3,12 +3,15 @@
 
 use std::io;
 use std::io::BufRead;
+use std::collections::HashMap;
 
 fn main () {
 
 	let stdin = io::stdin();
 
 	let mut p: Vec<(char, char, i32, String)> = vec![];
+
+	let mut rs = HashMap::<String, i32>::new();
 
 	for line in stdin.lock().lines() {
 		let line = line.unwrap();
@@ -27,11 +30,15 @@ fn main () {
 			split[0].to_string()));
 	}
 
-	part1(&p);
+	part1(&mut p, &mut rs);
 	part2();
 }
 
-fn part1(p: &Vec<(char, char, i32, String)>) {
+fn inst(i: (char, char, i32, String), rs: &mut HashMap<String, i32>) {
+
+}
+
+fn part1(p: &Vec<(char, char, i32, String)>, rs: &mut HashMap<String, i32>) {
 
 	println!("{:?}", p);
 
