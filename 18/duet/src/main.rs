@@ -12,6 +12,9 @@ fn main () {
 	let mut p: Vec<(char, char, i64, i32, String)> = vec![];
 
 	let mut rs = HashMap::<String, i64>::new();
+	let mut rs1 = HashMap::<String, i64>::new();
+	rs.insert("p".to_string(), 0);
+	rs1.insert("p".to_string(), 1);
 
 	for line in stdin.lock().lines() {
 		let line = line.unwrap();
@@ -46,7 +49,9 @@ fn main () {
 	part2();
 }
 
-fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> bool {
+fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8 {
+
+	let mut ret = 0;
 
 	let pc = rs["pc"];
 	let r = i.0.to_string();
@@ -68,14 +73,18 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> bo
 
 	match i.4.as_ref() { // to slice
 
-		"snd" => {rs.insert("snd".to_string(), rv);} // no brackets needed
+		"snd" => {
+				rs.insert("snd".to_string(), rv);
+				ret = -1;
+			} // no brackets needed
 		"set" => {rs.insert(r, v);}
 		"add" => {rs.insert(r, rv + v);}
 		"mul" => {rs.insert(r, rv * v);}
 		"mod" => {rs.insert(r, rv % v);}
 		"rcv" => {if rv != 0 {
+			rs.insert("wait".to_string(), 1);
 			println!("freq is {}", rs["snd"]);
-			return true;
+			ret = -2;
 		}}
 		"jgz" => {if rv > 0  {
 			jump = true;
@@ -87,7 +96,7 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> bo
 
 	if !jump {rs.insert("pc".to_string(), pc + 1);}
 
-	false
+	ret
 }
 
 fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
@@ -102,7 +111,7 @@ fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i
 
 		println!("{:?}", p[pc]);
 
-		if inst(&p[pc], &mut rs) {break;}
+		if inst(&p[pc], &mut rs) == -2 {break;}
 
 		println!("{:?}", rs);
 
