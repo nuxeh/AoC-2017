@@ -46,7 +46,7 @@ fn main () {
 	}
 
 	part1(&mut p, &mut rs);
-	part2();
+	part2(&mut p, &mut rs1);
 }
 
 fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8 {
@@ -126,7 +126,21 @@ fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i
 	println!("{:?}", rs);
 }
 
-fn part2() {
+fn part2(mut p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
+
+	run(&mut p, &mut rs);
+
+}
+
+fn run(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
+
+	rs.insert("pc".to_string(), 0);
+
+	loop {
+		let pc = rs["pc"] as usize;
+		inst(&p[pc], &mut rs);
+		if rs["pc"] >= p.len() as i64 {break;}
+	}
 
 }
 
