@@ -26,13 +26,22 @@ END {
 	y = 1;
 	path = "";
 
-	#      0
-	#      |
-	#  3 --+-- 1
-	#      |
-	#      2
+	#      0             0,-1
+	#      |              |
+	#  3 --+-- 1  -1,0 --0,0-- 1,0
+	#      |              |
+	#      2             0,1
 
 	dir = 2;
+
+	opts[0][0] =  0
+	opts[0][1] = -1
+	opts[1][0] =  1
+	opts[1][1] =  0
+	opts[2][0] =  0
+	opts[2][1] =  1
+	opts[3][0] = -1
+	opts[3][1] =  0
 
 	while (1) {
 		step()
@@ -41,27 +50,18 @@ END {
 }
 
 function step() {
-	switch (dir) {
-	case 0:
-			nx = x;		ny = y - 1
-		break;
-	case 1:
-			nx = x + 1;	ny = y
-		break;
-	case 2:
-			nx = x;		ny = y + 1
-		break;
-	case 3:
-			nx = x - 1;	ny = y
-		break;
-	}
+
+	nx = x + opts[dir][0]
+	ny = y + opts[dir][1]
 
 	map[y][x] = "x"
 
-	if (map[ny][nx] != " ") {
+	if (ny in map && nx in map[ny] && map[ny][nx] != " ") {
 		x = nx
 		y = ny
+	} else {
 	}
+
 }
 
 function draw(x, y) {
