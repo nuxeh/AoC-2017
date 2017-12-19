@@ -89,7 +89,7 @@ function step() {
 function draw(x, y) {
 	ORS = ""
 	for (y in map) {
-		print y " "
+		printf "%-5d ", y
 		for (x in map[y]) {
 			print map[y][x]
 		}
