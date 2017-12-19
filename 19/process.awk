@@ -12,7 +12,7 @@ BEGIN {
 }
 
 END {
-	draw()
+#	draw()
 
 	for (s in map[1])
 		if (map[1][s] == "|")
@@ -43,8 +43,8 @@ END {
 	opts[3][1] =  0
 
 	while (step()) {
-		draw()
-		print x,y,dir
+#		draw()
+#		print x,y,dir
 	}
 
 	print "path:", path
@@ -60,18 +60,18 @@ function step() {
 
 	if (ov == "+") {
 		for (nd in opts) {
-			print nd
+#			print nd
 			nx = x + opts[nd][0]
 			ny = y + opts[nd][1]
 			fv = map[ny][nx]
-			print fv
+#			print fv
 
 			if (fv != " " && fv != "x") {
 				dir = nd
 				break
 			}
 		}
-		print "+"
+#		print "+"
 	}
 
 	if (ov != "+" && ov != "|" && ov != "-" && ov != "x")
