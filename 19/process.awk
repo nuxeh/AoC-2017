@@ -97,3 +97,15 @@ function draw(x, y) {
 	}
 	ORS="\n"
 }
+
+function count() {
+
+	for (y in map) {
+		for (x in map[y]) {
+			freq[map[y][x]] += 1;
+		}
+	}
+
+	return freq["x"]
+
+}
