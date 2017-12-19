@@ -24,6 +24,7 @@ END {
 	x = s;
 	y = 1;
 	path = "";
+	steps = 1
 
 	#      0             0,-1
 	#      |              |
@@ -45,9 +46,12 @@ END {
 	while (step()) {
 #		draw()
 #		print x,y,dir
+		steps += 1
 	}
 
+	draw()
 	print "path:", path
+	print "steps:", steps
 }
 
 function step() {
@@ -57,6 +61,8 @@ function step() {
 
 	nx = x + opts[dir][0]
 	ny = y + opts[dir][1]
+
+	fv = map[ny][nx]
 
 	if (ov == "+") {
 		for (nd in opts) {
@@ -77,7 +83,7 @@ function step() {
 	if (ov != "+" && ov != "|" && ov != "-" && ov != "x")
 		path = path ov
 
-	if (ny in map && nx in map[ny]) {
+	if (ny in map && nx in map[ny] && fv != " ") {
 		x = nx
 		y = ny
 		return 1
