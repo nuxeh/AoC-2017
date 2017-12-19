@@ -59,10 +59,12 @@ function step() {
 	ch = 0;
 
 	if (ny in map && nx in map[ny] && map[ny][nx] != " " && map[ny][nx] != "x") {
-
-	} else {
+	if (ov == "+") {
 		ch = 1
 	}
+
+	}
+
 
 
 	if (ch) {
