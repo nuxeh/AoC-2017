@@ -42,8 +42,7 @@ END {
 	opts[3][0] = -1
 	opts[3][1] =  0
 
-	while (1) {
-		step2()
+	while (step2()) {
 		draw()
 		print x,y,dir
 	}
@@ -100,8 +99,13 @@ function step2() {
 		print "+"
 	}
 
-	x = nx
-	y = ny
+	if (ny in map && nx in map[ny]) {
+		x = nx
+		y = ny
+		return 1
+	}
+
+	return 0;
 }
 
 function draw(x, y) {
