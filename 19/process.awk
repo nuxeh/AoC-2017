@@ -56,26 +56,24 @@ function step() {
 
 	cont = 0
 
-	nx = x + opts[dir][0]
-	ny = y + opts[dir][1]
-	fv = map[ny][nx]
+	if (ov == "+") {
+		for (nd in opts) {
+			nx = x + opts[dir][0]
+			ny = y + opts[dir][1]
 
-	print fv
+			if (ny in map && nx in map[y]) {
+				fv = map[opts[nd][0]][opts[nd][1]]
+				if (fv != " ")
+					dir = nd
+			}
+		}
+	} else {
 
-	if (ny in map && nx in map[ny] && fv != " " && fv != "x") {
+		nx = x + opts[dir][0]
+		ny = y + opts[dir][1]
 		x = nx
 		y = ny
-	} else {
-		dir = (dir + 1) % 4
 	}
-
-	for (nd in opts) {
-		fv = map[opts[nd][0]][opts[nd][1]]
-		if (fv != " " && fv != "+")
-			cont = 1
-	}
-
-
 }
 
 function draw(x, y) {
