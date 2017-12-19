@@ -46,6 +46,8 @@ END {
 		draw()
 		print x,y,dir
 	}
+
+	print "path:", path
 }
 
 function step() {
@@ -71,6 +73,9 @@ function step() {
 		}
 		print "+"
 	}
+
+	if (ov != "+" && ov != "|" && ov != "-" && ov != "x")
+		path = path ov
 
 	if (ny in map && nx in map[ny]) {
 		x = nx
