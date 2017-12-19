@@ -5,7 +5,6 @@ BEGIN {
 {
 	for (f=1; f<=NF; f++) {
 		map[NR][f] = $f
-		been[NR][f] = 0;
 		w = f;
 	}
 
@@ -56,10 +55,11 @@ function step() {
 
 	map[y][x] = "x"
 
-	if (ny in map && nx in map[ny] && map[ny][nx] != " ") {
+	if (ny in map && nx in map[ny] && map[ny][nx] != " " && map[ny][nx] != "x") {
 		x = nx
 		y = ny
 	} else {
+		dir = (dir + 1) % 4
 	}
 
 }
