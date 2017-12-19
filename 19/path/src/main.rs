@@ -11,25 +11,28 @@ fn main () {
 
 	let stdin = io::stdin();
 
-	let mut map: Vec<&[&str]> = vec![];
+	let mut map: Vec<Vec<&str>> = vec![];
 
 	for line in stdin.lock().lines() {
-		let line = line.unwrap();
-		let split: Vec<_> = line.split("").collect();
+		let l = line.unwrap().to_string();
+		let split: Vec<_> = l.split("").collect();
 
 		/* std::vec::Vec<&str> */
 
 		println!("{:?}", split);
 
-		let slice: &[&str] = &split.clone(); {
-		println!("{:?}", slice);
+//		let slice: &[&str] = &split;
+//		println!("{:?}", slice);
 
-		map.push(slice);
-		}
+		let mut slice2: Vec<&str> = vec![];// = split.to_vec();
 
+//		split.clone_into(slice2);
+		slice2.clone_from(&split).to_owned();
+
+		map.push(slice2);
 	}
 
-
+//	let map2: Vec<_> = stdin.lock().lines().unwrap().split("").collect();
 
 	part1();
 	part2();
