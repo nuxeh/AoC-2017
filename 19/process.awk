@@ -45,6 +45,7 @@ END {
 	while (1) {
 		step()
 		draw()
+		print x,y,dir
 	}
 }
 
@@ -53,13 +54,22 @@ function step() {
 	nx = x + opts[dir][0]
 	ny = y + opts[dir][1]
 
+	ov = map[y][x]
 	map[y][x] = "x"
+	ch = 0;
 
 	if (ny in map && nx in map[ny] && map[ny][nx] != " " && map[ny][nx] != "x") {
+
+	} else {
+		ch = 1
+	}
+
+
+	if (ch) {
+		dir = (dir + 1) % 4
+	} else {
 		x = nx
 		y = ny
-	} else {
-		dir = (dir + 1) % 4
 	}
 
 }
