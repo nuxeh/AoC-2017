@@ -43,7 +43,7 @@ END {
 	opts[3][1] =  0
 
 	while (1) {
-		step()
+		step2()
 		draw()
 		print x,y,dir
 	}
@@ -74,6 +74,34 @@ function step() {
 		x = nx
 		y = ny
 	}
+}
+
+function step2() {
+
+	ov = map[y][x]	# store old value
+	map[y][x] = "x"	# mark as visited
+
+	nx = x + opts[dir][0]
+	ny = y + opts[dir][1]
+
+	if (ov == "+") {
+		for (nd in opts) {
+			print nd
+			nx = x + opts[nd][0]
+			ny = y + opts[nd][1]
+			fv = map[ny][nx]
+			print fv
+
+			if (fv != " " && fv != "x") {
+				dir = nd
+				break
+			}
+		}
+		print "+"
+	}
+
+	x = nx
+	y = ny
 }
 
 function draw(x, y) {
