@@ -4,12 +4,7 @@
 use std::fs::File;
 use std::io::prelude::*;
 
-fn main () {
-
-	let test = true;
-
-	let filename;
-	if test {filename = "test.txt";} else {filename = "iput.txt";}
+fn read_from_file(filename: &String) {
 
 	let mut f = File::open(filename).expect("file not found");
 
@@ -17,7 +12,11 @@ fn main () {
 	f.read_to_string(&mut input)
 		.expect("error reading file");
 
-	let split = input.split(|c| c == '\n');
+	let _lines = input.split(|c| c == '\n');
+
+}
+
+fn main () {
 
 	let map = vec![vec![0; 200]; 200];
 
