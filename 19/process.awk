@@ -51,28 +51,30 @@ END {
 
 function step() {
 
+	ov = map[y][x]	# store old value
+	map[y][x] = "x"	# mark as visited
+
+	cont = 0
+
 	nx = x + opts[dir][0]
 	ny = y + opts[dir][1]
+	fv = map[ny][nx]
 
-	ov = map[y][x]
-	map[y][x] = "x"
-	ch = 0;
+	print fv
 
-	if (ny in map && nx in map[ny] && map[ny][nx] != " " && map[ny][nx] != "x") {
-	if (ov == "+") {
-		ch = 1
-	}
-
-	}
-
-
-
-	if (ch) {
-		dir = (dir + 1) % 4
-	} else {
+	if (ny in map && nx in map[ny] && fv != " " && fv != "x") {
 		x = nx
 		y = ny
+	} else {
+		dir = (dir + 1) % 4
 	}
+
+	for (nd in opts) {
+		fv = map[opts[nd][0]][opts[nd][1]]
+		if (fv != " " && fv != "+")
+			cont = 1
+	}
+
 
 }
 
