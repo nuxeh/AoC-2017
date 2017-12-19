@@ -11,7 +11,7 @@ fn main () {
 
 	let stdin = io::stdin();
 
-	let mut map: Vec<Vec<&str>>;
+	let mut map: Vec<&[&str]> = vec![];
 
 	for line in stdin.lock().lines() {
 		let line = line.unwrap();
@@ -21,11 +21,11 @@ fn main () {
 
 		println!("{:?}", split);
 
-		let slice: &[&str] = &split;
-
+		let slice: &[&str] = &split.clone(); {
 		println!("{:?}", slice);
 
-//		map.push(slice);
+		map.push(slice);
+		}
 
 	}
 
