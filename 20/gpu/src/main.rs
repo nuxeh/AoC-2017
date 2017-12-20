@@ -80,8 +80,10 @@ fn part1(mut p: &mut Vec<P>) {
 		let mut closest_distance = -1;
 
 		/* update each particle */
-		for (i, particle) in p.iter_mut().enumerate() { // filter
-			if particle.collided {continue}
+		for (i, particle) in p
+				.iter_mut()
+				.filter(|p| p.collided == false)
+				.enumerate() {
 
 			/* update velocities */
 			particle.v.x += particle.a.x;
@@ -108,6 +110,8 @@ fn part1(mut p: &mut Vec<P>) {
 
 		println!("closest to origin => {}", closest_to_origin);
 
+		println!("{:?}", p);
+
 		part2(&mut p);
 	}
 }
@@ -130,13 +134,18 @@ fn part2(p: &mut Vec<P>) {
 
 	/* remove collided particles */
 	for p_r in to_remove {
-		for (i, pt) in p.iter_mut().enumerate() {
+		for (i, pt) in p
+		.iter_mut()
+		.filter(|p| p.collided == false)
+		.enumerate() {
 			if pt.p.x == p_r.x && pt.p.y == p_r.y && pt.p.z == p_r.z {
 				pt.collided = true;
 				println!("particle {} collided and destroyed", i);
 			}
 		}
-//		p = p.iter().filter(|pt| !(pt.p.x == p_r.x && pt.p.y == p_r.y && pt.p.z == p_r.z)).to_vec();
 	}
-	println!("particles left: {}", p.len());
+
+	println!("particles left:{}", p.iter().filter(|p| p.collided == false).count());
+
+//		p = p.iter().filter(|pt| !(pt.p.x == p_r.x && pt.p.y == p_r.y && pt.p.z == p_r.z)).to_vec();
 }
