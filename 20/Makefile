@@ -30,3 +30,6 @@ vi:
 
 commit: .git_template
 	git commit -st .git_template
+
+add:
+	git add $(src)
