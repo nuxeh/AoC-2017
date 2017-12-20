@@ -3,7 +3,6 @@
 
 use std::io;
 use std::io::BufRead;
-use std::collections::HashMap;
 
 #[derive(Debug)]
 #[derive(Clone)]
@@ -11,7 +10,8 @@ use std::collections::HashMap;
 struct P {
 	p: Xyz,
 	v: Xyz,
-	a: Xyz
+	a: Xyz,
+	collided: bool
 }
 
 #[derive(Debug)]
@@ -44,7 +44,8 @@ fn read_stdin(v: &mut Vec<P>) {
 		let mut i: P = P {
 			a: Xyz {x: 0, y: 0, z: 0},
 			p: Xyz {x: 0, y: 0, z: 0},
-			v: Xyz {x: 0, y: 0, z: 0}};
+			v: Xyz {x: 0, y: 0, z: 0},
+			collided: false};
 
 		let l = line.unwrap().to_string();
 		let s: Vec<_> = l.split(", ").collect();
@@ -79,7 +80,9 @@ fn part1(mut p: &mut Vec<P>) {
 		let mut closest_distance = -1;
 
 		/* update each particle */
-		for (i, particle) in p.iter_mut().enumerate() {
+		for (i, particle) in p.iter_mut().enumerate() { // filter
+			if particle.collided {continue}
+
 			/* update velocities */
 			particle.v.x += particle.a.x;
 			particle.v.y += particle.a.y;
@@ -127,9 +130,9 @@ fn part2(p: &mut Vec<P>) {
 
 	/* remove collided particles */
 	for p_r in to_remove {
-		for (i, pt) in p.iter().enumerate() {
+		for (i, pt) in p.iter_mut().enumerate() {
 			if pt.p.x == p_r.x && pt.p.y == p_r.y && pt.p.z == p_r.z {
-				p.remove(i);
+				pt.collided = true;
 				println!("particle {} collided and destroyed", i);
 			}
 		}
