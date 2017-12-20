@@ -5,7 +5,7 @@ use std::io;
 use std::io::BufRead;
 
 #[derive(Debug)]
-struct I {
+struct P {
 	p: Xyz,
 	v: Xyz,
 	a: Xyz
@@ -20,9 +20,8 @@ struct Xyz {
 
 fn main () {
 
-	let mut inst: Vec<I> = vec![];
-	read_stdin(&mut inst);
-
+	let mut ps: Vec<P> = vec![];
+	read_stdin(&mut ps);
 
 	part1();
 	part2();
@@ -30,14 +29,12 @@ fn main () {
 
 /* p=<474,3043,412>, v=<66,437,59>, a=<-6,-24,-4> */
 
-fn read_stdin(v: &mut Vec<I>) {
+fn read_stdin(v: &mut Vec<P>) {
 
 	let stdin = io::stdin();
 
-	let mut map: Vec<Vec<&str>> = vec![];
-
 	for line in stdin.lock().lines() {
-		let mut i: I = I {
+		let mut i: P = P {
 			a: Xyz {x: 0, y: 0, z: 0},
 			p: Xyz {x: 0, y: 0, z: 0},
 			v: Xyz {x: 0, y: 0, z: 0}};
@@ -46,11 +43,9 @@ fn read_stdin(v: &mut Vec<I>) {
 		let s: Vec<_> = l.split(", ").collect();
 
 		for (n, j) in s.iter().enumerate() {
-			println!("{:?}", j);
 			let s2: Vec<_> = j.split(|c| c == '<' ||
 						     c == '>' ||
 						     c == ',').collect();
-			println!("{:?}", s2);
 
 			let x: i64 = s2[1].parse().unwrap();
 			let y: i64 = s2[2].parse().unwrap();
