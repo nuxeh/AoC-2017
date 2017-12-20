@@ -37,12 +37,30 @@ fn read_stdin(v: &mut Vec<I>) {
 	let mut map: Vec<Vec<&str>> = vec![];
 
 	for line in stdin.lock().lines() {
+		let mut i: I = I {
+			a: Xyz {x: 0, y: 0, z: 0},
+			p: Xyz {x: 0, y: 0, z: 0},
+			v: Xyz {x: 0, y: 0, z: 0}};
+
 		let l = line.unwrap().to_string();
 		let s: Vec<_> = l.split(", ").collect();
-		for j in s {
+
+		for (n, j) in s.iter().enumerate() {
 			println!("{:?}", j);
+			let s2: Vec<_> = j.split(|c| c == '<' ||
+						     c == '>' ||
+						     c == ',').collect();
+			println!("{:?}", s2);
+
+			match n {
+				0 => i.p = Xyz {x: 0, y: 0, z: 0},
+				1 => i.v = Xyz {x: 0, y: 0, z: 0},
+				2 => i.a = Xyz {x: 0, y: 0, z: 0},
+				_ => {}
+			}
 		}
-//		let s2: Vec<_> = 
+
+		println!("{:?}", i);
 	}
 
 }
