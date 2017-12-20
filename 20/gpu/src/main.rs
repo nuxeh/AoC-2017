@@ -25,8 +25,8 @@ struct Xyz {
 
 fn main () {
 
-	let mut ps: Vec<P> = vec![];
-	read_stdin(&mut ps);
+	let ps: Vec<P> = read_stdin();
+
 //	println!("{:?}", ps);
 
 	let mut ps1 = ps.clone();
@@ -36,9 +36,10 @@ fn main () {
 
 /* p=<474,3043,412>, v=<66,437,59>, a=<-6,-24,-4> */
 
-fn read_stdin(v: &mut Vec<P>) {
+fn read_stdin() -> Vec<P> {
 
 	let stdin = io::stdin();
+	let mut v: Vec<P> = vec![];
 
 	for line in stdin.lock().lines() {
 		let mut i: P = P {
@@ -71,6 +72,7 @@ fn read_stdin(v: &mut Vec<P>) {
 		v.push(i);
 	}
 
+	v
 }
 
 fn part1(mut p: &mut Vec<P>) {
@@ -125,14 +127,15 @@ fn part2(p: &mut Vec<P>) {
 	.iter()
 	.filter(|p| p.collided == false)
 	.enumerate() {
+
 		for (j, p_check) in p
 		.iter()
 		.filter(|p| p.collided == false)
 		.enumerate() {
 			if i == j {continue}
-			if p_check.p.x == particle.p.x &&
-					p_check.p.y == particle.p.y &&
-					p_check.p.z == particle.p.z {
+			if p_check.p.x == particle.p.x
+			&& p_check.p.y == particle.p.y
+			&& p_check.p.z == particle.p.z {
 				to_remove.push(p_check.p.clone());
 			}
 		}
@@ -144,14 +147,19 @@ fn part2(p: &mut Vec<P>) {
 		.iter_mut()
 		.filter(|p| p.collided == false)
 		.enumerate() {
-			if pt.p.x == p_r.x && pt.p.y == p_r.y && pt.p.z == p_r.z {
+			if pt.p.x == p_r.x
+			&& pt.p.y == p_r.y
+			&& pt.p.z == p_r.z {
 				pt.collided = true;
 				println!("particle {} collided and destroyed", i);
 			}
 		}
 	}
 
-	println!("particles left:{}", p.iter().filter(|p| p.collided == false).count());
+	println!("particles left:{}", p
+		.iter()
+		.filter(|p| p.collided == false)
+		.count());
 
-//		p = p.iter().filter(|pt| !(pt.p.x == p_r.x && pt.p.y == p_r.y && pt.p.z == p_r.z)).to_vec();
+//	p = p.iter().filter(|pt| !(pt.p.x == p_r.x && pt.p.y == p_r.y && pt.p.z == p_r.z)).to_vec();
 }
