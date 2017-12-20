@@ -114,16 +114,20 @@ fn part2(p: &mut Vec<P>) {
 
 	/* look for colliding particles */
 	for (i, particle) in p.iter().enumerate() {
-		for p_check in p.iter() {
-
+		for (j, p_check) in p.iter().enumerate() {
+			if i == j {continue}
+			if p_check.p.x == particle.p.x &&
+					p_check.p.y == particle.p.y &&
+					p_check.p.z == particle.p.z  {
+				to_remove.push(i);
+			}
 		}
-
-		to_remove.push(i);
 	}
 
 	/* remove collided particles */
 	for p_remove in to_remove {
 		p.remove(p_remove);
 		println!("particle {} collided and destroyed", p_remove);
+		println!("particles left: {}", p.len());
 	}
 }
