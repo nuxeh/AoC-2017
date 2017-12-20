@@ -6,6 +6,7 @@ use std::io::BufRead;
 
 #[derive(Debug)]
 #[derive(Clone)]
+//#[derive(Copy)]
 struct P {
 	p: Xyz,
 	v: Xyz,
@@ -14,6 +15,7 @@ struct P {
 
 #[derive(Debug)]
 #[derive(Clone)]
+//#[derive(Copy)]
 struct Xyz {
 	x: i64,
 	y: i64,
@@ -72,6 +74,20 @@ fn read_stdin(v: &mut Vec<P>) {
 
 fn part1(p: &mut Vec<P>) {
 
+	loop {
+		for particle in p.iter_mut() {
+			/* update velocities */
+			particle.v.x += particle.a.x;
+			particle.v.y += particle.a.y;
+			particle.v.z += particle.a.z;
+			/* update positions */
+			particle.p.x += particle.v.x;
+			particle.p.y += particle.v.y;
+			particle.p.z += particle.v.z;
+			println!("{:?}", particle);
+		}
+
+	}
 }
 
 fn part2() {
