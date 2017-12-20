@@ -133,6 +133,7 @@ fn part2(p: &mut Vec<P>) {
 		.filter(|p| p.collided == false)
 		.enumerate() {
 			if i == j {continue}
+
 			if p_check.p.x == particle.p.x
 			&& p_check.p.y == particle.p.y
 			&& p_check.p.z == particle.p.z {
