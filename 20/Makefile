@@ -33,3 +33,9 @@ commit: .git_template
 
 add:
 	git add $(src)
+	git diff --cached
+
+autocommit: add commit
+
+parsetest: $(debug_target)
+	echo "p=<474,3043,412>, v=<66,437,59>, a=<-6,-24,-4>" | ./gpu/target/debug/gpu
