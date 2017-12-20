@@ -13,9 +13,9 @@ struct I {
 
 #[derive(Debug)]
 struct Xyz {
-	x: u64,
-	y: u64,
-	z: u64
+	x: i64,
+	y: i64,
+	z: i64
 }
 
 fn main () {
@@ -52,10 +52,14 @@ fn read_stdin(v: &mut Vec<I>) {
 						     c == ',').collect();
 			println!("{:?}", s2);
 
+			let x: i64 = s2[1].parse().unwrap();
+			let y: i64 = s2[2].parse().unwrap();
+			let z: i64 = s2[3].parse().unwrap();
+
 			match n {
-				0 => i.p = Xyz {x: 0, y: 0, z: 0},
-				1 => i.v = Xyz {x: 0, y: 0, z: 0},
-				2 => i.a = Xyz {x: 0, y: 0, z: 0},
+				0 => i.p = Xyz {x: x, y: y, z: z},
+				1 => i.v = Xyz {x: x, y: y, z: z},
+				2 => i.a = Xyz {x: x, y: y, z: z},
 				_ => {}
 			}
 		}
