@@ -39,3 +39,9 @@ autocommit: add commit
 
 parsetest: $(debug_target)
 	echo "p=<474,3043,412>, v=<66,437,59>, a=<-6,-24,-4>" | ./gpu/target/debug/gpu
+
+part1: $(debug_target)
+	cat input.txt | ./gpu/target/debug/gpu | grep closest
+
+part2: $(debug_target)
+	cat input.txt | ./gpu/target/debug/gpu | grep particles
