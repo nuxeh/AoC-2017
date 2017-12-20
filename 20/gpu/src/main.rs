@@ -110,7 +110,7 @@ fn part1(mut p: &mut Vec<P>) {
 
 		println!("closest to origin => {}", closest_to_origin);
 
-		println!("{:?}", p);
+//		println!("{:?}", p);
 
 		part2(&mut p);
 	}
@@ -121,8 +121,14 @@ fn part2(p: &mut Vec<P>) {
 	let mut to_remove = vec![];
 
 	/* look for colliding particles */
-	for (i, particle) in p.iter().enumerate() {
-		for (j, p_check) in p.iter().enumerate() {
+	for (i, particle) in p
+	.iter()
+	.filter(|p| p.collided == false)
+	.enumerate() {
+		for (j, p_check) in p
+		.iter()
+		.filter(|p| p.collided == false)
+		.enumerate() {
 			if i == j {continue}
 			if p_check.p.x == particle.p.x &&
 					p_check.p.y == particle.p.y &&
