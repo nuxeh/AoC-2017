@@ -137,6 +137,7 @@ fn part2(p: &mut Vec<P>) {
 			&& p_check.p.y == particle.p.y
 			&& p_check.p.z == particle.p.z {
 				to_remove.push(p_check.p.clone());
+				break;
 			}
 		}
 	}
