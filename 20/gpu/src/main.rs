@@ -109,12 +109,21 @@ fn part1(mut p: &mut Vec<P>) {
 }
 
 fn part2(p: &mut Vec<P>) {
+
+	let mut to_remove = vec![];
+
+	/* look for colliding particles */
 	for (i, particle) in p.iter().enumerate() {
 		for p_check in p.iter() {
 
 		}
 
-		p.remove(0);
+		to_remove.push(i);
 	}
-//	println!("particle {} collided and destroyed");
+
+	/* remove collided particles */
+	for p_remove in to_remove {
+		p.remove(p_remove);
+		println!("particle {} collided and destroyed", p_remove);
+	}
 }
