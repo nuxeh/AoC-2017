@@ -5,6 +5,7 @@ use std::io;
 use std::io::BufRead;
 
 #[derive(Debug)]
+#[derive(Clone)]
 struct P {
 	p: Xyz,
 	v: Xyz,
@@ -12,6 +13,7 @@ struct P {
 }
 
 #[derive(Debug)]
+#[derive(Clone)]
 struct Xyz {
 	x: i64,
 	y: i64,
@@ -24,7 +26,9 @@ fn main () {
 	read_stdin(&mut ps);
 //	println!("{:?}", ps);
 
-	part1();
+	let mut ps1 = ps.clone();
+
+	part1(&mut ps1);
 	part2();
 }
 
@@ -66,7 +70,7 @@ fn read_stdin(v: &mut Vec<P>) {
 
 }
 
-fn part1() {
+fn part1(p: &mut Vec<P>) {
 
 }
 
