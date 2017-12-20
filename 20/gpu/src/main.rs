@@ -31,7 +31,6 @@ fn main () {
 	let mut ps1 = ps.clone();
 
 	part1(&mut ps1);
-	part2();
 }
 
 /* p=<474,3043,412>, v=<66,437,59>, a=<-6,-24,-4> */
@@ -72,12 +71,13 @@ fn read_stdin(v: &mut Vec<P>) {
 
 }
 
-fn part1(p: &mut Vec<P>) {
+fn part1(mut p: &mut Vec<P>) {
 
 	loop {
 		let mut closest_to_origin = 0;
 		let mut closest_distance = -1;
 
+		/* update each particle */
 		for (i, particle) in p.iter_mut().enumerate() {
 			/* update velocities */
 			particle.v.x += particle.a.x;
@@ -87,6 +87,7 @@ fn part1(p: &mut Vec<P>) {
 			particle.p.x += particle.v.x;
 			particle.p.y += particle.v.y;
 			particle.p.z += particle.v.z;
+
 //			println!("{:?}", particle);
 
 			let dist = particle.p.x.abs() +
@@ -102,9 +103,18 @@ fn part1(p: &mut Vec<P>) {
 		}
 
 		println!("closest to origin => {}", closest_to_origin);
+
+		part2(&mut p);
 	}
 }
 
-fn part2() {
+fn part2(p: &mut Vec<P>) {
+	for (i, particle) in p.iter().enumerate() {
+		for p_check in p.iter() {
 
+		}
+
+		p.remove(0);
+	}
+//	println!("particle {} collided and destroyed");
 }
