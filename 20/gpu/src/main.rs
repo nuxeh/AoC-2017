@@ -3,6 +3,7 @@
 
 use std::io;
 use std::io::BufRead;
+use std::collections::HashMap;
 
 #[derive(Debug)]
 #[derive(Clone)]
@@ -118,16 +119,21 @@ fn part2(p: &mut Vec<P>) {
 			if i == j {continue}
 			if p_check.p.x == particle.p.x &&
 					p_check.p.y == particle.p.y &&
-					p_check.p.z == particle.p.z  {
-				to_remove.push(i);
+					p_check.p.z == particle.p.z {
+				to_remove.push(p_check.p.clone());
 			}
 		}
 	}
 
 	/* remove collided particles */
-	for p_remove in to_remove {
-		p.remove(p_remove);
-		println!("particle {} collided and destroyed", p_remove);
-		println!("particles left: {}", p.len());
+	for p_r in to_remove {
+		for (i, pt) in p.iter().enumerate() {
+			if pt.p.x == p_r.x && pt.p.y == p_r.y && pt.p.z == p_r.z {
+				p.remove(i);
+				println!("particle {} collided and destroyed", i);
+			}
+		}
+//		p = p.iter().filter(|pt| !(pt.p.x == p_r.x && pt.p.y == p_r.y && pt.p.z == p_r.z)).to_vec();
 	}
+	println!("particles left: {}", p.len());
 }
