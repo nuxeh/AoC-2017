@@ -22,6 +22,7 @@ fn main () {
 
 	let mut ps: Vec<P> = vec![];
 	read_stdin(&mut ps);
+//	println!("{:?}", ps);
 
 	part1();
 	part2();
@@ -60,6 +61,7 @@ fn read_stdin(v: &mut Vec<P>) {
 		}
 
 		println!("{:?}", i);
+		v.push(i);
 	}
 
 }
