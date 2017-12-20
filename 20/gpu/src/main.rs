@@ -75,7 +75,10 @@ fn read_stdin(v: &mut Vec<P>) {
 fn part1(p: &mut Vec<P>) {
 
 	loop {
-		for particle in p.iter_mut() {
+		let mut closest_to_origin = 0;
+		let mut closest_distance = -1;
+
+		for (i, particle) in p.iter_mut().enumerate() {
 			/* update velocities */
 			particle.v.x += particle.a.x;
 			particle.v.y += particle.a.y;
@@ -84,9 +87,21 @@ fn part1(p: &mut Vec<P>) {
 			particle.p.x += particle.v.x;
 			particle.p.y += particle.v.y;
 			particle.p.z += particle.v.z;
-			println!("{:?}", particle);
+//			println!("{:?}", particle);
+
+			let dist = particle.p.x.abs() +
+				 particle.p.y.abs() +
+				 particle.p.z.abs();
+
+//			println!("{}", dist);
+
+			if closest_distance == -1 || dist < closest_distance {
+				closest_distance = dist;
+				closest_to_origin = i;
+			}
 		}
 
+		println!("closest to origin => {}", closest_to_origin);
 	}
 }
 
