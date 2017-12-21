@@ -174,6 +174,7 @@ impl Pic {
 
 fn main () {
 
+	/*
 	let pic = Pic::new_from_string(".#./..#/###".to_string());
 	println!("{:?}", pic);
 	println!("{:?}", pic.flip(1));
@@ -191,12 +192,19 @@ fn main () {
 	for i in 0..3 {
 		println!("{:?}", pic3.rotate(i));
 	}
+	*/
 
+	let pic3 = Pic::new_from_string("#..#/..../..../#..#".to_string());
+	println!("{:?}", pic3);
+	println!("{:?}", pic3.split());
+
+	/*
 	let rs: Vec<(Pic, Pic)> = read_stdin();
 
 	println!("{:?}", rs);
 
 	let mut rs1 = rs.clone();
+	*/
 
 //	part1(&mut rs1);
 }
