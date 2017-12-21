@@ -18,8 +18,11 @@ impl fmt::Debug for Pic {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 		write!(f, "\n");
 		for line in self.b.chunks(self.w) {
-//			write!(f, "Point {{ x: {}, y: {} }}", self.w, self.h)
-			write!(f, "{:?}\n", line.iter().map(|&v| if v {"#"} else {"."}));
+			let mut l_s: String = "".to_string();
+			for l_e in line.iter() {
+				if *l_e {l_s += "#";} else {l_s += ".";}
+			}
+			write!(f, "{}\n", l_s);
 		}
 		write!(f, "w = {} h = {}", self.w, self.h)
 	}
