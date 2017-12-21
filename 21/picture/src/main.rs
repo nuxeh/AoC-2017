@@ -3,8 +3,8 @@
 
 use std::io;
 use std::io::BufRead;
+use std::fmt;
 
-#[derive(Debug)]
 #[derive(Clone)]
 struct Pic {
 	b: Vec<u32>,
@@ -12,6 +12,32 @@ struct Pic {
 	h: usize,
 }
 
+impl fmt::Debug for Pic {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	for y in 0..h {
+	       write!(f, "Point {{ x: {}, y: {} }}", self.w, self.h)
+	}
+    }
+}
+
+impl Pic {
+
+	fn new_from_string(s: &String) -> Pic {
+		let mut w;
+		let mut h;
+
+		let lines = st.split("/").collect();
+		for l in lines {
+			
+		}
+
+		w = split[0].len();
+		h = split.len();
+
+		Pic {w: w, h: h, b: }}
+	}
+
+}
 
 fn main () {
 
