@@ -128,6 +128,18 @@ impl Pic {
 
 		false
 	}
+
+	/* split picture into a 2D array of sub pictures */
+	fn split(&self) -> Vec<Vec<Pic>> {
+		let mut v: Vec<Vec<Pic>> = vec![];
+
+		v
+	}
+
+	/* set data for picture from an array of subpictures */
+	fn combine(&self, v: &Vec<Vec<Pic>>) {
+
+	}
 }
 
 fn main () {
