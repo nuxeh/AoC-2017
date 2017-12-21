@@ -116,8 +116,8 @@ impl Pic {
 	fn equal(&self, other: Pic) -> bool {
 		let mut t;
 
-		println!("{:?}", self.b);
-		println!("{:?}", other.b);
+//		println!("self: {:?}", self);
+//		println!("other: {:?}", other);
 
 		/* check original representation */
 		if self.b == other.b {return true}
@@ -194,7 +194,7 @@ impl Pic {
 						let dx = (x * sp.h) + sx;
 						let i = dy * w + dx;
 						b_new[i] = *sc;
-						println!("{:?}", Pic { b: b_new.clone(), w: w, h: h});
+//						println!("{:?}", Pic { b: b_new.clone(), w: w, h: h});
 					}
 				}
 			}
@@ -240,7 +240,21 @@ fn main () {
 
 	let rs: Vec<(Pic, Pic)> = read_stdin();
 
-	println!("{:?}", rs);
+	for rule in rs.clone().iter() {
+
+		println!("{:?}", rule.0);
+		for i in 0..3 {
+			println!("{:?}", rule.0.rotate(i));
+		}
+		println!("{:?}", rule.1);
+		for i in 0..3 {
+			println!("{:?}", rule.1.rotate(i));
+		}
+
+		println!("-----------");
+	}
+
+	println!("{:?}\n-----------", rs);
 
 	/*
 	let mut rs1 = rs.clone();
@@ -261,7 +275,7 @@ fn part1(rules: &Vec<(Pic, Pic)>) {
 				for rule in rules {
 					if sub.equal(rule.0.clone()) {
 						*sub = rule.1.clone();
-						println!("matched: {:?}", rule.0);
+//						println!("matched: {:?}", rule.0);
 						break;
 					}
 				}
