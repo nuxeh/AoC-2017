@@ -146,22 +146,18 @@ impl Pic {
 			panic!("unusual dimension :P");
 		}
 
-		for (_l, line) in self.p.chunks(self.w * sw) {
+		let offset = self.w / sw;
+
+		for block in self.b.chunks(self.w * sw) {
 			let v_row = vec![];
-			let offset = self.w / sw;
+			let mut ps: Vec<Vec<bool>> = vec![vec![]; offset];
 
-			for (s, sec) in line.chunks(sw).take(offset) {
-				let p: Vec<bool> = sec.clone();
-
-				for i in 0..offset {
-					p.extend_with_slice(&line[]);
-				}
+			for (s, sec) in block.chunks(sw).enumerate() {
+				ps[s % offset].extend_from_slice(sec);
 			}
-
 
 			v.push(v_row);
 		}
-
 
 		v
 	}
