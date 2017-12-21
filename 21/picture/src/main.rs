@@ -57,7 +57,11 @@ impl Pic {
 
 		match n {
 			0 => {},
-			1 => {println!("{:?}", self.b.chunks(self.w).rev());}//collect().reverse()},
+			1 => {b = self.b
+				.chunks(self.w)
+				.rev()
+				.fold(vec![], |acc, s| acc = acc.extend_from_slice(s) );
+			}//collect().reverse()},
 			_ => {}
 		}
 
