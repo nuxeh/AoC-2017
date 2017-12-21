@@ -29,6 +29,10 @@ impl fmt::Debug for Pic {
 
 impl Pic {
 
+	fn new() -> Pic {
+		Pic {w: 0, h: 0, b: vec![]}
+	}
+
 	fn new_from_string(s: String) -> Pic {
 		let w;
 		let h;
@@ -170,11 +174,19 @@ impl Pic {
 	fn combine(&mut self, v: &Vec<Vec<Pic>>) {
 		let h = v.len();
 		let w = v[0].len();
+		println!("{} {}", w, h);
 		let mut b_new: Vec<bool> = vec![false; w * h];
 
 		for (y, row) in v.iter().enumerate() {
 			for (x, sp) in row.iter().enumerate() {
-
+				for (sy, sr) in sp.b.chunks(sp.w).enumerate() {
+					for (sx, sc) in sr.iter().enumerate() {
+						let dy = (y * sp.w) + sy;
+						let dx = (x * sp.w) + sx;
+						let i = dy * w + dx;
+						b_new[i] = *sc;
+					}
+				}
 			}
 		}
 
@@ -205,8 +217,11 @@ fn main () {
 	*/
 
 	let pic3 = Pic::new_from_string("#..#/..../..../#..#".to_string());
+	let mut pic4 = Pic::new();
 	println!("{:?}", pic3);
 	println!("{:?}", pic3.split());
+	pic4.combine(&pic3.split());
+	println!("{:?}", pic4);
 
 	/*
 	let rs: Vec<(Pic, Pic)> = read_stdin();
