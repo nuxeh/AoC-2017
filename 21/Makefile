@@ -18,9 +18,12 @@ debug: $(debug_target)
 release: $(release_target)
 	$(release_target)
 
+enable-backtrace:
+	export RUST_BACKTRACE=1
+
 picture: $(target)
 
-all: picture
+all: picture enable-backtrace
 
 vi:
 	vi $(src)
@@ -36,3 +39,6 @@ add:
 	git diff --cached
 
 autocommit: add commit
+
+run: $(debug_target)
+	cat input.txt | picture/target/debug/picture
