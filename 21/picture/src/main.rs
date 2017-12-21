@@ -256,6 +256,7 @@ fn main () {
 
 	let rs: Vec<(Pic, Pic)> = read_stdin();
 
+	/*
 	for rule in rs.clone().iter() {
 
 		println!("{:?}", rule.0);
@@ -271,6 +272,7 @@ fn main () {
 	}
 
 	println!("{:?}\n-----------", rs);
+	*/
 
 	/*
 	let mut rs1 = rs.clone();
@@ -280,10 +282,16 @@ fn main () {
 }
 
 fn part1(rules: &Vec<(Pic, Pic)>) {
+	println!("Part 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	compute(rules, 5);
+}
+
+fn compute(rules: &Vec<(Pic, Pic)>, n: u32) {
+
 	let mut pic = Pic::new_from_string(".#./..#/###".to_string());
 	println!("{:?}", pic);
 
-	for _ in 0..5 {
+	for _ in 0..n {
 		let mut subs = pic.split();
 
 		for sub_row in subs.iter_mut() {
