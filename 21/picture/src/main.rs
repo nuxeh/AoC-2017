@@ -53,15 +53,23 @@ impl Pic {
 	fn chunks() {}
 
 	fn flip(&self, n: u8) -> Pic {
-		let b: Vec<bool> = vec![];
+		let mut b: Vec<bool> = vec![];
 
 		match n {
-			0 => {},
+			0 => {b = self.b
+				.chunks(self.w)
+				.fold(vec![],
+				|mut acc, s| {
+					let mut r = s.clone();
+					r.reverse();
+					acc.extend_from_slice(r); acc});
+			}
 			1 => {b = self.b
 				.chunks(self.w)
 				.rev()
-				.fold(vec![], |acc, s| acc = acc.extend_from_slice(s) );
-			}//collect().reverse()},
+				.fold(vec![],
+				|mut acc, s| {acc.extend_from_slice(s); acc});
+			}
 			_ => {}
 		}
 
@@ -74,6 +82,7 @@ fn main () {
 	let pic = Pic::new_from_string(".#./..#/###".to_string());
 	println!("{:?}", pic);
 	println!("{:?}", pic.flip(1));
+	println!("{:?}", pic.flip(0));
 
 	let rs: Vec<(Pic, Pic)> = read_stdin();
 
