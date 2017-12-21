@@ -95,7 +95,7 @@ impl Pic {
 						let y2 = s[nu] * (x as f32 - centre.0) + c[nu] * (y as f32 - centre.1) + centre.1;
 
 						println!("{},{} -> {},{}", x, y, x2, y2);
-//						b[y * self.w + x] = 
+						b[y * self.w + x] = self.b[(y2 * self.w as f32 + x2) as usize];
 					}
 				}
 			}
