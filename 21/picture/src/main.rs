@@ -6,7 +6,7 @@ use std::io::BufRead;
 use std::fmt;
 
 #[derive(Clone)]
-#[derive(Debug)]
+//#[derive(Debug)]
 struct Pic {
 	b: Vec<bool>,
 //	r: Vec<Vec<bool>>,
@@ -14,13 +14,16 @@ struct Pic {
 	h: usize,
 }
 
-//impl fmt::Debug for Pic {
-//    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//	for y in 0..self.h {
-//	       write!(f, "Point {{ x: {}, y: {} }}", self.w, self.h)
-//	}
-//    }
-//}
+impl fmt::Debug for Pic {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		write!(f, "\n");
+		for line in self.b.chunks(self.w) {
+//			write!(f, "Point {{ x: {}, y: {} }}", self.w, self.h)
+			write!(f, "{:?}\n", line.iter().map(|&v| if v {"#"} else {"."}));
+		}
+		write!(f, "w = {} h = {}", self.w, self.h)
+	}
+}
 
 impl Pic {
 
@@ -38,7 +41,6 @@ impl Pic {
 			for c in l
 			.chars()
 			.map(|c| if c == '#' {true} else {false}) {
-				println!("{}", c);
 				b.push(c);
 			}
 		}
