@@ -132,6 +132,29 @@ impl Pic {
 	/* split picture into a 2D array of sub pictures */
 	fn split(&self) -> Vec<Vec<Pic>> {
 		let mut v: Vec<Vec<Pic>> = vec![];
+		let sw;
+
+		if ! self.w == self.h {
+			panic!("non-square pictures can't be split");
+		}
+
+		if self.w % 2 == 0 {
+			sw = 2
+		} else if self.w % 3 == 0 {
+			sw = 3;
+		} else {
+			panic!("unusual dimension :P");
+		}
+
+		for (_l, line) in self.p.chunks(self.w * sw) {
+			let v_row = vec![];
+
+			
+			
+
+			v.push(v_row);
+		}
+
 
 		v
 	}
