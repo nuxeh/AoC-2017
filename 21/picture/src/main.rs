@@ -167,8 +167,16 @@ impl Pic {
 	}
 
 	/* set data for picture from an array of subpictures */
-	fn combine(&self, v: &Vec<Vec<Pic>>) {
+	fn combine(&mut self, v: &Vec<Vec<Pic>>) {
+		let mut b_new: Vec<bool> = vec![];
 
+		for (y, row) in v.iter().enumerate() {
+			for (x, sp) in row.iter().enumerate() {
+
+			}
+		}
+
+		self.b = b_new;
 	}
 }
 
