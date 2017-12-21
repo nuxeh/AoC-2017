@@ -86,24 +86,15 @@ impl Pic {
 		let centre: (f32, f32) = ((self.h as f32 - 1.0) / 2.0,
 					  (self.w as f32 - 1.0) / 2.0);
 
-		match n {
-			0 => {
-				for y in 0..self.w {
-					for x in 0..self.h {
-						let nu = n as usize;
-						let x2 = c[nu] * (x as f32 - centre.0) - s[nu] * (y as f32 - centre.1) + centre.0;
-						let y2 = s[nu] * (x as f32 - centre.0) + c[nu] * (y as f32 - centre.1) + centre.1;
+		for y in 0..self.w {
+			for x in 0..self.h {
+				let nu = n as usize;
+				let x2 = c[nu] * (x as f32 - centre.0) - s[nu] * (y as f32 - centre.1) + centre.0;
+				let y2 = s[nu] * (x as f32 - centre.0) + c[nu] * (y as f32 - centre.1) + centre.1;
 
-						println!("{},{} -> {},{}", x, y, x2, y2);
-						b[y * self.w + x] = self.b[(y2 * self.w as f32 + x2) as usize];
-					}
-				}
+//				println!("{},{} -> {},{}", x, y, x2, y2);
+				b[y * self.w + x] = self.b[(y2 * self.w as f32 + x2) as usize];
 			}
-			1 => {
-			}
-			2 => {
-			}
-			_ => {}
 		}
 
 		Pic {w: self.w, h: self.h, b: b}
@@ -119,6 +110,14 @@ fn main () {
 	println!("{:?}", pic.flip(0));
 	for i in 0..3 {
 		println!("{:?}", pic.rotate(i));
+	}
+	let pic2 = Pic::new_from_string(".#/#.".to_string());
+	for i in 0..3 {
+		println!("{:?}", pic2.rotate(i));
+	}
+	let pic3 = Pic::new_from_string(".#.#/#.#./.#.#/#.#.".to_string());
+	for i in 0..3 {
+		println!("{:?}", pic3.rotate(i));
 	}
 
 	let rs: Vec<(Pic, Pic)> = read_stdin();
