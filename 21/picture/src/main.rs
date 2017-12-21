@@ -149,11 +149,15 @@ impl Pic {
 		let offset = self.w / sw;
 
 		for block in self.b.chunks(self.w * sw) {
-			let v_row = vec![];
-			let mut ps: Vec<Vec<bool>> = vec![vec![]; offset];
+			let mut v_row = vec![];
+			let mut bs: Vec<Vec<bool>> = vec![vec![]; offset];
 
 			for (s, sec) in block.chunks(sw).enumerate() {
-				ps[s % offset].extend_from_slice(sec);
+				bs[s % offset].extend_from_slice(sec);
+			}
+
+			for b in bs {
+				v_row.push(Pic {w: sw, h: sw, b: b});
 			}
 
 			v.push(v_row);
