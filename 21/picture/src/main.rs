@@ -54,8 +54,6 @@ impl Pic {
 		Pic {w: w, h: h, b: b}
 	}
 
-	fn chunks() {}
-
 	fn flip(&self, n: u8) -> Pic {
 		let mut b: Vec<bool> = vec![];
 
@@ -117,6 +115,12 @@ impl Pic {
 
 	fn equal(&self, other: Pic) -> bool {
 		let mut t;
+
+		println!("{:?}", self.b);
+		println!("{:?}", other.b);
+
+		/* check original representation */
+		if self.b == other.b {return true}
 
 		/* check all reflections */
 		for i in 0..2 {
@@ -190,6 +194,7 @@ impl Pic {
 						let dx = (x * sp.h) + sx;
 						let i = dy * w + dx;
 						b_new[i] = *sc;
+						println!("{:?}", Pic { b: b_new.clone(), w: w, h: h});
 					}
 				}
 			}
@@ -224,26 +229,48 @@ fn main () {
 	}
 	*/
 
+	/*
 	let pic3 = Pic::new_from_string("#..#/..../..../#..#".to_string());
 	let mut pic4 = Pic::new();
 	println!("{:?}", pic3);
 	println!("{:?}", pic3.split());
 	pic4.combine(&pic3.split());
 	println!("{:?}", pic4);
+	*/
 
-	/*
 	let rs: Vec<(Pic, Pic)> = read_stdin();
 
 	println!("{:?}", rs);
 
+	/*
 	let mut rs1 = rs.clone();
 	*/
 
-//	part1(&mut rs1);
+	part1(&rs);
 }
 
-fn part1() {
+fn part1(rules: &Vec<(Pic, Pic)>) {
+	let mut pic = Pic::new_from_string(".#./..#/###".to_string());
+	println!("{:?}", pic);
 
+	for _ in 0..5 {
+		let mut subs = pic.split();
+
+		for sub_row in subs.iter_mut() {
+			for sub in sub_row.iter_mut() {
+				for rule in rules {
+					if sub.equal(rule.0.clone()) {
+						*sub = rule.1.clone();
+						println!("matched: {:?}", rule.0);
+						break;
+					}
+				}
+			}
+		}
+
+		pic.combine(&subs);
+		println!("{:?}", pic);
+	}
 }
 
 fn part2() {
