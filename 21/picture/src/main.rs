@@ -57,12 +57,12 @@ impl Pic {
 
 		match n {
 			0 => {b = self.b
-				.chunks(self.w)
+				.clone()
+				.chunks_mut(self.w)
 				.fold(vec![],
 				|mut acc, s| {
-					let mut r = s.clone();
-					r.reverse();
-					acc.extend_from_slice(r); acc});
+					s.reverse();
+					acc.extend_from_slice(s); acc});
 			}
 			1 => {b = self.b
 				.chunks(self.w)
