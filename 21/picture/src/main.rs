@@ -75,6 +75,40 @@ impl Pic {
 
 		Pic {w: self.w, h: self.h, b: b}
 	}
+
+	fn rotate(&self, n: u8) -> Pic {
+		/* create an empty destination vector */
+		let mut b: Vec<bool> = vec![false; self.w * self.h];
+
+		let c: [f32; 3] = [0.0, -1.0,  0.0];
+		let s: [f32; 3] = [1.0,  0.0, -1.0];
+
+		let centre: (f32, f32) = ((self.h as f32 - 1.0) / 2.0,
+					  (self.w as f32 - 1.0) / 2.0);
+
+		match n {
+			0 => {
+				for y in 0..self.w {
+					for x in 0..self.h {
+						let nu = n as usize;
+						let x2 = c[nu] * (x as f32 - centre.0) - s[nu] * (y as f32 - centre.1) + centre.0;
+						let y2 = s[nu] * (x as f32 - centre.0) + c[nu] * (y as f32 - centre.1) + centre.1;
+
+						println!("{},{} -> {},{}", x, y, x2, y2);
+//						b[y * self.w + x] = 
+					}
+				}
+			}
+			1 => {
+			}
+			2 => {
+			}
+			_ => {}
+		}
+
+		Pic {w: self.w, h: self.h, b: b}
+
+	}
 }
 
 fn main () {
@@ -83,6 +117,9 @@ fn main () {
 	println!("{:?}", pic);
 	println!("{:?}", pic.flip(1));
 	println!("{:?}", pic.flip(0));
+	for i in 0..3 {
+		println!("{:?}", pic.rotate(i));
+	}
 
 	let rs: Vec<(Pic, Pic)> = read_stdin();
 
