@@ -172,9 +172,14 @@ impl Pic {
 
 	/* set data for picture from an array of subpictures */
 	fn combine(&mut self, v: &Vec<Vec<Pic>>) {
-		let h = v.len();
-		let w = v[0].len();
-		println!("{} {}", w, h);
+		let ny = v.len();
+		let nx = v[0].len();
+		let sw = v[0][0].w;
+		let sh = v[0][0].h;
+
+		let w = nx * sw;
+		let h = ny * sh;
+
 		let mut b_new: Vec<bool> = vec![false; w * h];
 
 		for (y, row) in v.iter().enumerate() {
@@ -182,7 +187,7 @@ impl Pic {
 				for (sy, sr) in sp.b.chunks(sp.w).enumerate() {
 					for (sx, sc) in sr.iter().enumerate() {
 						let dy = (y * sp.w) + sy;
-						let dx = (x * sp.w) + sx;
+						let dx = (x * sp.h) + sx;
 						let i = dy * w + dx;
 						b_new[i] = *sc;
 					}
@@ -190,8 +195,11 @@ impl Pic {
 			}
 		}
 
+		self.w = w;
+		self.h = h;
 		self.b = b_new;
 	}
+	/* needs some thought about a proper API implementation */
 }
 
 fn main () {
