@@ -50,9 +50,26 @@ impl Pic {
 		Pic {w: w, h: h, b: b}
 	}
 
+	fn chunks() {}
+
+	fn flip(&self, n: u8) -> Pic {
+		let b: Vec<bool> = vec![];
+
+		match n {
+			0 => {},
+			1 => {println!("{:?}", self.b.chunks(self.w).rev());}//collect().reverse()},
+			_ => {}
+		}
+
+		Pic {w: self.w, h: self.h, b: b}
+	}
 }
 
 fn main () {
+
+	let pic = Pic::new_from_string(".#./..#/###".to_string());
+	println!("{:?}", pic);
+	println!("{:?}", pic.flip(1));
 
 	let rs: Vec<(Pic, Pic)> = read_stdin();
 
