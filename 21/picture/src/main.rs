@@ -168,7 +168,9 @@ impl Pic {
 
 	/* set data for picture from an array of subpictures */
 	fn combine(&mut self, v: &Vec<Vec<Pic>>) {
-		let mut b_new: Vec<bool> = vec![];
+		let h = v.len();
+		let w = v[0].len();
+		let mut b_new: Vec<bool> = vec![false; w * h];
 
 		for (y, row) in v.iter().enumerate() {
 			for (x, sp) in row.iter().enumerate() {
