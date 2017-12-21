@@ -15,7 +15,6 @@ struct Pic {
 
 impl fmt::Debug for Pic {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-		let _ = write!(f, "\n");
 		for line in self.b.chunks(self.w) {
 			let mut l_s: String = "".to_string();
 			for l_e in line.iter() {
@@ -23,7 +22,7 @@ impl fmt::Debug for Pic {
 			}
 			let _ = write!(f, "{}\n", l_s);
 		}
-		write!(f, "w = {} h = {}\n", self.w, self.h)
+		write!(f, "w = {} h = {}", self.w, self.h)
 	}
 }
 
@@ -77,6 +76,9 @@ impl Pic {
 	}
 
 	fn rotate(&self, n: u8) -> Pic {
+
+		if self.w != self.h {panic!("Image must be square")}
+
 		/* create an empty destination vector */
 		let mut b: Vec<bool> = vec![false; self.w * self.h];
 
@@ -89,11 +91,18 @@ impl Pic {
 		for y in 0..self.w {
 			for x in 0..self.h {
 				let nu = n as usize;
-				let x2 = c[nu] * (x as f32 - centre.0) - s[nu] * (y as f32 - centre.1) + centre.0;
-				let y2 = s[nu] * (x as f32 - centre.0) + c[nu] * (y as f32 - centre.1) + centre.1;
+				let x2 = c[nu] * (x as f32 - centre.0)
+					 - s[nu] * (y as f32 - centre.1)
+					 + centre.0;
+				let y2 = s[nu] * (x as f32 - centre.0)
+					 + c[nu] * (y as f32 - centre.1)
+					 + centre.1;
 
 //				println!("{},{} -> {},{}", x, y, x2, y2);
-				b[y * self.w + x] = self.b[(y2 * self.w as f32 + x2) as usize];
+
+				b[y * self.w + x] = self.b[
+					(y2 * self.w as f32 + x2) as usize
+				];
 			}
 		}
 
