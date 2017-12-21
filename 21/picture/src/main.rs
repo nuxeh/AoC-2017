@@ -15,6 +15,7 @@ struct Pic {
 
 impl fmt::Debug for Pic {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		let _ = write!(f, "\n");
 		for line in self.b.chunks(self.w) {
 			let mut l_s: String = "".to_string();
 			for l_e in line.iter() {
@@ -82,8 +83,8 @@ impl Pic {
 		/* create an empty destination vector */
 		let mut b: Vec<bool> = vec![false; self.w * self.h];
 
-		let c: [f32; 3] = [0.0, -1.0,  0.0];
-		let s: [f32; 3] = [1.0,  0.0, -1.0];
+		const C: [f32; 3] = [0.0, -1.0,  0.0];
+		const S: [f32; 3] = [1.0,  0.0, -1.0];
 
 		let centre: (f32, f32) = ((self.h as f32 - 1.0) / 2.0,
 					  (self.w as f32 - 1.0) / 2.0);
@@ -91,11 +92,11 @@ impl Pic {
 		for y in 0..self.w {
 			for x in 0..self.h {
 				let nu = n as usize;
-				let x2 = c[nu] * (x as f32 - centre.0)
-					 - s[nu] * (y as f32 - centre.1)
+				let x2 = C[nu] * (x as f32 - centre.0)
+					 - S[nu] * (y as f32 - centre.1)
 					 + centre.0;
-				let y2 = s[nu] * (x as f32 - centre.0)
-					 + c[nu] * (y as f32 - centre.1)
+				let y2 = S[nu] * (x as f32 - centre.0)
+					 + C[nu] * (y as f32 - centre.1)
 					 + centre.1;
 
 //				println!("{},{} -> {},{}", x, y, x2, y2);
