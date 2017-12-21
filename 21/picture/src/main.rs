@@ -115,6 +115,7 @@ impl Pic {
 
 	fn equal(&self, other: Pic) -> bool {
 		let mut t;
+		let mut u;
 
 //		println!("self: {:?}", self);
 //		println!("other: {:?}", other);
@@ -132,6 +133,15 @@ impl Pic {
 		for i in 0..3 {
 			t = other.rotate(i);
 			if t.b == self.b {return true}
+		}
+
+		/* check all combinations */
+		for i in 0..3 {
+			t = other.rotate(i);
+			for i in 0..2 {
+				u = t.flip(i);
+				if u.b == self.b {return true}
+			}
 		}
 
 		false
@@ -205,6 +215,12 @@ impl Pic {
 		self.b = b_new;
 	}
 	/* needs some thought about a proper API implementation */
+
+	fn count_on(&self) -> u32 {
+		let count: usize = self.b.iter().filter(|&&v| v == true).count();
+
+		count as u32
+	}
 }
 
 fn main () {
@@ -284,6 +300,7 @@ fn part1(rules: &Vec<(Pic, Pic)>) {
 
 		pic.combine(&subs);
 		println!("{:?}", pic);
+		println!("count: {}", pic.count_on());
 	}
 }
 
