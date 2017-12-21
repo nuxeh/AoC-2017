@@ -110,6 +110,24 @@ impl Pic {
 		Pic {w: self.w, h: self.h, b: b}
 
 	}
+
+	fn equal(&self, other: Pic) -> bool {
+		let mut t;
+
+		/* check all reflections */
+		for i in 0..2 {
+			t = other.flip(i);
+			if t.b == self.b {return true}
+		}
+
+		/* check all rotations */
+		for i in 0..3 {
+			t = other.rotate(i);
+			if t.b == self.b {return true}
+		}
+
+		false
+	}
 }
 
 fn main () {
@@ -118,8 +136,10 @@ fn main () {
 	println!("{:?}", pic);
 	println!("{:?}", pic.flip(1));
 	println!("{:?}", pic.flip(0));
+	println!("{:?}", pic.equal(pic.flip(0)));
 	for i in 0..3 {
 		println!("{:?}", pic.rotate(i));
+		println!("{:?}", pic.equal(pic.rotate(i)));
 	}
 	let pic2 = Pic::new_from_string(".#/#.".to_string());
 	for i in 0..3 {
