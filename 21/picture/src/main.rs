@@ -148,9 +148,16 @@ impl Pic {
 
 		for (_l, line) in self.p.chunks(self.w * sw) {
 			let v_row = vec![];
+			let offset = self.w / sw;
 
-			
-			
+			for (s, sec) in line.chunks(sw).take(offset) {
+				let p: Vec<bool> = sec.clone();
+
+				for i in 0..offset {
+					p.extend_with_slice(&line[]);
+				}
+			}
+
 
 			v.push(v_row);
 		}
