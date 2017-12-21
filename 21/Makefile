@@ -42,3 +42,6 @@ autocommit: add commit
 
 run: $(debug_target)
 	cat input.txt | picture/target/debug/picture
+
+run_release: $(release_target)
+	cat input.txt | picture/target/release/picture

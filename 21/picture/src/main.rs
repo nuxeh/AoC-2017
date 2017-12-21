@@ -279,11 +279,17 @@ fn main () {
 	*/
 
 	part1(&rs);
+	part2(&rs);
 }
 
 fn part1(rules: &Vec<(Pic, Pic)>) {
 	println!("Part 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	compute(rules, 5);
+}
+
+fn part2(rules: &Vec<(Pic, Pic)>) {
+	println!("Part 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	compute(rules, 18);
 }
 
 fn compute(rules: &Vec<(Pic, Pic)>, n: u32) {
@@ -310,10 +316,6 @@ fn compute(rules: &Vec<(Pic, Pic)>, n: u32) {
 		println!("{:?}", pic);
 		println!("count: {}", pic.count_on());
 	}
-}
-
-fn part2() {
-
 }
 
 fn read_stdin() -> Vec<(Pic, Pic)> {
