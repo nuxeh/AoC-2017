@@ -19,7 +19,7 @@ fn main () {
 	let mut map = HashMap::<Xy, bool>::new();
 	let mut pos = read_stdin(&mut map);
 
-	println!("{:#?}", map);
+	println!("{:?}", map);
 	println!("{:#?}", pos);
 
 	part1();
@@ -38,16 +38,16 @@ fn read_stdin(map: &mut HashMap<Xy, bool>) -> Xy {
 
 	let stdin = io::stdin();
 	let all_lines: Vec<_> = stdin.lock().lines().map(|v| v.unwrap()).collect();
-	let h = all_lines.len();
-	let y0 = ((h - 1) / 2) as i64;
+
 	let mut x0 = 0;
+	let y0 = ((all_lines.len() - 1) / 2) as i64;
 
 	for (y, line) in all_lines.iter().enumerate() {
-		let y = y as i64;
 		let l = line.to_string();
 		let w = l.chars().count();
+
 		x0 = ((w - 1) / 2) as i64;
-		println!("{} {}", x0, y0);
+		let y = y as i64;
 
 		for (x, c) in l.chars().enumerate() {
 			let x = x as i64;
