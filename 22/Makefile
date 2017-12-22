@@ -36,3 +36,9 @@ add:
 	git diff --cached
 
 autocommit: add commit
+
+test: $(debug_target)
+	cat test.txt | ./virus/target/debug/virus
+
+run: $(debug_target)
+	cat input.txt | ./virus/target/debug/virus

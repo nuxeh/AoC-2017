@@ -48,25 +48,36 @@ impl Map {
 
 	fn add(&mut self, p: Xy, v: bool) {
 
+		let mut inside = true;
+
 		/* extend map extents */
-		if p.x < self.tl.x {self.tl.x = p.x;}
-		if p.y < self.tl.y {self.tl.y = p.y;}
-		if p.x > self.br.x {self.br.x = p.x;}
-		if p.y > self.br.y {self.br.y = p.y;}
+		if p.x < self.tl.x {self.tl.x = p.x; inside = false}
+		if p.y < self.tl.y {self.tl.y = p.y; inside = false}
+		if p.x > self.br.x {self.br.x = p.x; inside = false}
+		if p.y > self.br.y {self.br.y = p.y; inside = false}
 
 		self.map.insert(p, v);
 
 		/* add padding */
-		for y in self.tl.y .. self.br.y + 1 {
-			let y = y as i64;
-			for x in self.tl.x .. self.br.y + 1 {
-				let x = x as i64;
-				self.map.entry(Xy {x: x, y: y}).or_insert(false);
+		if ! inside {
+			for y in self.tl.y .. self.br.y + 1 {
+				let y = y as i64;
+				for x in self.tl.x .. self.br.y + 1 {
+					let x = x as i64;
+					self.map.entry(Xy {x: x, y: y}).or_insert(false);
+				}
 			}
 		}
 	}
 
 	fn move_one(&mut self, d: u8) {
+
+		let p = self.pos.clone();
+		if self.get() {
+			self.add(p, false);
+		} else {
+			self.add(p, true);
+		}
 
 		match d {
 			0 => {self.pos.y -= 1;},
@@ -117,7 +128,7 @@ fn turn_left (d: &mut u8) {if *d == 0 {*d = 3} else {*d = *d - 1}}
 fn part1(m: &mut Map) {
 	let mut dir = 0;
 
-	for _ in 0..5 {
+	for _ in 0..10 {
 		match m.get() {
 			true  => {turn_right(&mut dir)}
 			false => {turn_left(&mut dir)}
@@ -133,8 +144,10 @@ fn part2() {
 
 fn print_map(m: &Map) {
 
-	println!("tl = {:#?}", m.tl);
-	println!("br = {:#?}", m.br);
+//	println!("tl = {:#?}", m.tl);
+//	println!("br = {:#?}", m.br);
+
+	println!("");
 
 	for y in m.tl.y .. m.br.y + 1 {
 		let y = y as i64;
