@@ -20,6 +20,8 @@ struct Map {
 	pos: Xy,
 	w: usize,
 	h: usize,
+	tl: Xy,
+	br: Xy,
 	map: HashMap<Xy, bool>
 }
 
@@ -27,18 +29,30 @@ impl Map {
 	fn new() -> Map {
 		Map {
 			w: 0, h: 0,
+			tl: Xy {x: 0, y: 0},
+			br: Xy {x: 0, y: 0},
 			pos: Xy {x: 0, y: 0},
 			map: HashMap::<Xy, bool>::new()
 		}
+	}
+
+	fn add(&mut self, p: Xy, v: bool) {
+
+		/* extend map extents */
+		if p.x < self.tl.x {self.tl.x = p.x;}
+		if p.y < self.tl.y {self.tl.y = p.y;}
+		if p.x > self.br.x {self.br.x = p.x;}
+		if p.y > self.br.y {self.br.y = p.y;}
+
+		self.map.insert(p, v);
 	}
 }
 
 fn main () {
 	let mut map = Map::new();
-	let mut pos = read_stdin(&mut map);
+	read_stdin(&mut map);
 
-	println!("{:?}", map);
-	println!("{:#?}", pos);
+//	println!("{:?}", map);
 
 	print_map(&map);
 
@@ -59,11 +73,16 @@ fn print_map(m: &Map) {
 //		println!("{:?}", pos);
 //	}
 
-	for y in 0..m.h {
+	println!("tl = {:#?}", m.tl);
+	println!("br = {:#?}", m.br);
+
+	for y in m.tl.y .. m.tl.y {
 		let y = y as i64;
-		for x in 0..m.w {
+		for x in m.br.x .. m.br.y {
 			let x = y as i64;
-//			print!("{}", m.map[&Xy {x: x, y: y}]);
+			println!("{} {}", x, y);
+			
+			print!("{}", m.map[&Xy {x: x, y: y}]);
 		}
 	}
 }
@@ -88,9 +107,9 @@ fn read_stdin(m: &mut Map) {
 		for (x, c) in l.chars().enumerate() {
 			let x = x as i64;
 			match c {
-				'.' => {m.map.insert(Xy {x: x - x0, y: y - y0},
+				'.' => {m.add(Xy {x: x - x0, y: y - y0},
 							true);}
-				'#' => {m.map.insert(Xy {x: x - x0, y: y - y0},
+				'#' => {m.add(Xy {x: x - x0, y: y - y0},
 							false);}
 				_   => {}
 			}
