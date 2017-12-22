@@ -15,6 +15,8 @@ struct Xy {
 }
 
 fn main () {
+	let mut map = HashMap::<Xy, bool>::new();
+	read_stdin(&mut map);
 	part1();
 	part2();
 }
@@ -27,10 +29,9 @@ fn part2() {
 
 }
 
-fn read_stdin() { //map: &mut HashMap<Xy, bool>) {
+fn read_stdin(map: &mut HashMap<Xy, bool>) {
 
 	let stdin = io::stdin();
-	let mut map = HashMap::<Xy, bool>::new();
 
 	for (y, line) in stdin.lock().lines().enumerate() {
 		let l = line.unwrap().to_string();
