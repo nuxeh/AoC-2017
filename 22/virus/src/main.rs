@@ -84,7 +84,7 @@ fn main () {
 }
 
 fn turn_right(d: &mut u8) {*d = (*d + 1) % 4}
-fn turn_left (d: &mut u8) {*d = (*d - 1) % 4}
+fn turn_left (d: &mut u8) {if *d == 0 {*d = 3} else {*d = *d - 1}}
 
 fn part1(m: &mut Map) {
 	let mut dir = 0;
@@ -95,6 +95,7 @@ fn part1(m: &mut Map) {
 			false => {turn_left(&mut dir)}
 		}
 		m.move_one(dir);
+		print_map(m);
 	}
 }
 
