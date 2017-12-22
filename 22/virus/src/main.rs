@@ -48,6 +48,7 @@ impl Map {
 	}
 
 	fn move_one(&mut self, d: u8) {
+
 		match d {
 			0 => {self.pos.y -= 1;},
 			1 => {self.pos.x += 1;},
@@ -55,6 +56,10 @@ impl Map {
 			3 => {self.pos.x -= 1;},
 			_ => {}
 		}
+	}
+
+	fn get(&self, x: i64, y: i64) -> bool {
+		self.map[&Xy {x: x, y: y}]
 	}
 }
 
@@ -66,14 +71,14 @@ fn main () {
 
 	print_map(&map);
 
-	part1();
+	part1(&mut map);
 	part2();
 }
 
 fn turn_right(d: u8) -> u8 {(d + 1) % 4}
 fn turn_left (d: u8) -> u8 {(d - 1) % 4}
 
-fn part1() {
+fn part1(m: &mut Map) {
 	let mut dir = 0;
 
 	for _ in 0..5 {
