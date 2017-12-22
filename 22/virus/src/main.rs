@@ -62,7 +62,7 @@ impl Map {
 		if ! inside {
 			for y in self.tl.y .. self.br.y + 1 {
 				let y = y as i64;
-				for x in self.tl.x .. self.br.y + 1 {
+				for x in self.tl.x .. self.br.x + 1 {
 					let x = x as i64;
 					self.map.entry(Xy {x: x, y: y}).or_insert(false);
 				}
@@ -128,7 +128,7 @@ fn turn_left (d: &mut u8) {if *d == 0 {*d = 3} else {*d = *d - 1}}
 fn part1(m: &mut Map) {
 	let mut dir = 0;
 
-	for _ in 0..10 {
+	for _ in 0..70 {
 		match m.get() {
 			true  => {turn_right(&mut dir)}
 			false => {turn_left(&mut dir)}
@@ -151,7 +151,7 @@ fn print_map(m: &Map) {
 
 	for y in m.tl.y .. m.br.y + 1 {
 		let y = y as i64;
-		for x in m.tl.x .. m.br.y + 1 {
+		for x in m.tl.x .. m.br.x + 1 {
 			let x = x as i64;
 			let v = m.map[&Xy {x: x, y: y}];
 
