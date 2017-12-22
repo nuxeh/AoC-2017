@@ -9,6 +9,7 @@ use std::collections::HashMap;
 #[derive(PartialEq)]
 #[derive(Eq)]
 #[derive(Hash)]
+#[derive(Debug)]
 struct Xy {
 	x: usize, // infinite, yeah!
 	y: usize
@@ -16,7 +17,11 @@ struct Xy {
 
 fn main () {
 	let mut map = HashMap::<Xy, bool>::new();
-	read_stdin(&mut map);
+	let mut pos = read_stdin(&mut map);
+
+	println!("{:#?}", map);
+	println!("{:#?}", pos);
+
 	part1();
 	part2();
 }
@@ -29,19 +34,30 @@ fn part2() {
 
 }
 
-fn read_stdin(map: &mut HashMap<Xy, bool>) {
+fn read_stdin(map: &mut HashMap<Xy, bool>) -> Xy {
 
 	let stdin = io::stdin();
+	let all_lines: Vec<_> = stdin.lock().lines().map(|v| v.unwrap()).collect();
+	let h = all_lines.len();
+	let yo = (h - 1) / 2;
+	let mut xo = 0;
 
-	for (y, line) in stdin.lock().lines().enumerate() {
-		let l = line.unwrap().to_string();
+	for (y, line) in all_lines.iter().enumerate() {
+		let l = line.to_string();
+		let w = l.chars().count();
+		xo = (w - 1) / 2;
+		println!("{} {}", xo, yo);
 
 		for (x, c) in l.chars().enumerate() {
 			match c {
-				'.' => {map.insert(Xy {x: x, y: y}, true);}
-				'#' => {map.insert(Xy {x: x, y: y}, false);}
+				'.' => {map.insert(Xy {x: x - xo, y: y - yo},
+							true);}
+				'#' => {map.insert(Xy {x: x - xo, y: y - yo},
+							false);}
 				_   => {}
 			}
 		}
 	}
+
+	Xy {x: xo, y: yo}
 }
