@@ -22,6 +22,7 @@ struct Map {
 	h: usize,
 	tl: Xy,
 	br: Xy,
+	infection_count: u64,
 	map: HashMap<Xy, bool>
 }
 
@@ -32,6 +33,7 @@ impl Map {
 			tl: Xy {x: 0, y: 0},
 			br: Xy {x: 0, y: 0},
 			pos: Xy {x: 0, y: 0},
+			infection_count: 0,
 			map: HashMap::<Xy, bool>::new()
 		}
 	}
@@ -77,6 +79,7 @@ impl Map {
 			self.add(p, false);
 		} else {
 			self.add(p, true);
+			self.infection_count += 1;
 		}
 
 		match d {
@@ -136,6 +139,7 @@ fn part1(m: &mut Map) {
 		m.move_one(dir);
 		print_map(m);
 	}
+	println!("infection count: {}", m.infection_count);
 }
 
 fn part2() {
