@@ -5,9 +5,13 @@ use std::io;
 use std::io::BufRead;
 use std::collections::HashMap;
 
+#[derive(Clone)]
+#[derive(PartialEq)]
+#[derive(Eq)]
+#[derive(Hash)]
 struct Xy {
-	x: u64, // infinite, yeah!
-	y: u64
+	x: usize, // infinite, yeah!
+	y: usize
 }
 
 fn main () {
@@ -23,15 +27,20 @@ fn part2() {
 
 }
 
-fn read_stdin(map: &mut HashMap<Xy, bool>) {
+fn read_stdin() { //map: &mut HashMap<Xy, bool>) {
 
 	let stdin = io::stdin();
+	let mut map = HashMap::<Xy, bool>::new();
 
 	for (y, line) in stdin.lock().lines().enumerate() {
 		let l = line.unwrap().to_string();
 
 		for (x, c) in l.chars().enumerate() {
-			map.insert(Xy {x: x, y: y});
+			match c {
+				'.' => {map.insert(Xy {x: x, y: y}, true);}
+				'#' => {map.insert(Xy {x: x, y: y}, false);}
+				_   => {}
+			}
 		}
 	}
 }
