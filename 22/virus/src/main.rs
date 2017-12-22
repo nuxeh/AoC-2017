@@ -36,6 +36,16 @@ impl Map {
 		}
 	}
 
+	fn in_map(&self, p: &Xy) -> bool {
+
+		if p.x < self.tl.x {return false;}
+		if p.y < self.tl.y {return false;}
+		if p.x > self.br.x {return false;}
+		if p.y > self.br.y {return false;}
+
+		true
+	}
+
 	fn add(&mut self, p: Xy, v: bool) {
 
 		/* extend map extents */
@@ -45,6 +55,15 @@ impl Map {
 		if p.y > self.br.y {self.br.y = p.y;}
 
 		self.map.insert(p, v);
+
+		/* add padding */
+		for y in self.tl.y .. self.br.y + 1 {
+			let y = y as i64;
+			for x in self.tl.x .. self.br.y + 1 {
+				let x = x as i64;
+				self.map.entry(Xy {x: x, y: y}).or_insert(false);
+			}
+		}
 	}
 
 	fn move_one(&mut self, d: u8) {
@@ -66,7 +85,16 @@ impl Map {
 		self.map[p]
 	}
 
-	fn get(&self) -> bool {
+//	fn get(&self) -> Result<bool, &'static str> {
+
+	fn get(&mut self) -> bool {
+
+		let p = self.pos.clone();
+
+		if ! self.in_map(&self.pos) {
+			self.add(p, false);
+		}
+
 		self.map[&self.pos]
 	}
 }
@@ -161,3 +189,5 @@ fn read_stdin(m: &mut Map) {
 	m.h = h;
 	m.w = w;
 }
+
+// TODO: xy iterator for Map
