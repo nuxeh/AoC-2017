@@ -46,6 +46,16 @@ impl Map {
 
 		self.map.insert(p, v);
 	}
+
+	fn move_one(&mut self, d: u8) {
+		match d {
+			0 => {self.pos.y -= 1;},
+			1 => {self.pos.x += 1;},
+			2 => {self.pos.y += 1;},
+			3 => {self.pos.x -= 1;},
+			_ => {}
+		}
+	}
 }
 
 fn main () {
@@ -60,8 +70,15 @@ fn main () {
 	part2();
 }
 
-fn part1() {
+fn turn_right(d: u8) -> u8 {(d + 1) % 4}
+fn turn_left (d: u8) -> u8 {(d - 1) % 4}
 
+fn part1() {
+	let mut dir = 0;
+
+	for _ in 0..5 {
+		
+	}
 }
 
 fn part2() {
