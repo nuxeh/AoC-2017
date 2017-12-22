@@ -76,14 +76,13 @@ fn print_map(m: &Map) {
 	println!("tl = {:#?}", m.tl);
 	println!("br = {:#?}", m.br);
 
-	for y in m.tl.y .. m.tl.y {
+	for y in m.tl.y .. m.br.y {
 		let y = y as i64;
-		for x in m.br.x .. m.br.y {
-			let x = y as i64;
-			println!("{} {}", x, y);
-			
+		for x in m.tl.x .. m.br.y {
+			let x = x as i64;
 			print!("{}", m.map[&Xy {x: x, y: y}]);
 		}
+		print!("\n");
 	}
 }
 
