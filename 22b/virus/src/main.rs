@@ -83,9 +83,10 @@ impl Map {
 
 		let p = self.pos.clone();
 		let v = self.get();
-		self.add(p, (v + 1) % 4);
+		let vn = (v + 1) % 4;
+		self.add(p, vn);
 
-		if v == 1 {self.infection_count += 1;}
+		if vn == 2 {self.infection_count += 1;}
 
 		match d {
 			0 => {self.pos.y -= 1;},
@@ -94,14 +95,6 @@ impl Map {
 			3 => {self.pos.x -= 1;},
 			_ => {}
 		}
-	}
-
-	fn get_xy(&self, x: i64, y: i64) -> u8 {
-		self.map[&Xy {x: x, y: y}]
-	}
-
-	fn get_p(&self, p: &Xy) -> u8 {
-		self.map[p]
 	}
 
 //	fn get(&self) -> Result<bool, &'static str> {
@@ -137,7 +130,7 @@ fn reverse(d: &mut u8) {*d = (*d + 2) % 4}
 fn part1(m: &mut Map) {
 	let mut dir = 0;
 
-	for _ in 0..1000 {
+	for i in 0..10000000 {
 		match m.get() {
 			0 => {turn_left(&mut dir)}
 			2 => {turn_right(&mut dir)}
@@ -146,8 +139,9 @@ fn part1(m: &mut Map) {
 		}
 		m.move_one(dir);
 //		print_map(m);
+//		println!("{}", i);
 	}
-	print_map(m);
+//	print_map(m);
 	println!("infection count: {}", m.infection_count);
 }
 

@@ -42,3 +42,6 @@ test: $(release_target)
 
 run: $(release_target)
 	cat input.txt | ./virus/target/release/virus
+
+clean:
+	cd virus && cargo clean
