@@ -69,18 +69,19 @@ fn part2() {
 }
 
 fn print_map(m: &Map) {
-//	for pos in map {
-//		println!("{:?}", pos);
-//	}
 
 	println!("tl = {:#?}", m.tl);
 	println!("br = {:#?}", m.br);
 
-	for y in m.tl.y .. m.br.y {
+	for y in m.tl.y .. m.br.y + 1 {
 		let y = y as i64;
-		for x in m.tl.x .. m.br.y {
+		for x in m.tl.x .. m.br.y + 1 {
 			let x = x as i64;
-			print!("{}", m.map[&Xy {x: x, y: y}]);
+			let v = m.map[&Xy {x: x, y: y}];
+			match v {
+				false => {print!(".");}
+				true  => {print!("#");}
+			}
 		}
 		print!("\n");
 	}
@@ -107,9 +108,9 @@ fn read_stdin(m: &mut Map) {
 			let x = x as i64;
 			match c {
 				'.' => {m.add(Xy {x: x - x0, y: y - y0},
-							true);}
-				'#' => {m.add(Xy {x: x - x0, y: y - y0},
 							false);}
+				'#' => {m.add(Xy {x: x - x0, y: y - y0},
+							true);}
 				_   => {}
 			}
 		}
