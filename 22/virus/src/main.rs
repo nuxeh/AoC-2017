@@ -78,9 +78,16 @@ fn print_map(m: &Map) {
 		for x in m.tl.x .. m.br.y + 1 {
 			let x = x as i64;
 			let v = m.map[&Xy {x: x, y: y}];
+
+			let mut e1 = ' ';
+			let mut e2 = e1;
+			if x == m.pos.x && y == m.pos.y {
+				e1 = '['; e2 = ']';
+			}
+
 			match v {
-				false => {print!(".");}
-				true  => {print!("#");}
+				false => {print!("{}.{}", e1, e2);}
+				true  => {print!("{}#{}", e1, e2);}
 			}
 		}
 		print!("\n");
@@ -92,7 +99,6 @@ fn read_stdin(m: &mut Map) {
 	let stdin = io::stdin();
 	let all_lines: Vec<_> = stdin.lock().lines().map(|v| v.unwrap()).collect();
 
-	let mut x0 = 0;
 	let mut w = 0;
 	let h = all_lines.len();
 	let y0 = ((h - 1) / 2) as i64;
@@ -101,7 +107,7 @@ fn read_stdin(m: &mut Map) {
 		let l = line.to_string();
 		w = l.chars().count();
 
-		x0 = ((w - 1) / 2) as i64;
+		let x0 = ((w - 1) / 2) as i64;
 		let y = y as i64;
 
 		for (x, c) in l.chars().enumerate() {
@@ -116,7 +122,7 @@ fn read_stdin(m: &mut Map) {
 		}
 	}
 
-	m.pos = Xy {x: x0, y: y0};
+	m.pos = Xy {x: 0, y: 0};
 	m.h = h;
 	m.w = w;
 }
