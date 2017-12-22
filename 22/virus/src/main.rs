@@ -11,8 +11,8 @@ use std::collections::HashMap;
 #[derive(Hash)]
 #[derive(Debug)]
 struct Xy {
-	x: usize, // infinite, yeah!
-	y: usize
+	x: i64, // infinite, yeah!
+	y: i64
 }
 
 fn main () {
@@ -39,25 +39,27 @@ fn read_stdin(map: &mut HashMap<Xy, bool>) -> Xy {
 	let stdin = io::stdin();
 	let all_lines: Vec<_> = stdin.lock().lines().map(|v| v.unwrap()).collect();
 	let h = all_lines.len();
-	let yo = (h - 1) / 2;
-	let mut xo = 0;
+	let y0 = ((h - 1) / 2) as i64;
+	let mut x0 = 0;
 
 	for (y, line) in all_lines.iter().enumerate() {
+		let y = y as i64;
 		let l = line.to_string();
 		let w = l.chars().count();
-		xo = (w - 1) / 2;
-		println!("{} {}", xo, yo);
+		x0 = ((w - 1) / 2) as i64;
+		println!("{} {}", x0, y0);
 
 		for (x, c) in l.chars().enumerate() {
+			let x = x as i64;
 			match c {
-				'.' => {map.insert(Xy {x: x - xo, y: y - yo},
+				'.' => {map.insert(Xy {x: x - x0, y: y - y0},
 							true);}
-				'#' => {map.insert(Xy {x: x - xo, y: y - yo},
+				'#' => {map.insert(Xy {x: x - x0, y: y - y0},
 							false);}
 				_   => {}
 			}
 		}
 	}
 
-	Xy {x: xo, y: yo}
+	Xy {x: x0, y: y0}
 }
