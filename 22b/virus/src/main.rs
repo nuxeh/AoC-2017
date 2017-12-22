@@ -5,6 +5,13 @@ use std::io;
 use std::io::BufRead;
 use std::collections::HashMap;
 
+/*
+	0: Clean
+	1: Weakened
+	2: Infected
+	3: Flagged
+*/
+
 #[derive(Clone)]
 #[derive(PartialEq)]
 #[derive(Eq)]
@@ -23,7 +30,7 @@ struct Map {
 	tl: Xy,
 	br: Xy,
 	infection_count: u64,
-	map: HashMap<Xy, bool>
+	map: HashMap<Xy, u8>
 }
 
 impl Map {
@@ -34,7 +41,7 @@ impl Map {
 			br: Xy {x: 0, y: 0},
 			pos: Xy {x: 0, y: 0},
 			infection_count: 0,
-			map: HashMap::<Xy, bool>::new()
+			map: HashMap::<Xy, u8>::new()
 		}
 	}
 
@@ -48,7 +55,7 @@ impl Map {
 		true
 	}
 
-	fn add(&mut self, p: Xy, v: bool) {
+	fn add(&mut self, p: Xy, v: u8) {
 
 		let mut inside = true;
 
@@ -66,7 +73,7 @@ impl Map {
 				let y = y as i64;
 				for x in self.tl.x .. self.br.x + 1 {
 					let x = x as i64;
-					self.map.entry(Xy {x: x, y: y}).or_insert(false);
+					self.map.entry(Xy {x: x, y: y}).or_insert(0);
 				}
 			}
 		}
@@ -75,12 +82,10 @@ impl Map {
 	fn move_one(&mut self, d: u8) {
 
 		let p = self.pos.clone();
-		if self.get() {
-			self.add(p, false);
-		} else {
-			self.add(p, true);
-			self.infection_count += 1;
-		}
+		let v = self.get();
+		self.add(p, (v + 1) % 4);
+
+		if v == 1 {self.infection_count += 1;}
 
 		match d {
 			0 => {self.pos.y -= 1;},
@@ -91,22 +96,22 @@ impl Map {
 		}
 	}
 
-	fn get_xy(&self, x: i64, y: i64) -> bool {
+	fn get_xy(&self, x: i64, y: i64) -> u8 {
 		self.map[&Xy {x: x, y: y}]
 	}
 
-	fn get_p(&self, p: &Xy) -> bool {
+	fn get_p(&self, p: &Xy) -> u8 {
 		self.map[p]
 	}
 
 //	fn get(&self) -> Result<bool, &'static str> {
 
-	fn get(&mut self) -> bool {
+	fn get(&mut self) -> u8 {
 
 		let p = self.pos.clone();
 
 		if ! self.in_map(&self.pos) {
-			self.add(p, false);
+			self.add(p, 0);
 		}
 
 		self.map[&self.pos]
@@ -127,14 +132,17 @@ fn main () {
 
 fn turn_right(d: &mut u8) {*d = (*d + 1) % 4}
 fn turn_left (d: &mut u8) {if *d == 0 {*d = 3} else {*d = *d - 1}}
+fn reverse(d: &mut u8) {*d = (*d + 2) % 4}
 
 fn part1(m: &mut Map) {
 	let mut dir = 0;
 
-	for _ in 0..10000 {
+	for _ in 0..1000 {
 		match m.get() {
-			true  => {turn_right(&mut dir)}
-			false => {turn_left(&mut dir)}
+			0 => {turn_left(&mut dir)}
+			2 => {turn_right(&mut dir)}
+			3 => {reverse(&mut dir)}
+			_ => {}
 		}
 		m.move_one(dir);
 //		print_map(m);
@@ -167,8 +175,11 @@ fn print_map(m: &Map) {
 			}
 
 			match v {
-				false => {print!("{}.{}", e1, e2);}
-				true  => {print!("{}#{}", e1, e2);}
+				0 => {print!("{}.{}", e1, e2);}
+				1 => {print!("{}W{}", e1, e2);}
+				2 => {print!("{}#{}", e1, e2);}
+				3 => {print!("{}F{}", e1, e2);}
+				_ => {}
 			}
 		}
 		print!("\n");
@@ -195,9 +206,9 @@ fn read_stdin(m: &mut Map) {
 			let x = x as i64;
 			match c {
 				'.' => {m.add(Xy {x: x - x0, y: y - y0},
-							false);}
+							0);}
 				'#' => {m.add(Xy {x: x - x0, y: y - y0},
-							true);}
+							2);}
 				_   => {}
 			}
 		}
