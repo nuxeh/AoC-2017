@@ -25,7 +25,11 @@ struct Map {
 
 impl Map {
 	fn new() -> Map {
-		Map {w: 0, h: 0, pos: Xy {x: 0, y: 0}, map: HashMap::<Xy, bool>::new()}
+		Map {
+			w: 0, h: 0,
+			pos: Xy {x: 0, y: 0},
+			map: HashMap::<Xy, bool>::new()
+		}
 	}
 }
 
@@ -50,12 +54,18 @@ fn part2() {
 
 }
 
-fn print_map(map: &Map) {
+fn print_map(m: &Map) {
 //	for pos in map {
 //		println!("{:?}", pos);
 //	}
 
-//	for x in 
+	for y in 0..m.h {
+		let y = y as i64;
+		for x in 0..m.w {
+			let x = y as i64;
+//			print!("{}", m.map[&Xy {x: x, y: y}]);
+		}
+	}
 }
 
 fn read_stdin(m: &mut Map) {
