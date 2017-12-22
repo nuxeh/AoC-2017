@@ -8,9 +8,9 @@ use std::fmt;
 #[derive(Clone)]
 struct Pic {
 	b: Vec<bool>,
-//	r: Vec<Vec<bool>>,
 	w: usize,
 	h: usize,
+	t: Vec<Pic>,
 }
 
 impl fmt::Debug for Pic {
@@ -30,7 +30,7 @@ impl fmt::Debug for Pic {
 impl Pic {
 
 	fn new() -> Pic {
-		Pic {w: 0, h: 0, b: vec![]}
+		Pic {w: 0, h: 0, b: vec![], t: vec![]}
 	}
 
 	fn new_from_string(s: String) -> Pic {
@@ -51,7 +51,7 @@ impl Pic {
 			}
 		}
 
-		Pic {w: w, h: h, b: b}
+		Pic {w: w, h: h, b: b, t: vec![]}
 	}
 
 	fn flip(&self, n: u8) -> Pic {
@@ -75,7 +75,7 @@ impl Pic {
 			_ => {}
 		}
 
-		Pic {w: self.w, h: self.h, b: b}
+		Pic {w: self.w, h: self.h, b: b, t: vec![]}
 	}
 
 	fn rotate(&self, n: u8) -> Pic {
@@ -109,7 +109,7 @@ impl Pic {
 			}
 		}
 
-		Pic {w: self.w, h: self.h, b: b}
+		Pic {w: self.w, h: self.h, b: b, t: vec![]}
 
 	}
 
@@ -147,6 +147,35 @@ impl Pic {
 		false
 	}
 
+	fn calculate_transformations(&mut self) {
+		let mut ts: Vec<Pic> = vec![];
+		let mut t;
+		let mut u;
+
+		/* check all reflections */
+		for i in 0..2 {
+			t = self.flip(i);
+			ts.push(t);
+		}
+
+		/* check all rotations */
+		for i in 0..3 {
+			t = self.rotate(i);
+			ts.push(t);
+		}
+
+		/* check all combinations */
+		for i in 0..3 {
+			t = self.rotate(i);
+			for i in 0..2 {
+				u = t.flip(i);
+				ts.push(u);
+			}
+		}
+
+		self.t = ts;
+	}
+
 	/* split picture into a 2D array of sub pictures */
 	fn split(&self) -> Vec<Vec<Pic>> {
 		let mut v: Vec<Vec<Pic>> = vec![];
@@ -175,7 +204,7 @@ impl Pic {
 			}
 
 			for b in bs {
-				v_row.push(Pic {w: sw, h: sw, b: b});
+				v_row.push(Pic {w: sw, h: sw, b: b, t: vec![]});
 			}
 
 			v.push(v_row);
