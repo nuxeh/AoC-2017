@@ -131,14 +131,15 @@ fn turn_left (d: &mut u8) {if *d == 0 {*d = 3} else {*d = *d - 1}}
 fn part1(m: &mut Map) {
 	let mut dir = 0;
 
-	for _ in 0..70 {
+	for _ in 0..10000 {
 		match m.get() {
 			true  => {turn_right(&mut dir)}
 			false => {turn_left(&mut dir)}
 		}
 		m.move_one(dir);
-		print_map(m);
+//		print_map(m);
 	}
+	print_map(m);
 	println!("infection count: {}", m.infection_count);
 }
 
