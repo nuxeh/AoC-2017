@@ -16,10 +16,6 @@ fn main () {
 	let mut p: Vec<(char, char, i64, i32, String)> = vec![];
 
 	let mut rs = HashMap::<String, i64>::new();
-	let mut rs2_0 = HashMap::<String, i64>::new();
-	let mut rs2_1 = HashMap::<String, i64>::new();
-	rs2_0.insert("p".to_string(), 0);
-	rs2_1.insert("p".to_string(), 1);
 
 	for line in stdin.lock().lines() {
 		let line = line.unwrap();
@@ -50,12 +46,11 @@ fn main () {
 			split[0].to_string()));
 	}
 
-	part1(&mut p, &mut rs);
+	part1(&mut p, &mut rs.clone());
+//	part1(&mut p, &mut rs.clone());
 }
 
-fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8 {
-
-	let mut ret = 0;
+fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) {
 
 	let pc = rs["pc"];
 	let r = i.0.to_string();
@@ -93,8 +88,6 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) -> i8
 	}
 
 	if !jump {rs.insert("pc".to_string(), pc + 1);}
-
-	ret
 }
 
 fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
@@ -107,7 +100,7 @@ fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i
 
 		println!("{:?}", p[pc]);
 
-		if inst(&p[pc], &mut rs) == -2 {break;}
+		inst(&p[pc], &mut rs);
 
 		println!("{:?}", rs);
 
@@ -115,13 +108,24 @@ fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i
 	}
 }
 
-fn run(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
+fn part2(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
+
+	run_dbg(p, rs);
+}
+
+fn run_dbg(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
 
 	rs.insert("pc".to_string(), 0);
 
 	loop {
 		let pc = rs["pc"] as usize;
+
+		println!("{:?}", p[pc]);
+
 		inst(&p[pc], &mut rs);
+
+		println!("{:?}", rs);
+
 		if rs["pc"] >= p.len() as i64 {break;}
 	}
 
