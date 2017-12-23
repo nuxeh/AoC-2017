@@ -5,6 +5,10 @@ use std::io;
 use std::io::BufRead;
 use std::collections::HashMap;
 
+struct Inst {
+	i: String,
+}
+
 fn main () {
 
 	let stdin = io::stdin();
