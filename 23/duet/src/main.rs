@@ -46,8 +46,8 @@ fn main () {
 			split[0].to_string()));
 	}
 
-	part1(&mut p, &mut rs.clone());
 //	part1(&mut p, &mut rs.clone());
+	part2(&mut p, &mut rs.clone());
 }
 
 fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) {
@@ -81,7 +81,6 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) {
 		"jnz" => {if rv != 0  {
 			jump = true;
 			rs.insert("pc".to_string(), pc + v)} else {None};
-			println!("rv = {}", rv);
 		}
 
 		_     => {println!("Unknown instruction {} !", i.4);}
@@ -110,21 +109,24 @@ fn part1(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i
 
 fn part2(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
 
-	run_dbg(p, rs);
+	rs.insert("a".to_string(), 1);
+	run_dbg(p, rs, false);
 }
 
-fn run_dbg(p: &Vec<(char, char, i64, i32, String)>, mut rs: &mut HashMap<String, i64>) {
+fn run_dbg(p: &Vec<(char, char, i64, i32, String)>,
+	mut rs: &mut HashMap<String, i64>,
+	dbg: bool) {
 
 	rs.insert("pc".to_string(), 0);
 
 	loop {
 		let pc = rs["pc"] as usize;
 
-		println!("{:?}", p[pc]);
+		if dbg {println!("{:?}", p[pc]);}
 
 		inst(&p[pc], &mut rs);
 
-		println!("{:?}", rs);
+		if dbg {println!("{:?}", rs);}
 
 		if rs["pc"] >= p.len() as i64 {break;}
 	}
