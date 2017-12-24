@@ -21,10 +21,19 @@ fn part2() {
 
 fn read_stdin() {
 	let std = io::stdin();
+//	let mut v = vec![];
 
 	for l in std.lock().lines() {
 		let l = l.unwrap();
 		println!("{}", l);
+
+		let s = l.split('/');
+
+		let a: Vec<u32> = s.map(|a| a.parse::<u32>().unwrap()).collect();
+
+		println!("{:?}", a);
+
+//		v.push(s.map(|a| a.parse::<u32>()).to_owned());
 
 	}
 }
