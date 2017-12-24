@@ -13,6 +13,11 @@ fn main () {
 
 fn part1(v: &Vec<Vec<u32>>) {
 
+	let bridges = vec!{};
+
+	for startpos in v {
+		walk_combinations(startpos)
+	}
 }
 
 fn part2() {
@@ -25,12 +30,9 @@ fn read_stdin() -> Vec<Vec<u32>> {
 
 	for l in std.lock().lines() {
 		let l = l.unwrap();
-		println!("{}", l);
-
 		let s = l.split('/');
 
 		let a: Vec<u32> = s.map(|a| a.parse::<u32>().unwrap()).collect();
-
 		println!("{:?}", a);
 
 		v.push(a.to_owned());
