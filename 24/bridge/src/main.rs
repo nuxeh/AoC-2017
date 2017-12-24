@@ -5,13 +5,13 @@ use std::io;
 use std::io::BufRead;
 
 fn main () {
-	read_stdin();
+	let v = read_stdin();
 
-	part1();
+	part1(&v);
 	part2();
 }
 
-fn part1() {
+fn part1(v: &Vec<Vec<u32>>) {
 
 }
 
@@ -19,9 +19,9 @@ fn part2() {
 
 }
 
-fn read_stdin() {
+fn read_stdin() -> Vec<Vec<u32>> {
 	let std = io::stdin();
-//	let mut v = vec![];
+	let mut v = vec![];
 
 	for l in std.lock().lines() {
 		let l = l.unwrap();
@@ -33,7 +33,7 @@ fn read_stdin() {
 
 		println!("{:?}", a);
 
-//		v.push(s.map(|a| a.parse::<u32>()).to_owned());
-
+		v.push(a.to_owned());
 	}
+	v
 }
