@@ -4,6 +4,7 @@
 use std::io;
 use std::io::BufRead;
 use std::collections::HashMap;
+use std::collections::hash_map::Entry;
 
 fn main () {
 	let v = read_stdin();
@@ -14,7 +15,7 @@ fn main () {
 
 fn part1(blocks: &Vec<Vec<u32>>) {
 
-	let mut bridges: HashMap<usize, Vec<u32>> = HashMap::new();
+	let mut bridges: HashMap<usize, Vec<usize>> = HashMap::new();
 	let mut elem = 0;
 
 	for (startpos, block) in blocks.iter().enumerate() {
@@ -29,11 +30,13 @@ fn walk(s: usize,
 	n: usize,
 	e: usize,
 	blocks: &Vec<Vec<u32>>,
-	mut bridges: &mut HashMap<usize, Vec<u32>>
+	mut bridges: &mut HashMap<usize, Vec<usize>>
 	) {
 
-	let mut b = bridges.entry(s);
-	b.push(n);
+	match bridges.entry(s) {
+		Entry::Occupied(mut e) => {e.get_mut().push(n);}
+		Entry::Vacant(e) => {println!("Unknown bridge");}
+	}
 
 	let mut e = 0;
 
