@@ -98,3 +98,5 @@ EOF
 
 git add Makefile "$1" .gitignore
 git ct -m "$d: add rust template"
+
+# TODO: Automatically commit output
