@@ -13,10 +13,19 @@ fn main () {
 
 fn part1(v: &Vec<Vec<u32>>) {
 
-	let bridges = vec!{};
+	let bridges = vec![vec![]];
 
-	for startpos in v {
-		walk_combinations(startpos)
+	for (startpos, block) in v {
+		if block.contains(0) {
+			walk(startpos, n, v);
+			n += 1;
+		}
+	}
+}
+
+fn walk(s: u32, n: u32, blocks: &Vec<Vec<u32>>) {
+	for (startpos, _) in v {
+		walk(startpos, v);
 	}
 }
 
