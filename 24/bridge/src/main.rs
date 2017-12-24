@@ -20,7 +20,6 @@ fn part1(blocks: &Vec<Vec<u32>>) {
 
 	for (startpos, block) in blocks.iter().enumerate() {
 		if block.contains(&0) {
-			bridges.insert(startpos, Vec::new());
 			walk(startpos, startpos, elem, blocks, &mut bridges);
 		}
 	}
@@ -35,7 +34,7 @@ fn walk(s: usize,
 
 	match bridges.entry(s) {
 		Entry::Occupied(mut e) => {e.get_mut().push(n);}
-		Entry::Vacant(e) => {println!("Unknown bridge");}
+		Entry::Vacant(e)       => {e.insert(vec![n]);}
 	}
 
 	let mut e = 0;
