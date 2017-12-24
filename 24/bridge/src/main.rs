@@ -11,14 +11,14 @@ fn main () {
 	part2();
 }
 
-fn part1(v: &Vec<Vec<u32>>) {
+fn part1(blocks: &Vec<Vec<u32>>) {
 
 	let mut bridges: Vec<Vec<u32>> = vec![vec![]];
 	let mut n = 0;
 
-	for (startpos, block) in v.iter().enumerate() {
+	for (startpos, block) in blocks.iter().enumerate() {
 		if block.contains(&0) {
-			walk(startpos, n, v, &mut bridges);
+			walk(startpos, n, blocks, &mut bridges);
 			n += 1;
 		}
 	}
