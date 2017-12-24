@@ -36,3 +36,12 @@ add:
 	git diff --cached
 
 autocommit: add commit
+
+test: $(debug_target)
+	cat test.txt | $(debug_target)
+test_release: $(release_target)
+	cat test.txt | $(release_target)
+run: $(debug_target)
+	cat input.txt | $(debug_target)
+run_release: $(release_target)
+	cat input.txt | $(release_target)
