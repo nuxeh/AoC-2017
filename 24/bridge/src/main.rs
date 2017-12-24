@@ -30,6 +30,8 @@ fn walk(s: usize,
 	mut bridges: &mut Vec<Vec<u32>>
 	) {
 
+	let b = bridges.entry(n).or_insert(vec![]);
+
 	for (startpos, _) in blocks
 	.iter()
 	.enumerate()
