@@ -15,22 +15,27 @@ fn main () {
 fn part1(blocks: &Vec<Vec<u32>>) {
 
 	let mut bridges: HashMap<usize, Vec<u32>> = HashMap::new();
-	let mut n = 0;
+	let mut elem = 0;
 
 	for (startpos, block) in blocks.iter().enumerate() {
 		if block.contains(&0) {
-			bridges.insert(startpos, vec![]);
-			walk(startpos, n, blocks, &mut bridges);
-			n += 1;
+			bridges.insert(startpos, Vec::new());
+			walk(startpos, startpos, elem, blocks, &mut bridges);
 		}
 	}
 }
 
 fn walk(s: usize,
 	n: usize,
+	e: usize,
 	blocks: &Vec<Vec<u32>>,
 	mut bridges: &mut HashMap<usize, Vec<u32>>
 	) {
+
+	let mut b = bridges.entry(s);
+	b.push(n);
+
+	let mut e = 0;
 
 	for (startpos, _) in blocks
 	.iter()
@@ -38,7 +43,7 @@ fn walk(s: usize,
 	.filter(|a| a.0 != s)
 	.filter(|a| a.1.contains(&0))
 	{
-		walk(startpos, n, blocks, &mut bridges);
+		walk(startpos, n, e, blocks, &mut bridges);
 	}
 }
 
