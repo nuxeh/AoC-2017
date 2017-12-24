@@ -13,19 +13,30 @@ fn main () {
 
 fn part1(v: &Vec<Vec<u32>>) {
 
-	let bridges = vec![vec![]];
+	let mut bridges: Vec<Vec<u32>> = vec![vec![]];
+	let mut n = 0;
 
-	for (startpos, block) in v {
-		if block.contains(0) {
-			walk(startpos, n, v);
+	for (startpos, block) in v.iter().enumerate() {
+		if block.contains(&0) {
+			walk(startpos, n, v, &mut bridges);
 			n += 1;
 		}
 	}
 }
 
-fn walk(s: u32, n: u32, blocks: &Vec<Vec<u32>>) {
-	for (startpos, _) in v {
-		walk(startpos, v);
+fn walk(s: usize,
+	n: usize,
+	blocks: &Vec<Vec<u32>>,
+	mut bridges: &mut Vec<Vec<u32>>
+	) {
+
+	for (startpos, _) in blocks
+	.iter()
+	.enumerate()
+	.filter(|a| a.0 != s)
+	.filter(|a| a.1.contains(&0))
+	{
+		walk(startpos, n, blocks, &mut bridges);
 	}
 }
 
