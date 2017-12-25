@@ -7,6 +7,7 @@ use std::io::BufRead;
 fn main () {
 
 	let debug = false;
+	let debug = true;
 	let blocks = read_stdin();
 
 	println!("read {} blocks from standard input",
@@ -95,16 +96,13 @@ fn part2(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
 
 	println!("longest bridge length: {}", max_length);
 
-	let strengths: Vec<(u32, &Vec<usize>)> = lengths
+	let max_length: Vec<Vec<usize>> = lengths
 		.iter()
-		.filter(|a| a.0 == max_length);
-		.map(|a| 
+		.filter(|a| a.0 == max_length)
+		.map(|a| a.1.to_owned())
 		.collect();
 
-	for bridge in lengths {
-		println!("{:?}", bridge);
-	}
-
+	part1(blocks, &max_length, debug);
 }
 
 fn read_stdin() -> Vec<Vec<u8>> {
