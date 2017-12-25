@@ -5,16 +5,12 @@ use std::io;
 use std::io::BufRead;
 
 fn main () {
-	let v = read_stdin();
+
+	let debug = false;
+	let blocks = read_stdin();
 
 	println!("read {} blocks from standard input",
-		 v.clone().iter().count());
-
-	part1(&v);
-	part2();
-}
-
-fn part1(blocks: &Vec<Vec<u8>>) {
+		 blocks.clone().iter().count());
 
 	let mut bridges: Vec<Vec<usize>> = Vec::new();
 
@@ -23,7 +19,7 @@ fn part1(blocks: &Vec<Vec<u8>>) {
 			Ok(e)  => {
 					walk(startpos,
 					     block[e^1] as u8,
-					     blocks,
+					     &blocks,
 					     Vec::new(),
 					     &mut bridges);
 			}
@@ -31,17 +27,25 @@ fn part1(blocks: &Vec<Vec<u8>>) {
 		}
 	}
 
+	println!("found {} bridges", bridges.iter().count());
+
+	part1(&blocks, &bridges, debug);
+	part2();
+}
+
+fn part1(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
+
 	let mut strengths: Vec<u32> = Vec::new();
 
 	for b in bridges {
 		let mut sum: u32 = 0;
-		for block in b {
-			print!("{:?} ", blocks[block]);
+		for &block in b {
+			if debug {print!("{:?} ", blocks[block])};
 			sum += blocks[block]
 				.iter()
 				.fold(0, |acc,&a| acc + a as u32);
 		}
-		println!("\n{}", sum);
+		if debug {println!("\n{}", sum);}
 		strengths.push(sum);
 	}
 
@@ -97,5 +101,6 @@ fn read_stdin() -> Vec<Vec<u8>> {
 
 		v.push(a.to_owned());
 	}
+
 	v
 }
