@@ -85,7 +85,6 @@ fn part1(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
 fn part2(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
 
 	let mut lengths: Vec<u32> = bridges
-		.clone()
 		.iter()
 		.map(|a| a.iter().count() as u32)
 		.collect();
