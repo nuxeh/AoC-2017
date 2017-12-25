@@ -7,7 +7,7 @@ use std::io::BufRead;
 fn main () {
 
 	let debug = false;
-	let debug = true;
+//	let debug = true;
 	let blocks = read_stdin();
 
 	println!("read {} blocks from standard input",
