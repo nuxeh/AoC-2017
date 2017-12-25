@@ -29,6 +29,13 @@ fn part1(blocks: &Vec<Vec<u8>>) {
 			Err(_) => {}
 		}
 	}
+
+	for b in bridges {
+		println!("{:?}", b);
+		for block in b.1 {
+			print!("{:?} - ", blocks[block]);
+		}
+	}
 }
 
 fn walk(s: usize,
@@ -43,10 +50,9 @@ fn walk(s: usize,
 		Entry::Vacant(e)       => {e.insert(vec![n]);}
 	}
 
-	let e = e ^ 1;
 	let b_cur: Vec<usize> = bridges[&s].clone();
 
-	for (startpos, block) in blocks
+	for (i, block) in blocks
 	.iter()
 	.enumerate()
 	.filter(|a| a.0 != s)
@@ -55,8 +61,8 @@ fn walk(s: usize,
 	{
 		match block.binary_search(&e) {
 			Ok(e)  => {
-					walk(startpos,
-						n,
+					walk(s,
+						i,
 						block[e^1] as u8,
 						blocks,
 						&mut bridges);
