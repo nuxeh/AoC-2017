@@ -91,7 +91,15 @@ fn part2(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
 
 	lengths.sort();
 
-	println!("longest bridge length: {}", lengths.last().unwrap().0);
+	let max_length = lengths.last().unwrap().0;
+
+	println!("longest bridge length: {}", max_length);
+
+	let strengths: Vec<(u32, &Vec<usize>)> = lengths
+		.iter()
+		.filter(|a| a.0 == max_length);
+		.map(|a| 
+		.collect();
 
 	for bridge in lengths {
 		println!("{:?}", bridge);
