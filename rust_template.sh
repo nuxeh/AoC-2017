@@ -84,7 +84,16 @@ add:
 	git add \$(src)
 	git diff --cached
 
+amend:
+	git commit --amend
+
 autocommit: add commit
+
+autocommit_out: .git_template
+	cat .git_template > /tmp/commit_template
+	echo "" >> /tmp/commit_template
+	make test | sed 's/^/    /' >> /tmp/commit_template
+	git commit -st /tmp/commit_template
 
 test: \$(debug_target)
 	cat test.txt | \$(debug_target)
