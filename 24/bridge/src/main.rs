@@ -13,22 +13,28 @@ fn main () {
 	part2();
 }
 
-fn part1(blocks: &Vec<Vec<u32>>) {
+fn part1(blocks: &Vec<Vec<u8>>) {
 
 	let mut bridges: HashMap<usize, Vec<usize>> = HashMap::new();
-	let mut elem = 0;
 
 	for (startpos, block) in blocks.iter().enumerate() {
-		if block.contains(&0) {
-			walk(startpos, startpos, elem, blocks, &mut bridges);
+		match block.binary_search(&0) {
+			Ok(e)  => {
+					walk(startpos,
+						startpos,
+						block[e^1] as u8,
+						blocks,
+						&mut bridges);
+			}
+			Err(_) => {}
 		}
 	}
 }
 
 fn walk(s: usize,
 	n: usize,
-	e: usize,
-	blocks: &Vec<Vec<u32>>,
+	e: u8,
+	blocks: &Vec<Vec<u8>>,
 	mut bridges: &mut HashMap<usize, Vec<usize>>
 	) {
 
@@ -37,15 +43,26 @@ fn walk(s: usize,
 		Entry::Vacant(e)       => {e.insert(vec![n]);}
 	}
 
-	let mut e = 0;
+	let e = e ^ 1;
+	let b_cur: Vec<usize> = bridges[&s].clone();
 
-	for (startpos, _) in blocks
+	for (startpos, block) in blocks
 	.iter()
 	.enumerate()
 	.filter(|a| a.0 != s)
-	.filter(|a| a.1.contains(&0))
+	.filter(|a| ! b_cur.contains(&a.0))
+	.filter(|a| a.1.contains(&e))
 	{
-		walk(startpos, n, e, blocks, &mut bridges);
+		match block.binary_search(&e) {
+			Ok(e)  => {
+					walk(startpos,
+						n,
+						block[e^1] as u8,
+						blocks,
+						&mut bridges);
+			}
+			Err(_) => {}
+		}
 	}
 }
 
@@ -53,7 +70,7 @@ fn part2() {
 
 }
 
-fn read_stdin() -> Vec<Vec<u32>> {
+fn read_stdin() -> Vec<Vec<u8>> {
 	let std = io::stdin();
 	let mut v = vec![];
 
@@ -61,7 +78,7 @@ fn read_stdin() -> Vec<Vec<u32>> {
 		let l = l.unwrap();
 		let s = l.split('/');
 
-		let a: Vec<u32> = s.map(|a| a.parse::<u32>().unwrap()).collect();
+		let a: Vec<u8> = s.map(|a| a.parse::<u8>().unwrap()).collect();
 		println!("{:?}", a);
 
 		v.push(a.to_owned());
