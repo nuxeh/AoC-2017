@@ -17,6 +17,9 @@ cat > "./$1/src/main.rs" << EOF
 /* Advent of code */
 /* day $d */
 
+use std::io;
+use std::io::BufRead;
+
 fn main () {
 	read_stdin();
 
