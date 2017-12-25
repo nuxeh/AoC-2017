@@ -7,6 +7,9 @@ use std::io::BufRead;
 fn main () {
 	let v = read_stdin();
 
+	println!("read {} blocks from standard input",
+		 v.clone().iter().count());
+
 	part1(&v);
 	part2();
 }
@@ -70,7 +73,7 @@ fn walk(n: usize,
 					     crumbs.clone(),
 					     &mut bridges);
 			}
-			Err(_) => {}
+			Err(s) => {println!("{:?} failed {} = {}", block, e, s);}
 		}
 	}
 }
@@ -87,8 +90,10 @@ fn read_stdin() -> Vec<Vec<u8>> {
 		let l = l.unwrap();
 		let s = l.split('/');
 
-		let a: Vec<u8> = s.map(|a| a.parse::<u8>().unwrap()).collect();
+		let mut a: Vec<u8> = s.map(|a| a.parse::<u8>().unwrap()).collect();
 //		println!("{:?}", a);
+
+		a.sort();
 
 		v.push(a.to_owned());
 	}
