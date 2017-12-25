@@ -84,14 +84,18 @@ fn part1(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
 
 fn part2(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
 
-	let mut lengths: Vec<u32> = bridges
+	let mut lengths: Vec<(u32, &Vec<usize>)> = bridges
 		.iter()
-		.map(|a| a.iter().count() as u32)
+		.map(|a| (a.iter().count() as u32, a))
 		.collect();
 
 	lengths.sort();
 
-	println!("longest bridge length: {}", lengths.last().unwrap());
+	println!("longest bridge length: {}", lengths.last().unwrap().0);
+
+	for bridge in lengths {
+		println!("{:?}", bridge);
+	}
 
 }
 
