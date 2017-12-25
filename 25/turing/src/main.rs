@@ -47,6 +47,40 @@ fn sm () {
 
 }
 
+fn sm_test (state: &mut u8, tape: &mut Tape) {
+	match state {
+		0 => {
+			match tape.read() {
+				false => {
+					tape.write(true);
+					tape.move_right();
+					state = 1;
+				}
+				true  => {
+					tape.write(false);
+					tape.move_left();
+					state = 1;
+				}
+			}
+		}
+
+		1 => {
+			match tape.read() {
+				false => {
+					tape.write(true);
+					tape.move_left();
+					state = 1;
+				}
+				true  => {
+					tape.write(true);
+					tape.move_right();
+					state = 1;
+				}
+			}
+		}
+	}
+}
+
 fn main () {
 	read_stdin();
 
