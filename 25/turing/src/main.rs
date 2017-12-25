@@ -29,6 +29,14 @@ impl Tape {
 			self.end += 1;
 		}
 	}
+
+	fn read(&self) -> bool {
+		self.vec[self.pos]
+	}
+
+	fn write(&mut self, v: bool) {
+		self.vec[self.pos] = v;
+	}
 }
 
 fn main () {
