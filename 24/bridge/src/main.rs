@@ -30,7 +30,7 @@ fn main () {
 	println!("found {} bridges", bridges.iter().count());
 
 	part1(&blocks, &bridges, debug);
-	part2();
+	part2(&blocks, &bridges, debug);
 }
 
 fn walk(n: usize,
@@ -82,7 +82,17 @@ fn part1(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
 	println!("strongest has strength: {:?}", strengths.last().unwrap());
 }
 
-fn part2() {
+fn part2(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
+
+	let mut lengths: Vec<u32> = bridges
+		.clone()
+		.iter()
+		.map(|a| a.iter().count() as u32)
+		.collect();
+
+	lengths.sort();
+
+	println!("longest bridge length: {}", lengths.last().unwrap());
 
 }
 
