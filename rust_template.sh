@@ -88,7 +88,7 @@ add:
 	git diff --cached
 
 amend:
-	git commit --amend
+	git commit --amend --no-edit
 
 autocommit: add commit
 
