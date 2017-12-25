@@ -16,15 +16,17 @@ fn main () {
 fn part1(blocks: &Vec<Vec<u8>>) {
 
 	let mut bridges: HashMap<usize, Vec<usize>> = HashMap::new();
+	let mut n = 0;
 
 	for (startpos, block) in blocks.iter().enumerate() {
 		match block.binary_search(&0) {
 			Ok(e)  => {
-					walk(startpos,
+					walk(n,
 						startpos,
 						block[e^1] as u8,
 						blocks,
 						&mut bridges);
+					n += 1;
 			}
 			Err(_) => {}
 		}
