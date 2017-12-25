@@ -37,6 +37,14 @@ impl Tape {
 	fn write(&mut self, v: bool) {
 		self.vec[self.pos] = v;
 	}
+
+	fn checksum(&self) -> u64 {
+		self.vec.iter().fold(0, |acc,&a| if a {acc + 1} else {acc})
+	}
+}
+
+fn sm () {
+
 }
 
 fn main () {
