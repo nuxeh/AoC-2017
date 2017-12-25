@@ -3,8 +3,6 @@
 
 use std::io;
 use std::io::BufRead;
-use std::collections::HashMap;
-use std::collections::hash_map::Entry;
 
 fn main () {
 	let v = read_stdin();
@@ -15,59 +13,62 @@ fn main () {
 
 fn part1(blocks: &Vec<Vec<u8>>) {
 
-	let mut bridges: HashMap<usize, Vec<usize>> = HashMap::new();
-	let mut n = 0;
+	let mut bridges: Vec<Vec<usize>> = Vec::new();
 
 	for (startpos, block) in blocks.iter().enumerate() {
 		match block.binary_search(&0) {
 			Ok(e)  => {
-					walk(n,
-						startpos,
-						block[e^1] as u8,
-						blocks,
-						&mut bridges);
-					n += 1;
+					walk(startpos,
+					     block[e^1] as u8,
+					     blocks,
+					     Vec::new(),
+					     &mut bridges);
 			}
 			Err(_) => {}
 		}
 	}
 
+	let mut strengths: Vec<u32> = Vec::new();
+
 	for b in bridges {
-		println!("{:?}", b);
-		for block in b.1 {
-			print!("{:?} - ", blocks[block]);
+		let mut sum: u32 = 0;
+		for block in b {
+			print!("{:?} ", blocks[block]);
+			sum += blocks[block]
+				.iter()
+				.fold(0, |acc,&a| acc + a as u32);
 		}
+		println!("\n{}", sum);
+		strengths.push(sum);
 	}
+
+	strengths.sort();
+	println!("strongest has strength: {:?}", strengths.last().unwrap());
 }
 
-fn walk(s: usize,
-	n: usize,
+fn walk(n: usize,
 	e: u8,
 	blocks: &Vec<Vec<u8>>,
-	mut bridges: &mut HashMap<usize, Vec<usize>>
+	mut crumbs: Vec<usize>,
+	mut bridges: &mut Vec<Vec<usize>>,
 	) {
 
-	match bridges.entry(s) {
-		Entry::Occupied(mut e) => {e.get_mut().push(n);}
-		Entry::Vacant(e)       => {e.insert(vec![n]);}
-	}
-
-	let b_cur: Vec<usize> = bridges[&s].clone();
+	crumbs.push(n);
+	bridges.push(crumbs.clone());
 
 	for (i, block) in blocks
 	.iter()
 	.enumerate()
-	.filter(|a| a.0 != s)
-	.filter(|a| ! b_cur.contains(&a.0))
+	.filter(|a| ! crumbs.contains(&a.0))
 	.filter(|a| a.1.contains(&e))
 	{
 		match block.binary_search(&e) {
-			Ok(e)  => {
-					walk(s,
-						i,
-						block[e^1] as u8,
-						blocks,
-						&mut bridges);
+			Ok(ei)  => {
+					walk(i,
+					     block[ei^1] as u8,
+					     blocks,
+					     crumbs.clone(),
+					     &mut bridges);
 			}
 			Err(_) => {}
 		}
@@ -87,7 +88,7 @@ fn read_stdin() -> Vec<Vec<u8>> {
 		let s = l.split('/');
 
 		let a: Vec<u8> = s.map(|a| a.parse::<u8>().unwrap()).collect();
-		println!("{:?}", a);
+//		println!("{:?}", a);
 
 		v.push(a.to_owned());
 	}
