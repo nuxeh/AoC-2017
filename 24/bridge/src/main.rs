@@ -33,26 +33,6 @@ fn main () {
 	part2();
 }
 
-fn part1(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
-
-	let mut strengths: Vec<u32> = Vec::new();
-
-	for b in bridges {
-		let mut sum: u32 = 0;
-		for &block in b {
-			if debug {print!("{:?} ", blocks[block])};
-			sum += blocks[block]
-				.iter()
-				.fold(0, |acc,&a| acc + a as u32);
-		}
-		if debug {println!("\n{}", sum);}
-		strengths.push(sum);
-	}
-
-	strengths.sort();
-	println!("strongest has strength: {:?}", strengths.last().unwrap());
-}
-
 fn walk(n: usize,
 	e: u8,
 	blocks: &Vec<Vec<u8>>,
@@ -80,6 +60,26 @@ fn walk(n: usize,
 			Err(s) => {println!("{:?} failed {} = {}", block, e, s);}
 		}
 	}
+}
+
+fn part1(blocks: &Vec<Vec<u8>>, bridges: &Vec<Vec<usize>>, debug: bool) {
+
+	let mut strengths: Vec<u32> = Vec::new();
+
+	for b in bridges {
+		let mut sum: u32 = 0;
+		for &block in b {
+			if debug {print!("{:?} ", blocks[block])};
+			sum += blocks[block]
+				.iter()
+				.fold(0, |acc,&a| acc + a as u32);
+		}
+		if debug {println!("\n{}", sum);}
+		strengths.push(sum);
+	}
+
+	strengths.sort();
+	println!("strongest has strength: {:?}", strengths.last().unwrap());
 }
 
 fn part2() {
