@@ -47,7 +47,7 @@ autocommit_out: .git_template
 	git commit -st /tmp/commit_template
 
 test: $(debug_target)
-	cat test.txt | $(debug_target)
+	$(debug_target)
 test_release: $(release_target)
 	cat test.txt | $(release_target)
 run: $(debug_target)

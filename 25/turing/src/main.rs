@@ -47,19 +47,19 @@ fn sm () {
 
 }
 
-fn sm_test (state: &mut u8, tape: &mut Tape) {
-	match state {
+fn sm_test(state: &mut u8, tape: &mut Tape) {
+	match *state {
 		0 => {
 			match tape.read() {
 				false => {
 					tape.write(true);
 					tape.move_right();
-					state = 1;
+					*state = 1;
 				}
 				true  => {
 					tape.write(false);
 					tape.move_left();
-					state = 1;
+					*state = 1;
 				}
 			}
 		}
@@ -69,29 +69,39 @@ fn sm_test (state: &mut u8, tape: &mut Tape) {
 				false => {
 					tape.write(true);
 					tape.move_left();
-					state = 1;
+					*state = 1;
 				}
 				true  => {
 					tape.write(true);
 					tape.move_right();
-					state = 1;
+					*state = 1;
 				}
 			}
 		}
+
+		_ => {println!("Unknown state!");}
 	}
 }
 
-fn main () {
-	read_stdin();
+fn main() {
+//	read_stdin();
 
 	let mut tape = Tape::new();
 
-	part1();
+	part1(&mut tape);
 	part2();
 }
 
-fn part1() {
+fn part1(mut tape: &mut Tape) {
 
+	let mut state = 0;
+
+	for _ in 0..6 {
+		sm_test(&mut state, &mut tape);
+		println!("{:?}", tape.vec);
+	}
+
+	println!("checksum; {}", tape.checksum());
 }
 
 fn part2() {
