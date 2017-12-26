@@ -15,10 +15,20 @@ impl fmt::Debug for Tape {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 		let string = self.vec
 			.iter()
-			.fold(String::new(), |acc,&a| {
-				 if a {acc + " 1 "} else {acc + " 0 "}
+			.enumerate()
+			.fold(String::new(), |acc,(i,&a)| {
+				let mut s1 = "  ";
+				let mut s2 = "  ";
+				if i == self.pos {
+					s1 = " [";
+					s2 = "] ";
+				}
+				if a {
+					acc + s1 + "1" + s2
+				} else {
+					acc + s1 + "0" + s2
+				}
 			});
-
 		write!(f, "{}", string)
 	}
 }
