@@ -92,12 +92,12 @@ fn sm_test(state: &mut u8, tape: &mut Tape) {
 				false => {
 					tape.write(true);
 					tape.move_left();
-					*state = 1;
+					*state = 0;
 				}
 				true  => {
 					tape.write(true);
 					tape.move_right();
-					*state = 1;
+					*state = 0;
 				}
 			}
 		}
