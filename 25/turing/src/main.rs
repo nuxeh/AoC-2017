@@ -16,7 +16,7 @@ impl fmt::Debug for Tape {
 		let string = self.vec
 			.iter()
 			.enumerate()
-			.fold(String::new(), |acc,(i,&a)| {
+			.fold("Tape |".to_string(), |acc,(i,&a)| {
 				let mut s1 = "  ";
 				let mut s2 = "  ";
 				if i == self.pos {
@@ -29,7 +29,7 @@ impl fmt::Debug for Tape {
 					acc + s1 + "0" + s2
 				}
 			});
-		write!(f, "{}", string)
+		write!(f, "{}|", string)
 	}
 }
 
@@ -218,7 +218,7 @@ fn test(mut tape: &mut Tape) {
 		println!("{:?}", tape);
 	}
 
-	println!("checksum; {}", tape.checksum());
+	println!("checksum: {}", tape.checksum());
 }
 
 fn part1(mut tape: &mut Tape) {
@@ -229,7 +229,8 @@ fn part1(mut tape: &mut Tape) {
 		sm(&mut state, &mut tape);
 	}
 
-	println!("checksum; {}", tape.checksum());
+	println!("checksum: {}", tape.checksum());
+	println!("tape length: {}", tape.vec.iter().count());
 }
 
 fn part2() {
