@@ -92,9 +92,10 @@ amend:
 
 autocommit: add commit
 
-autocommit_out: .git_template
+autocommit_out: .git_template \$(debug_target)
 	cat .git_template > /tmp/commit_template
 	echo "" >> /tmp/commit_template
+	echo "    \\$\$ \$(debug_target)" >> /tmp/commit_template
 	\$(debug_target) | sed 's/^/    /' >> /tmp/commit_template
 	git commit -st /tmp/commit_template
 
