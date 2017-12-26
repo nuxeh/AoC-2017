@@ -3,11 +3,24 @@
 
 use std::io;
 use std::io::BufRead;
+use std::fmt;
 
 struct Tape {
 	end: usize,
 	pos: usize,
 	vec: Vec<bool>
+}
+
+impl fmt::Debug for Tape {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		let string = self.vec
+			.iter()
+			.fold(String::new(), |acc,&a| {
+				 if a {acc + " 1 "} else {acc + " 0 "}
+			});
+
+		write!(f, "{}", string)
+	}
 }
 
 impl Tape {
@@ -98,7 +111,7 @@ fn part1(mut tape: &mut Tape) {
 
 	for _ in 0..6 {
 		sm_test(&mut state, &mut tape);
-		println!("{:?}", tape.vec);
+		println!("{:?}", tape);
 	}
 
 	println!("checksum; {}", tape.checksum());
