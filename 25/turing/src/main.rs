@@ -66,7 +66,100 @@ impl Tape {
 	}
 }
 
-fn sm () {
+fn sm(state: &mut u8, tape: &mut Tape) {
+	match *state {
+		0 => {
+			match tape.read() {
+				false => {
+					tape.write(true);
+					tape.move_right();
+					*state = 1;
+				}
+				true  => {
+					tape.write(false);
+					tape.move_left();
+					*state = 4;
+				}
+			}
+		}
+
+		1 => {
+			match tape.read() {
+				false => {
+					tape.write(true);
+					tape.move_left();
+					*state = 2;
+				}
+				true  => {
+					tape.write(false);
+					tape.move_right();
+					*state = 0;
+				}
+			}
+		}
+
+		2 => {
+			match tape.read() {
+				false => {
+					tape.write(true);
+					tape.move_left();
+					*state = 3;
+				}
+				true  => {
+					tape.write(false);
+					tape.move_right();
+					*state = 2;
+				}
+			}
+		}
+
+		3 => {
+			match tape.read() {
+				false => {
+					tape.write(true);
+					tape.move_left();
+					*state = 4;
+				}
+				true  => {
+					tape.write(false);
+					tape.move_left();
+					*state = 5;
+				}
+			}
+		}
+
+		4 => {
+			match tape.read() {
+				false => {
+					tape.write(true);
+					tape.move_left();
+					*state = 0;
+				}
+				true  => {
+					tape.write(true);
+					tape.move_left();
+					*state = 2;
+				}
+			}
+		}
+
+		5 => {
+			match tape.read() {
+				false => {
+					tape.write(true);
+					tape.move_left();
+					*state = 4;
+				}
+				true  => {
+					tape.write(true);
+					tape.move_right();
+					*state = 0;
+				}
+			}
+		}
+
+		_ => {println!("Unknown state!");}
+	}
 
 }
 
@@ -111,17 +204,29 @@ fn main() {
 
 	let mut tape = Tape::new();
 
-	part1(&mut tape);
+	test(&mut tape);
+	part1(&mut Tape::new());
 	part2();
 }
 
-fn part1(mut tape: &mut Tape) {
+fn test(mut tape: &mut Tape) {
 
 	let mut state = 0;
 
 	for _ in 0..6 {
 		sm_test(&mut state, &mut tape);
 		println!("{:?}", tape);
+	}
+
+	println!("checksum; {}", tape.checksum());
+}
+
+fn part1(mut tape: &mut Tape) {
+
+	let mut state = 0;
+
+	for _ in 0..12208951 {
+		sm(&mut state, &mut tape);
 	}
 
 	println!("checksum; {}", tape.checksum());
