@@ -81,6 +81,7 @@ fn inst(i: &(char, char, i64, i32, String), rs: &mut HashMap<String, i64>) {
 		"jnz" => {if rv != 0  {
 			jump = true;
 			rs.insert("pc".to_string(), pc + v)} else {None};
+			println!("{:?}\t{:?}", i, rs);
 		}
 
 		_     => {println!("Unknown instruction {} !", i.4);}
